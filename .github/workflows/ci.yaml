@@ -8,6 +8,7 @@ on:
 
 jobs:
   test:
+    name: 🧪 Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,6 +22,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    name: 🏗 Build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
