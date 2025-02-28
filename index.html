@@ -11,4 +11,13 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+  <script>
+    (function() {
+      if (sessionStorage.getItem('redirect')) {
+        const redirectPath = sessionStorage.getItem('redirect');
+        sessionStorage.removeItem('redirect');
+        window.history.replaceState(null, null, '/' + redirectPath);
+      }
+    })();
+  </script>
 </html>

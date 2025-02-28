@@ -8,8 +8,11 @@ import { DefaultNotFoundRoute } from "./components/default-not-found-route";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
+// const hashHistory = createHashHistory();
+
 const router = createRouter({
   routeTree,
+  // history: hashHistory,
   defaultNotFoundComponent: DefaultNotFoundRoute,
 });
 
