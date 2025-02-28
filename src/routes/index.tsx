@@ -1,17 +1,22 @@
-import "./App.css";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ModeToggle } from "@/components/mode-toggle";
 import reactLogo from "@/assets/react.svg";
 import viteLogo from "/vite.svg";
+import "@css/App.css";
 
-function App() {
+export const Route = createFileRoute("/")({
+  component: Index,
+});
+
+function Index() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center min-h-screen gap-4">
+    <div className="h-[calc(100vh-var(--navbar-height))] flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-4">
         <div className="flex gap-8 items-center mb-4">
           <img src={viteLogo} className="h-28 w-28" alt="Vite logo" />
           <img
@@ -48,8 +53,6 @@ function App() {
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }
-
-export default App;

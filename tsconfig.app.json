@@ -25,7 +25,8 @@
     /* Shadcn/ui Tailwind Setup */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@css/*": ["./src/css/*"],
     }
   },
   "include": ["src"]

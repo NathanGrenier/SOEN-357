@@ -10,6 +10,22 @@
 
 # Contributing
 
+## Environment Variables
+
+All environment variables go in the .env file. Vite will pickup on any variables prefixed with `VITE_`. You can also declare them manually in the `vite.config.ts` file (as well as default values).
+
+| Variable          | Default |
+| ----------------- | ------- |
+| TANSTACK_DEVTOOLS | false   |
+
+## Routing
+
+This project uses [TanStack Router](https://tanstack.com/router/latest) for file based routing.
+
+You can use both flat and directory routes in the same project. More info [here](https://tanstack.com/router/latest/docs/framework/react/routing/file-based-routing#mixed-flat-and-directory-routes).
+
+> The full routing docs can be found here: https://tanstack.com/router/latest/docs/framework/react/routing/routing-concepts
+
 ## Icon Library
 
 Shadcn recommend using [Lucide Icons](https://lucide.dev/icons/). The package is already installed, just import the icon you want to use.
