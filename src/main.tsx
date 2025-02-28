@@ -8,11 +8,10 @@ import { DefaultNotFoundRoute } from "./components/default-not-found-route";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
-// const hashHistory = createHashHistory();
+// If the 404 page stops working, may need to try a differenthistory type: https://tanstack.com/router/latest/docs/framework/react/guide/history-types
 
 const router = createRouter({
   routeTree,
-  // history: hashHistory,
   defaultNotFoundComponent: DefaultNotFoundRoute,
 });
 
