@@ -53,12 +53,12 @@ import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/footwear/$id")({
   component: RouteComponent,
-  loader: async ({ params }) => {
+  loader: ({ params }) => {
     return { id: params.id };
   },
 });
 
-// Helper ceiling function (display star ratings from 1 to 5)
+// Helper function to display star ratings from 1 to 5
 function StarRating({ rating }: { rating: number }) {
   const stars = Array.from({ length: 5 }, (_, i) => i < rating);
   return (
@@ -77,31 +77,26 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-// There seems to be an issue of "Maximum update depth exceeded [...]"
-// when attempting to separate sections of this page into their own components.
-// Components and relevant data are stored in this file until a fix is found.
+// Main route component
 export default function RouteComponent() {
-  // ==========================================================================
-  // ID retrieval from the URL
   const { id } = Route.useLoaderData();
-
   const footwear = (footwearData as Footwear[]).find(
     (shoe) => shoe.id === Number(id)
   );
   if (!footwear) {
     return <DefaultNotFoundRoute />;
   }
-  // ==========================================================================
+  return <FootwearDetails footwear={footwear} />;
+}
 
-  // ==========================================================================
-  // Valid retailer keys get extracted from the footwear object.
+// Child component containing all hooks and rendering logic
+function FootwearDetails({ footwear }: { footwear: Footwear }) {
+  // Valid retailer keys extracted from the footwear object
   const validRetailers = (
     Object.keys(footwear.retailers) as (keyof Footwear["retailers"])[]
   ).filter((key) => footwear.retailers[key] !== undefined);
-  // ==========================================================================
 
-  // ==========================================================================
-  // Chart configuration according to shadcn: https://ui.shadcn.com/charts
+  // Chart configuration
   const chartColors = [
     "hsl(var(--chart-1))",
     "hsl(var(--chart-2))",
@@ -118,14 +113,11 @@ export default function RouteComponent() {
     },
     {} as Record<string, { label: string; color: string }>
   );
-  // ==========================================================================
 
-  // ==========================================================================
-  // Price history data is mocked with respect to the price stored in JSON.
+  // Price history state and effect
   const [fullPriceHistory, setFullPriceHistory] = React.useState<
     Array<Record<string, string | number>>
   >([]);
-
   React.useEffect(() => {
     const generatePriceHistory = () => {
       const data: Array<Record<string, string | number>> = [];
@@ -142,7 +134,6 @@ export default function RouteComponent() {
         const entry: Record<string, string | number> = { date: dateStr };
         validRetailers.forEach((retailer) => {
           const basePrice = footwear.retailers[retailer]!.price;
-          // Random fluctuation between -10 and 10
           const fluctuation = Math.floor(Math.random() * 21) - 10;
           entry[retailer] = basePrice + fluctuation;
         });
@@ -150,14 +141,14 @@ export default function RouteComponent() {
       }
       return data;
     };
-
     setFullPriceHistory(generatePriceHistory());
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [footwear]);
 
-  // Selected time range state management
+  // Time range state
   const [timeRange, setTimeRange] = React.useState("90d");
 
-  // ... price history data gets filtered based on the selected time range
+  // Filtered price history data
   const filteredData = React.useMemo(() => {
     let daysToSubtract = 90;
     if (timeRange === "30d") daysToSubtract = 30;
@@ -171,7 +162,7 @@ export default function RouteComponent() {
     });
   }, [fullPriceHistory, timeRange]);
 
-  // "Price History" state management
+  // Price trend calculation
   const primaryRetailer = validRetailers[0];
   let percentChange = 0;
   if (filteredData.length > 0 && primaryRetailer) {
@@ -184,13 +175,10 @@ export default function RouteComponent() {
   const THRESHOLD = 0.1;
   const isTrendingUp = percentChange > THRESHOLD;
   const isTrendingFlat = Math.abs(percentChange) <= THRESHOLD;
-  // ==========================================================================
 
-  // ==========================================================================
-  // "Available Sizes" state management
+  // Available sizes state
   const availableSizes = footwear.availableSizesUS;
   const [selectedSize, setSelectedSize] = React.useState<string>("");
-
   const handleBuyFromUs = () => {
     if (!selectedSize) return;
     const size = Number(selectedSize);
@@ -198,10 +186,8 @@ export default function RouteComponent() {
       `Cart/checkout handling will happen after this, passing details: Shoe ID ${footwear.id}, Size ${size}`
     );
   };
-  // ==========================================================================
 
-  // ==========================================================================
-  // "Add to cart" state management
+  // Add to cart state
   const [isAddedToCart, setIsAddedToCart] = React.useState(false);
   const handleAddToCart = () => {
     if (!selectedSize) return;
@@ -209,10 +195,8 @@ export default function RouteComponent() {
     setIsAddedToCart(true);
     toast.success(`Added to cart! You selected size ${size}.`);
   };
-  // ==========================================================================
 
-  // ==========================================================================
-  // "Wishlist" state management
+  // Wishlist state
   const [isWishlisted, setIsWishlisted] = React.useState(false);
   const handleWishlist = () => {
     setIsWishlisted((prev) => !prev);
@@ -222,25 +206,17 @@ export default function RouteComponent() {
       toast("Footwear removed from wishlist!");
     }
   };
-  // ==========================================================================
 
-  // ==========================================================================
-  // "Share" modal state management
+  // Share modal state
   const [isShareModalOpen, setIsShareModalOpen] = React.useState(false);
-  // ==========================================================================
 
-  // ==========================================================================
-  // Image gallery state management
+  // Image gallery state
   const mainImage = footwear.imageUrl || "/placeholder.svg";
-
-  // Ensure main image is included in the gallery
   const imageGallery =
     footwear.imageUrls && footwear.imageUrls.length > 0
       ? [mainImage, ...footwear.imageUrls]
       : [mainImage];
-
   const [selectedImage, setSelectedImage] = React.useState(mainImage);
-  // ==========================================================================
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
@@ -558,7 +534,7 @@ export default function RouteComponent() {
                   axisLine={false}
                   tickMargin={8}
                   minTickGap={32}
-                  tickFormatter={(value) => {
+                  tickFormatter={(value: string | number) => {
                     const date = new Date(value);
                     return date.toLocaleDateString("en-US", {
                       month: "short",
@@ -570,7 +546,7 @@ export default function RouteComponent() {
                   cursor={false}
                   content={
                     <ChartTooltipContent
-                      labelFormatter={(value) =>
+                      labelFormatter={(value: string | number) =>
                         new Date(value).toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
@@ -634,9 +610,7 @@ export default function RouteComponent() {
         <CardContent className="flex flex-wrap gap-4">
           {validRetailers.map((retailer) => {
             const retailerKey = String(retailer);
-            const details = footwear.retailers[
-              retailer as keyof Footwear["retailers"]
-            ] as RetailerDetails;
+            const details = footwear.retailers[retailer] as RetailerDetails;
             return (
               <Button key={retailerKey} asChild>
                 <a href={details.url} target="_blank" rel="noopener noreferrer">
@@ -649,7 +623,7 @@ export default function RouteComponent() {
         </CardContent>
       </Card>
 
-      {/* Pop-up Dialog opened upon pressing the "Share" Button */}
+      {/* Share Dialog */}
       <Dialog open={isShareModalOpen} onOpenChange={setIsShareModalOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -665,7 +639,7 @@ export default function RouteComponent() {
               </Label>
               <Input
                 id="link"
-                defaultValue={`https://soen357.ngrenier.com/footwear/${id}`}
+                defaultValue={`https://soen357.ngrenier.com/footwear/${footwear.id}`}
                 readOnly
               />
             </div>
