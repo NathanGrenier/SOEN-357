@@ -31,7 +31,7 @@ import {
   TrendingUp,
   TrendingDown,
   Minus,
-  Star as StarIcon,
+  Star as StarFull,
   Heart,
   Share2,
   LucideShoppingCart,
@@ -64,7 +64,7 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5">
       {stars.map((isFilled, idx) => (
-        <StarIcon
+        <StarFull
           key={idx}
           className={
             isFilled
@@ -203,7 +203,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
     if (!isWishlisted) {
       toast.success("Footwear added to wishlist!");
     } else {
-      toast("Footwear removed from wishlist!");
+      toast.info("Footwear removed from wishlist!");
     }
   };
 
