@@ -224,7 +224,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Footwear Image */}
         <div className="grid gap-6">
-        <div className="w-full max-w-md mx-auto overflow-hidden rounded-xl border border-muted-foreground">
+          <div className="w-full max-w-md mx-auto overflow-hidden rounded-xl border border-muted-foreground">
             <img
               src={selectedImage}
               alt={`${footwear.brand} ${footwear.model}`}
