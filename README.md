@@ -28,6 +28,7 @@ All environment variables go in the .env file. Vite will pickup on any variables
 | TANSTACK_DEVTOOLS | false   |
 
 ## Enabling Pre-Commit Hooks
+
 To enable the project's pre-commit hooks, run the following command: `git config core.hooksPath .githooks`
 
 > If the script isn't executable, make it so on your respective operating system. Example: `chmod +x .githooks/pre-commit`

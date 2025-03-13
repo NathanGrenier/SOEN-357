@@ -16,7 +16,11 @@ function Index() {
     <div className="h-[calc(100vh-var(--navbar-height))] flex items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-4">
         <div className="flex gap-8 items-center mb-4">
-          <img src={siteLogo} className="h-28 w-28" alt="Platform logo designed by Freepik" />
+          <img
+            src={siteLogo}
+            className="h-28 w-28"
+            alt="Platform logo designed by Freepik"
+          />
         </div>
         <h1 className="font-bold">Vite + React!</h1>
         <div className="flex flex-col items-center justify-center space-y-4">

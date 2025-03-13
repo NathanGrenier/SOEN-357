@@ -1,14 +1,14 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import footwearData from '@/lib/assets/data/footwear.json';
-import { Card } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import footwearData from "@/lib/assets/data/footwear.json";
+import { Card } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-export const Route = createFileRoute('/footwear/')({
+export const Route = createFileRoute("/footwear/")({
   component: RouteComponent,
 });
 
-// Tanstack Virtualizer would have been good if we had hundreds or thousands of 
-// items to render. This obviously isn't the case for this project, but it's 
+// Tanstack Virtualizer would have been good if we had hundreds or thousands of
+// items to render. This obviously isn't the case for this project, but it's
 // still good knowledge if you ever do similar frontend work for a project.
 function RouteComponent() {
   return (
