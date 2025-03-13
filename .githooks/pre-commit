@@ -31,7 +31,7 @@ if [ -z "$files_to_check" ]; then
     exit 0
 fi
 
-npx eslint --config eslint.config.js $files_to_check
+npx eslint --config eslint.config.js $files_to_check --no-warn-ignored
 eslint_exit=$?
 if [ $eslint_exit -ne 0 ]; then
   echo "❌ COMMIT REJECTED: ESLint exited with code $eslint_exit"
