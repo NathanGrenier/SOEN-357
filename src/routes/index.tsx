@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { ModeToggle } from "@/components/mode-toggle";
 import siteLogo from "/logo.png";
 
 export const Route = createFileRoute("/")({
@@ -43,7 +42,6 @@ function Index() {
             >
               Toast!
             </Button>
-            <ModeToggle />
           </div>
           <p>
             Edit <code>src/App.tsx</code> and save to test HMR
