@@ -224,11 +224,11 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Footwear Image */}
         <div className="grid gap-6">
-          <div className="w-full max-w-md mx-auto aspect-[4/3] overflow-hidden rounded-xl border border-muted-foreground">
+        <div className="w-full max-w-md mx-auto overflow-hidden rounded-xl border border-muted-foreground">
             <img
               src={selectedImage}
               alt={`${footwear.brand} ${footwear.model}`}
-              className="w-full h-full object-cover"
+              className="w-full h-auto object-contain"
               onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
             />
           </div>
@@ -247,7 +247,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                   <img
                     src={image}
                     alt={`Thumbnail ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
                   />
                 </div>
@@ -270,7 +270,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                     <img
                       src={image}
                       alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       onError={(e) =>
                         (e.currentTarget.src = "/placeholder.svg")
                       }
