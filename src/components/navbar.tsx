@@ -24,6 +24,9 @@ export function Navbar() {
         <Link to="/about" className="[&.active]:font-bold">
           About
         </Link>
+        <Link to="/footwear" className="[&.active]:font-bold">
+          Footwear
+        </Link>
       </div>
       <hr />
     </>

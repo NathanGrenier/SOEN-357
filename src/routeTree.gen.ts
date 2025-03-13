@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as FootwearIndexImport } from './routes/footwear/index'
+import { Route as FootwearIdImport } from './routes/footwear/$id'
 
 // Create/Update Routes
 
@@ -25,6 +27,18 @@ const AboutRoute = AboutImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FootwearIndexRoute = FootwearIndexImport.update({
+  id: '/footwear/',
+  path: '/footwear/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FootwearIdRoute = FootwearIdImport.update({
+  id: '/footwear/$id',
+  path: '/footwear/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,6 +60,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/footwear/$id': {
+      id: '/footwear/$id'
+      path: '/footwear/$id'
+      fullPath: '/footwear/$id'
+      preLoaderRoute: typeof FootwearIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/footwear/': {
+      id: '/footwear/'
+      path: '/footwear'
+      fullPath: '/footwear'
+      preLoaderRoute: typeof FootwearIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +82,46 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/footwear/$id': typeof FootwearIdRoute
+  '/footwear': typeof FootwearIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/footwear/$id': typeof FootwearIdRoute
+  '/footwear': typeof FootwearIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/footwear/$id': typeof FootwearIdRoute
+  '/footwear/': typeof FootwearIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/' | '/about' | '/footwear/$id' | '/footwear'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '/about' | '/footwear/$id' | '/footwear'
+  id: '__root__' | '/' | '/about' | '/footwear/$id' | '/footwear/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  FootwearIdRoute: typeof FootwearIdRoute
+  FootwearIndexRoute: typeof FootwearIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  FootwearIdRoute: FootwearIdRoute,
+  FootwearIndexRoute: FootwearIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +135,9 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/about",
+        "/footwear/$id",
+        "/footwear/"
       ]
     },
     "/": {
@@ -105,6 +145,12 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/footwear/$id": {
+      "filePath": "footwear/$id.tsx"
+    },
+    "/footwear/": {
+      "filePath": "footwear/index.tsx"
     }
   }
 }
