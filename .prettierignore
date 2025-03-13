@@ -1,0 +1,3 @@
+# Ignore artifacts:
+**/routeTree.gen.ts
+.github/**
