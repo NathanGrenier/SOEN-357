@@ -3,9 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { ModeToggle } from "@/components/mode-toggle";
-import reactLogo from "@/assets/react.svg";
-import viteLogo from "/vite.svg";
-import "@css/App.css";
+import siteLogo from "/logo.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -18,11 +16,10 @@ function Index() {
     <div className="h-[calc(100vh-var(--navbar-height))] flex items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-4">
         <div className="flex gap-8 items-center mb-4">
-          <img src={viteLogo} className="h-28 w-28" alt="Vite logo" />
           <img
-            src={reactLogo}
-            className="animate-spin h-28 w-28"
-            alt="React logo"
+            src={siteLogo}
+            className="h-28 w-28"
+            alt="Platform logo designed by Freepik"
           />
         </div>
         <h1 className="font-bold">Vite + React!</h1>

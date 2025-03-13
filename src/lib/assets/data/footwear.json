@@ -1,0 +1,139 @@
+[
+  {
+    "id": 1,
+    "brand": "Nike",
+    "model": "Air Jordan 1 Retro High Pine Green",
+    "category": "Basketball",
+    "colorway": ["Green", "White", "Black"],
+    "releaseYear": 2018,
+    "material": "Leather",
+    "priceCAD": 215,
+    "resalePriceCAD": 320,
+    "marketTrend": "rise",
+    "fit": "True to size",
+    "width": "Super Wide (8E)",
+    "comfortRatingOn5": 4.2,
+    "durabilityRatingOn5": 4.3,
+    "sustainability": "Standard",
+    "bestFor": ["Casual Wear", "Basketball"],
+    "availableSizesUS": [8, 9, 10, 11],
+    "stockStatus": "In Stock",
+    "retailers": {
+      "nike": { "price": 215, "url": "https://www.nike.com" },
+      "stockx": {
+        "price": 320,
+        "url": "https://stockx.com/air-jordan-1-retro-high-pine-green"
+      },
+      "footlocker": { "price": 230, "url": "https://www.footlocker.com" }
+    },
+    "imageUrl": "https://images.stockx.com/images/Air-Jordan-1-Retro-High-Pine-Green-Product.jpg",
+    "imageUrls": [
+      "https://example.com/main.jpg",
+      "https://example.com/side.jpg",
+      "https://example.com/top.jpg",
+      "https://example.com/back.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "brand": "Adidas",
+    "model": "Ultra Boost 3.0 Core Black",
+    "category": "Running",
+    "colorway": ["Black", "White"],
+    "releaseYear": 2016,
+    "material": "Primeknit",
+    "priceCAD": 240,
+    "resalePriceCAD": 280,
+    "marketTrend": "stable",
+    "fit": "True to size",
+    "width": "Standard (D)",
+    "comfortRatingOn5": 4.8,
+    "durabilityRatingOn5": 4.5,
+    "sustainability": "Standard",
+    "bestFor": ["Running", "Casual Wear"],
+    "availableSizesUS": [7, 8, 9, 10, 11],
+    "stockStatus": "In Stock",
+    "retailers": {
+      "adidas": { "price": 240, "url": "https://www.adidas.com" },
+      "stockx": {
+        "price": 280,
+        "url": "https://stockx.com/adidas-ultra-boost-4pt0-core-black"
+      }
+    },
+    "imageUrl": "https://images.stockx.com/images/adidas-Ultra-Boost-4pt0-Core-Black-Product.jpg",
+    "imageUrls": [
+      "https://example.com/main.jpg",
+      "https://example.com/side.jpg",
+      "https://example.com/top.jpg",
+      "https://example.com/back.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "brand": "New Balance",
+    "model": "550 White Grey",
+    "category": "Lifestyle",
+    "colorway": ["White", "Grey"],
+    "releaseYear": 2021,
+    "material": "Leather",
+    "priceCAD": 150,
+    "resalePriceCAD": 220,
+    "marketTrend": "rise",
+    "fit": "Runs small",
+    "width": "Narrow (B)",
+    "comfortRatingOn5": 3.8,
+    "durabilityRatingOn5": 4.0,
+    "sustainability": "Standard",
+    "bestFor": ["Casual Wear"],
+    "availableSizesUS": [7, 8, 9, 10],
+    "stockStatus": "Limited Stock",
+    "retailers": {
+      "newbalance": { "price": 150, "url": "https://www.newbalance.com" },
+      "stockx": {
+        "price": 220,
+        "url": "https://stockx.com/new-balance-550-white-grey"
+      }
+    },
+    "imageUrl": "https://images.stockx.com/images/New-Balance-550-White-Grey-Product.jpg",
+    "imageUrls": [
+      "https://example.com/main.jpg",
+      "https://example.com/side.jpg",
+      "https://example.com/top.jpg",
+      "https://example.com/back.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "brand": "Puma",
+    "model": "RS-X Reinvention",
+    "category": "Lifestyle",
+    "colorway": ["Multi-Color", "Black"],
+    "releaseYear": 2019,
+    "material": "Mesh",
+    "priceCAD": 140,
+    "resalePriceCAD": 180,
+    "marketTrend": "stable",
+    "fit": "Runs large",
+    "width": "Standard (D)",
+    "comfortRatingOn5": 4.0,
+    "durabilityRatingOn5": 4.2,
+    "sustainability": "Eco-Friendly Production",
+    "bestFor": ["Casual Wear", "Cross-Trainers"],
+    "availableSizesUS": [8, 9, 10, 11, 12],
+    "stockStatus": "In Stock",
+    "retailers": {
+      "puma": { "price": 140, "url": "https://www.puma.com" },
+      "stockx": {
+        "price": 180,
+        "url": "https://stockx.com/puma-rs-x-reinvention"
+      }
+    },
+    "imageUrl": "https://images.stockx.com/images/Puma-RS-X-Reinvention-Product.png?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1738193358",
+    "imageUrls": [
+      "https://example.com/main.jpg",
+      "https://example.com/side.jpg",
+      "https://example.com/top.jpg",
+      "https://example.com/back.jpg"
+    ]
+  }
+]

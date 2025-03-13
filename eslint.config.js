@@ -7,7 +7,7 @@ import react from "eslint-plugin-react";
 import pluginRouter from "@tanstack/eslint-plugin-router";
 
 export default tseslint.config(
-  { ignores: ["dist", "**/routeTree.gen.ts"] },
+  { ignores: ["dist", "**/routeTree.gen.ts", "src/components/ui/**"] },
   {
     extends: [
       js.configs.recommended,
