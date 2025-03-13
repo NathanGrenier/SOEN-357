@@ -1,6 +1,6 @@
-import * as React from "react"
-import { createFileRoute } from "@tanstack/react-router"
-import footwearData from "@/lib/assets/data/footwear.json"
+import * as React from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import footwearData from "@/lib/assets/data/footwear.json";
 import {
   Card,
   CardContent,
@@ -8,25 +8,25 @@ import {
   CardTitle,
   CardDescription,
   CardFooter,
-} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { AreaChart, Area, CartesianGrid, XAxis } from "recharts"
-import { DefaultNotFoundRoute } from "@/components/default-not-found-route"
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { AreaChart, Area, CartesianGrid, XAxis } from "recharts";
+import { DefaultNotFoundRoute } from "@/components/default-not-found-route";
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import {
   TrendingUp,
   TrendingDown,
@@ -36,9 +36,9 @@ import {
   Share2,
   LucideShoppingCart,
   Copy,
-} from "lucide-react"
-import { Footwear, RetailerDetails } from "@/lib/types"
-import { toast } from "sonner"
+} from "lucide-react";
+import { Footwear, RetailerDetails } from "@/lib/types";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
@@ -47,20 +47,20 @@ import {
   DialogFooter,
   DialogClose,
   DialogDescription,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/footwear/$id")({
   component: RouteComponent,
   loader: async ({ params }) => {
-    return { id: params.id }
+    return { id: params.id };
   },
-})
+});
 
 // Helper ceiling function (display star ratings from 1 to 5)
 function StarRating({ rating }: { rating: number }) {
-  const stars = Array.from({ length: 5 }, (_, i) => i < rating)
+  const stars = Array.from({ length: 5 }, (_, i) => i < rating);
   return (
     <div className="flex items-center gap-0.5">
       {stars.map((isFilled, idx) => (
@@ -74,34 +74,31 @@ function StarRating({ rating }: { rating: number }) {
         />
       ))}
     </div>
-  )
+  );
 }
 
 // There seems to be an issue of "Maximum update depth exceeded [...]"
 // when attempting to separate sections of this page into their own components.
 // Components and relevant data are stored in this file until a fix is found.
 export default function RouteComponent() {
-  
   // ==========================================================================
   // ID retrieval from the URL
-  const { id } = Route.useLoaderData()
+  const { id } = Route.useLoaderData();
 
   const footwear = (footwearData as Footwear[]).find(
     (shoe) => shoe.id === Number(id)
-  )
+  );
   if (!footwear) {
-    return <DefaultNotFoundRoute />
+    return <DefaultNotFoundRoute />;
   }
   // ==========================================================================
-
 
   // ==========================================================================
   // Valid retailer keys get extracted from the footwear object.
   const validRetailers = (
     Object.keys(footwear.retailers) as (keyof Footwear["retailers"])[]
-  ).filter((key) => footwear.retailers[key] !== undefined)
+  ).filter((key) => footwear.retailers[key] !== undefined);
   // ==========================================================================
-
 
   // ==========================================================================
   // Chart configuration according to shadcn: https://ui.shadcn.com/charts
@@ -110,20 +107,24 @@ export default function RouteComponent() {
     "hsl(var(--chart-2))",
     "hsl(var(--chart-3))",
     "hsl(var(--chart-4))",
-  ]
-  const chartConfig = validRetailers.reduce((acc, retailer, index) => {
-    acc[retailer] = {
-      label: retailer.charAt(0).toUpperCase() + retailer.slice(1),
-      color: chartColors[index % chartColors.length],
-    }
-    return acc
-  }, {} as Record<string, { label: string; color: string }>)
+  ];
+  const chartConfig = validRetailers.reduce(
+    (acc, retailer, index) => {
+      acc[retailer] = {
+        label: retailer.charAt(0).toUpperCase() + retailer.slice(1),
+        color: chartColors[index % chartColors.length],
+      };
+      return acc;
+    },
+    {} as Record<string, { label: string; color: string }>
+  );
   // ==========================================================================
-
 
   // ==========================================================================
   // Price history data is mocked with respect to the price stored in JSON.
-  const [fullPriceHistory, setFullPriceHistory] = React.useState<Array<Record<string, string | number>>>([]);
+  const [fullPriceHistory, setFullPriceHistory] = React.useState<
+    Array<Record<string, string | number>>
+  >([]);
 
   React.useEffect(() => {
     const generatePriceHistory = () => {
@@ -131,8 +132,12 @@ export default function RouteComponent() {
       const today = new Date();
       const startDate = new Date();
       startDate.setDate(today.getDate() - 90 + 1);
-  
-      for (let d = new Date(startDate); d <= today; d.setDate(d.getDate() + 1)) {
+
+      for (
+        let d = new Date(startDate);
+        d <= today;
+        d.setDate(d.getDate() + 1)
+      ) {
         const dateStr = d.toISOString().split("T")[0];
         const entry: Record<string, string | number> = { date: dateStr };
         validRetailers.forEach((retailer) => {
@@ -145,57 +150,55 @@ export default function RouteComponent() {
       }
       return data;
     };
-  
+
     setFullPriceHistory(generatePriceHistory());
   }, []);
-  
+
   // Selected time range state management
-  const [timeRange, setTimeRange] = React.useState("90d")
+  const [timeRange, setTimeRange] = React.useState("90d");
 
   // ... price history data gets filtered based on the selected time range
   const filteredData = React.useMemo(() => {
-    let daysToSubtract = 90
-    if (timeRange === "30d") daysToSubtract = 30
-    else if (timeRange === "7d") daysToSubtract = 7
-    const referenceDate = new Date()
-    const startDate = new Date(referenceDate)
-    startDate.setDate(referenceDate.getDate() - daysToSubtract + 1)
+    let daysToSubtract = 90;
+    if (timeRange === "30d") daysToSubtract = 30;
+    else if (timeRange === "7d") daysToSubtract = 7;
+    const referenceDate = new Date();
+    const startDate = new Date(referenceDate);
+    startDate.setDate(referenceDate.getDate() - daysToSubtract + 1);
     return fullPriceHistory.filter((item) => {
-      const itemDate = new Date(item.date)
-      return itemDate >= startDate && itemDate <= referenceDate
-    })
-  }, [fullPriceHistory, timeRange])
+      const itemDate = new Date(item.date);
+      return itemDate >= startDate && itemDate <= referenceDate;
+    });
+  }, [fullPriceHistory, timeRange]);
 
   // "Price History" state management
-  const primaryRetailer = validRetailers[0]
-  let percentChange = 0
+  const primaryRetailer = validRetailers[0];
+  let percentChange = 0;
   if (filteredData.length > 0 && primaryRetailer) {
-    const firstValue = Number(filteredData[0][primaryRetailer])
+    const firstValue = Number(filteredData[0][primaryRetailer]);
     const lastValue = Number(
       filteredData[filteredData.length - 1][primaryRetailer]
-    )
-    percentChange = ((lastValue - firstValue) / firstValue) * 100
+    );
+    percentChange = ((lastValue - firstValue) / firstValue) * 100;
   }
-  const THRESHOLD = 0.1
-  const isTrendingUp = percentChange > THRESHOLD
-  const isTrendingFlat = Math.abs(percentChange) <= THRESHOLD
+  const THRESHOLD = 0.1;
+  const isTrendingUp = percentChange > THRESHOLD;
+  const isTrendingFlat = Math.abs(percentChange) <= THRESHOLD;
   // ==========================================================================
-
 
   // ==========================================================================
   // "Available Sizes" state management
-  const availableSizes = footwear.availableSizesUS
-  const [selectedSize, setSelectedSize] = React.useState<string>("")
+  const availableSizes = footwear.availableSizesUS;
+  const [selectedSize, setSelectedSize] = React.useState<string>("");
 
   const handleBuyFromUs = () => {
-    if (!selectedSize) return
-    const size = Number(selectedSize)
+    if (!selectedSize) return;
+    const size = Number(selectedSize);
     alert(
       `Cart/checkout handling will happen after this, passing details: Shoe ID ${footwear.id}, Size ${size}`
-    )
-  }
+    );
+  };
   // ==========================================================================
-
 
   // ==========================================================================
   // "Add to cart" state management
@@ -208,36 +211,34 @@ export default function RouteComponent() {
   };
   // ==========================================================================
 
-
   // ==========================================================================
   // "Wishlist" state management
-  const [isWishlisted, setIsWishlisted] = React.useState(false)
+  const [isWishlisted, setIsWishlisted] = React.useState(false);
   const handleWishlist = () => {
-    setIsWishlisted((prev) => !prev)
+    setIsWishlisted((prev) => !prev);
     if (!isWishlisted) {
-      toast.success("Footwear added to wishlist!")
+      toast.success("Footwear added to wishlist!");
     } else {
-      toast("Footwear removed from wishlist!")
+      toast("Footwear removed from wishlist!");
     }
-  }
+  };
   // ==========================================================================
-
 
   // ==========================================================================
   // "Share" modal state management
-  const [isShareModalOpen, setIsShareModalOpen] = React.useState(false)
+  const [isShareModalOpen, setIsShareModalOpen] = React.useState(false);
   // ==========================================================================
-
 
   // ==========================================================================
   // Image gallery state management
   const mainImage = footwear.imageUrl || "/placeholder.svg";
 
   // Ensure main image is included in the gallery
-  const imageGallery = footwear.imageUrls && footwear.imageUrls.length > 0
-    ? [mainImage, ...footwear.imageUrls]
-    : [mainImage];
-  
+  const imageGallery =
+    footwear.imageUrls && footwear.imageUrls.length > 0
+      ? [mainImage, ...footwear.imageUrls]
+      : [mainImage];
+
   const [selectedImage, setSelectedImage] = React.useState(mainImage);
   // ==========================================================================
 
@@ -294,7 +295,9 @@ export default function RouteComponent() {
                       src={image}
                       alt={`Thumbnail ${index + 1}`}
                       className="w-full h-full object-cover"
-                      onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
+                      onError={(e) =>
+                        (e.currentTarget.src = "/placeholder.svg")
+                      }
                     />
                   </div>
                 </button>
@@ -327,9 +330,7 @@ export default function RouteComponent() {
             </div>
             {/* Trust signals / highlights */}
             <ul className="text-sm text-muted-foreground space-y-1 list-inside list-disc">
-              <li>
-                The price you see covers taxes, shipping, and handling!
-              </li>
+              <li>The price you see covers taxes, shipping, and handling!</li>
               <li>90-day returns with money-back guarantee</li>
               <li>Delivered with eco-friendly packaging ♻️</li>
               <li>
@@ -374,9 +375,7 @@ export default function RouteComponent() {
                       className={`flex items-center gap-2 ${isAddedToCart ? "bg-green-500 text-white" : ""}`}
                     >
                       {isAddedToCart ? (
-                        <>
-                          ✅ Added to Cart
-                        </>
+                        <>✅ Added to Cart</>
                       ) : (
                         <>
                           <LucideShoppingCart className="h-4 w-4" /> Add to Cart
@@ -398,7 +397,10 @@ export default function RouteComponent() {
                 />{" "}
                 {isWishlisted ? "Wishlisted" : "Add to Wishlist"}
               </Button>
-              <Button variant="outline" onClick={() => setIsShareModalOpen(true)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsShareModalOpen(true)}
+              >
                 <Share2 className="h-4 w-4 mr-2" /> Share
               </Button>
             </div>
@@ -450,11 +452,15 @@ export default function RouteComponent() {
               </div>
               <div>
                 <dt className="font-medium">Fit</dt>
-                <dd className="text-sm text-muted-foreground">{footwear.fit}</dd>
+                <dd className="text-sm text-muted-foreground">
+                  {footwear.fit}
+                </dd>
               </div>
               <div>
                 <dt className="font-medium">Width</dt>
-                <dd className="text-sm text-muted-foreground">{footwear.width}</dd>
+                <dd className="text-sm text-muted-foreground">
+                  {footwear.width}
+                </dd>
               </div>
               {/* Comfort Rating */}
               <div>
@@ -524,8 +530,8 @@ export default function RouteComponent() {
               <AreaChart data={filteredData}>
                 <defs>
                   {validRetailers.map((retailer) => {
-                    const gradientId = `fill-${retailer}`
-                    const color = chartConfig[retailer].color
+                    const gradientId = `fill-${retailer}`;
+                    const color = chartConfig[retailer].color;
                     return (
                       <linearGradient
                         id={gradientId}
@@ -542,7 +548,7 @@ export default function RouteComponent() {
                           stopOpacity={0.1}
                         />
                       </linearGradient>
-                    )
+                    );
                   })}
                 </defs>
                 <CartesianGrid vertical={false} />
@@ -553,11 +559,11 @@ export default function RouteComponent() {
                   tickMargin={8}
                   minTickGap={32}
                   tickFormatter={(value) => {
-                    const date = new Date(value)
+                    const date = new Date(value);
                     return date.toLocaleDateString("en-US", {
                       month: "short",
                       day: "numeric",
-                    })
+                    });
                   }}
                 />
                 <ChartTooltip
@@ -591,8 +597,7 @@ export default function RouteComponent() {
           <CardFooter className="flex flex-col items-start gap-2 text-sm">
             {isTrendingFlat ? (
               <div className="flex gap-2 font-medium leading-none">
-                Trending flat (0.0%) this period{" "}
-                <Minus className="h-4 w-4" />
+                Trending flat (0.0%) this period <Minus className="h-4 w-4" />
               </div>
             ) : (
               <div className="flex gap-2 font-medium leading-none">
@@ -610,8 +615,8 @@ export default function RouteComponent() {
               {timeRange === "90d"
                 ? "3 months"
                 : timeRange === "30d"
-                ? "30 days"
-                : "7 days"}
+                  ? "30 days"
+                  : "7 days"}
             </div>
           </CardFooter>
         </Card>
@@ -628,61 +633,56 @@ export default function RouteComponent() {
         </CardHeader>
         <CardContent className="flex flex-wrap gap-4">
           {validRetailers.map((retailer) => {
-            const retailerKey = String(retailer)
+            const retailerKey = String(retailer);
             const details = footwear.retailers[
               retailer as keyof Footwear["retailers"]
-            ] as RetailerDetails
+            ] as RetailerDetails;
             return (
               <Button key={retailerKey} asChild>
-                <a
-                  href={details.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {retailerKey.charAt(0).toUpperCase() +
-                    retailerKey.slice(1)}{" "}
-                  - ${details.price} CAD
+                <a href={details.url} target="_blank" rel="noopener noreferrer">
+                  {retailerKey.charAt(0).toUpperCase() + retailerKey.slice(1)} -
+                  ${details.price} CAD
                 </a>
               </Button>
-            )
+            );
           })}
         </CardContent>
       </Card>
 
       {/* Pop-up Dialog opened upon pressing the "Share" Button */}
       <Dialog open={isShareModalOpen} onOpenChange={setIsShareModalOpen}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>Share link</DialogTitle>
-          <DialogDescription>
-            Anyone with the link will can view this footwear.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2">
-            <Label htmlFor="link" className="sr-only">
-              Link
-            </Label>
-            <Input
-              id="link"
-              defaultValue={`https://soen357.ngrenier.com/footwear/${id}`}
-              readOnly
-            />
-          </div>
-          <Button type="submit" size="sm" className="px-3">
-            <span className="sr-only">Copy</span>
-            <Copy />
-          </Button>
-        </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Share link</DialogTitle>
+            <DialogDescription>
+              Anyone with the link will can view this footwear.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex items-center space-x-2">
+            <div className="grid flex-1 gap-2">
+              <Label htmlFor="link" className="sr-only">
+                Link
+              </Label>
+              <Input
+                id="link"
+                defaultValue={`https://soen357.ngrenier.com/footwear/${id}`}
+                readOnly
+              />
+            </div>
+            <Button type="submit" size="sm" className="px-3">
+              <span className="sr-only">Copy</span>
+              <Copy />
             </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
+          </div>
+          <DialogFooter className="sm:justify-start">
+            <DialogClose asChild>
+              <Button type="button" variant="secondary">
+                Close
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
