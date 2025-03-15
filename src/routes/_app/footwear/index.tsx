@@ -3,7 +3,7 @@ import footwearData from "@/lib/assets/data/footwear.json";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-export const Route = createFileRoute("/footwear/")({
+export const Route = createFileRoute("/_app/footwear/")({
   component: RouteComponent,
 });
 

@@ -23,9 +23,10 @@ Please use `npm install --legacy-peer-deps` to [use recharts with React 19](http
 
 All environment variables go in the .env file. Vite will pickup on any variables prefixed with `VITE_`. You can also declare them manually in the `vite.config.ts` file (as well as default values).
 
-| Variable          | Default |
-| ----------------- | ------- |
-| TANSTACK_DEVTOOLS | false   |
+| Variable               | Default          |
+| ---------------------- | ---------------- |
+| TANSTACK_DEVTOOLS      | false            |
+| LOCAL_STORAGE_AUTH_KEY | sneaker-hub-auth |
 
 ## Enabling Pre-Commit Hooks
 

@@ -26,6 +26,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: 🏗 Build
+    env:
+      LOCAL_STORAGE_AUTH_KEY: ${{ secrets.LOCAL_STORAGE_AUTH_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
