@@ -18,7 +18,12 @@ export default defineConfig(({ mode }) => {
 
   const envDefaults = {
     TANSTACK_DEVTOOLS: env.TANSTACK_DEVTOOLS || "false",
+    LOCAL_STORAGE_AUTH_KEY: env.LOCAL_STORAGE_AUTH_KEY || null,
   };
+
+  if (envDefaults.LOCAL_STORAGE_AUTH_KEY === null) {
+    throw new Error("LOCAL_STORAGE_AUTH_KEY environment variable is required");
+  }
 
   return {
     plugins: [
@@ -35,6 +40,9 @@ export default defineConfig(({ mode }) => {
     define: {
       "import.meta.env.TANSTACK_DEVTOOLS": JSON.stringify(
         envDefaults.TANSTACK_DEVTOOLS
+      ),
+      "import.meta.env.LOCAL_STORAGE_AUTH_KEY": JSON.stringify(
+        envDefaults.LOCAL_STORAGE_AUTH_KEY
       ),
     },
   };

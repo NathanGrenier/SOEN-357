@@ -20,7 +20,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { MenuIcon, BookOpenText, SparkleIcon, HouseIcon } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -28,6 +28,8 @@ import { SiteLogo } from "@/components/site-logo";
 import { cloneElement, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import FootwearIcon from "@/components/icons/FootwearIcon";
+
+import { useAuth } from "@/hooks/use-auth";
 
 type NavLinkChild = {
   title: string;
@@ -55,6 +57,10 @@ function LogoWithTitle() {
 }
 
 export function Navbar() {
+  const authContext = useAuth();
+  const { isAuthenticated, user, logout } = authContext;
+  const router = useRouter();
+
   const NAVIGATION_MENU_ITEM_VARIANTS = {
     default: "",
     outline:
@@ -162,22 +168,47 @@ export function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <Button variant="outline">Sign in</Button>
+            {isAuthenticated ? (
+              <Button variant="destructive" onClick={logout}>
+                Sign out
+              </Button>
+            ) : (
+              <Button
+                variant="default"
+                onClick={() => {
+                  void router.navigate({ to: "/login" });
+                }}
+              >
+                Sign in
+              </Button>
+            )}
             <ModeToggle />
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            {isAuthenticated && (
+              <Avatar>
+                <AvatarImage src={user?.avatarUrl} />
+                <AvatarFallback>
+                  {user?.name?.substring(0, 2) || "UN"}
+                </AvatarFallback>
+              </Avatar>
+            )}
           </div>
-          <MobileNavbar navLinks={navLinks} />
+          <MobileNavbar navLinks={navLinks} authContext={authContext} />
         </nav>
       </div>
     </section>
   );
 }
 
-function MobileNavbar({ navLinks }: { navLinks: NavLink[] }) {
+function MobileNavbar({
+  navLinks,
+  authContext,
+}: {
+  navLinks: NavLink[];
+  authContext: ReturnType<typeof useAuth>;
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const { isAuthenticated, user, logout } = authContext;
 
   const handleLinkClick = () => {
     setIsOpen(!isOpen);
@@ -185,13 +216,21 @@ function MobileNavbar({ navLinks }: { navLinks: NavLink[] }) {
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <div className="flex gap-4 justify-center lg:hidden">
+      <div className="flex gap-4 justify-center lg:hidden items-center">
         <SheetTrigger asChild>
           <Button variant="outline" size="icon">
             <MenuIcon className="h-4 w-4" />
           </Button>
         </SheetTrigger>
         <ModeToggle />
+        {isAuthenticated && (
+          <Avatar>
+            <AvatarImage src={user?.avatarUrl} />
+            <AvatarFallback>
+              {user?.name?.substring(0, 2) || "UN"}
+            </AvatarFallback>
+          </Avatar>
+        )}
       </div>
       <SheetContent side="top" className="max-h-screen">
         <SheetHeader>
@@ -269,10 +308,22 @@ function MobileNavbar({ navLinks }: { navLinks: NavLink[] }) {
               ))}
           </Accordion>
           <div className="mt-4 px-2 space-y-3">
-            <Button variant="outline" className="w-full">
-              Sign in
-            </Button>
-            <Button className="w-full">Start for free</Button>
+            {isAuthenticated ? (
+              <Button variant="destructive" className="w-full" onClick={logout}>
+                Sign out
+              </Button>
+            ) : (
+              <Button
+                variant="default"
+                className="w-full"
+                onClick={() => {
+                  setIsOpen(false);
+                  void router.navigate({ to: "/login" });
+                }}
+              >
+                Sign in
+              </Button>
+            )}
           </div>
         </div>
       </SheetContent>
