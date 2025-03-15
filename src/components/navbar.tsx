@@ -189,7 +189,7 @@ export function Navbar() {
           <div className="hidden items-center gap-4 lg:flex">
             {isAuthenticated ? (
               <Button
-                variant="outline"
+                variant="destructive"
                 className="hover:cursor-pointer"
                 onClick={logout}
               >
@@ -334,7 +334,7 @@ function MobileNavbar({
           <div className="mt-4 px-2 space-y-3">
             {isAuthenticated ? (
               <Button
-                variant="secondary"
+                variant="destructive"
                 className="w-full hover:cursor-pointer"
                 onClick={() => {
                   setIsOpen(false);
