@@ -11,117 +11,170 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
-import { Route as FootwearIndexImport } from './routes/footwear/index'
-import { Route as FootwearIdImport } from './routes/footwear/$id'
+import { Route as AppRouteImport } from './routes/_app/route'
+import { Route as AppIndexImport } from './routes/_app/index'
+import { Route as AppAboutImport } from './routes/_app/about'
+import { Route as authLoginImport } from './routes/(auth)/login'
+import { Route as AppFootwearIndexImport } from './routes/_app/footwear/index'
+import { Route as AppFootwearIdImport } from './routes/_app/footwear/$id'
 
 // Create/Update Routes
 
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
+const AppRouteRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const AppIndexRoute = AppIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const AppAboutRoute = AppAboutImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const authLoginRoute = authLoginImport.update({
+  id: '/(auth)/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
-const FootwearIndexRoute = FootwearIndexImport.update({
+const AppFootwearIndexRoute = AppFootwearIndexImport.update({
   id: '/footwear/',
   path: '/footwear/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
-const FootwearIdRoute = FootwearIdImport.update({
+const AppFootwearIdRoute = AppFootwearIdImport.update({
   id: '/footwear/$id',
   path: '/footwear/$id',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
+    '/(auth)/login': {
+      id: '/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/_app/about': {
+      id: '/_app/about'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppAboutImport
+      parentRoute: typeof AppRouteImport
     }
-    '/footwear/$id': {
-      id: '/footwear/$id'
+    '/_app/': {
+      id: '/_app/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AppIndexImport
+      parentRoute: typeof AppRouteImport
+    }
+    '/_app/footwear/$id': {
+      id: '/_app/footwear/$id'
       path: '/footwear/$id'
       fullPath: '/footwear/$id'
-      preLoaderRoute: typeof FootwearIdImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppFootwearIdImport
+      parentRoute: typeof AppRouteImport
     }
-    '/footwear/': {
-      id: '/footwear/'
+    '/_app/footwear/': {
+      id: '/_app/footwear/'
       path: '/footwear'
       fullPath: '/footwear'
-      preLoaderRoute: typeof FootwearIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppFootwearIndexImport
+      parentRoute: typeof AppRouteImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AppRouteRouteChildren {
+  AppAboutRoute: typeof AppAboutRoute
+  AppIndexRoute: typeof AppIndexRoute
+  AppFootwearIdRoute: typeof AppFootwearIdRoute
+  AppFootwearIndexRoute: typeof AppFootwearIndexRoute
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppAboutRoute: AppAboutRoute,
+  AppIndexRoute: AppIndexRoute,
+  AppFootwearIdRoute: AppFootwearIdRoute,
+  AppFootwearIndexRoute: AppFootwearIndexRoute,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/footwear/$id': typeof FootwearIdRoute
-  '/footwear': typeof FootwearIndexRoute
+  '': typeof AppRouteRouteWithChildren
+  '/login': typeof authLoginRoute
+  '/about': typeof AppAboutRoute
+  '/': typeof AppIndexRoute
+  '/footwear/$id': typeof AppFootwearIdRoute
+  '/footwear': typeof AppFootwearIndexRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/footwear/$id': typeof FootwearIdRoute
-  '/footwear': typeof FootwearIndexRoute
+  '/login': typeof authLoginRoute
+  '/about': typeof AppAboutRoute
+  '/': typeof AppIndexRoute
+  '/footwear/$id': typeof AppFootwearIdRoute
+  '/footwear': typeof AppFootwearIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/footwear/$id': typeof FootwearIdRoute
-  '/footwear/': typeof FootwearIndexRoute
+  '/_app': typeof AppRouteRouteWithChildren
+  '/(auth)/login': typeof authLoginRoute
+  '/_app/about': typeof AppAboutRoute
+  '/_app/': typeof AppIndexRoute
+  '/_app/footwear/$id': typeof AppFootwearIdRoute
+  '/_app/footwear/': typeof AppFootwearIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/footwear/$id' | '/footwear'
+  fullPaths: '' | '/login' | '/about' | '/' | '/footwear/$id' | '/footwear'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/footwear/$id' | '/footwear'
-  id: '__root__' | '/' | '/about' | '/footwear/$id' | '/footwear/'
+  to: '/login' | '/about' | '/' | '/footwear/$id' | '/footwear'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/(auth)/login'
+    | '/_app/about'
+    | '/_app/'
+    | '/_app/footwear/$id'
+    | '/_app/footwear/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  FootwearIdRoute: typeof FootwearIdRoute
-  FootwearIndexRoute: typeof FootwearIndexRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  authLoginRoute: typeof authLoginRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  FootwearIdRoute: FootwearIdRoute,
-  FootwearIndexRoute: FootwearIndexRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
+  authLoginRoute: authLoginRoute,
 }
 
 export const routeTree = rootRoute
@@ -134,23 +187,37 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/about",
-        "/footwear/$id",
-        "/footwear/"
+        "/_app",
+        "/(auth)/login"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/_app": {
+      "filePath": "_app/route.tsx",
+      "children": [
+        "/_app/about",
+        "/_app/",
+        "/_app/footwear/$id",
+        "/_app/footwear/"
+      ]
     },
-    "/about": {
-      "filePath": "about.tsx"
+    "/(auth)/login": {
+      "filePath": "(auth)/login.tsx"
     },
-    "/footwear/$id": {
-      "filePath": "footwear/$id.tsx"
+    "/_app/about": {
+      "filePath": "_app/about.tsx",
+      "parent": "/_app"
     },
-    "/footwear/": {
-      "filePath": "footwear/index.tsx"
+    "/_app/": {
+      "filePath": "_app/index.tsx",
+      "parent": "/_app"
+    },
+    "/_app/footwear/$id": {
+      "filePath": "_app/footwear/$id.tsx",
+      "parent": "/_app"
+    },
+    "/_app/footwear/": {
+      "filePath": "_app/footwear/index.tsx",
+      "parent": "/_app"
     }
   }
 }

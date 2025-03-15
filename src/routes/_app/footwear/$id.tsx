@@ -51,7 +51,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export const Route = createFileRoute("/footwear/$id")({
+export const Route = createFileRoute("/_app/footwear/$id")({
   component: RouteComponent,
   loader: ({ params }) => {
     return { id: params.id };

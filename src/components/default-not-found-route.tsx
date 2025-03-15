@@ -4,7 +4,7 @@ import { Home, AlertCircle } from "lucide-react";
 
 export function DefaultNotFoundRoute() {
   return (
-    <div className="h-[calc(100vh-var(--navbar-height))] flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-6 text-center max-w-md px-4">
         <div className="space-y-2">
           <AlertCircle className="size-16 text-muted-foreground mx-auto mb-2 stroke-red-600" />
