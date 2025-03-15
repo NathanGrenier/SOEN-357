@@ -138,3 +138,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+html body #root {
+  min-height: 100vh;
+}
+
+@layer components {
+  .nav-item-active {
+    @apply bg-accent text-accent-foreground ring-4 outline-1 ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50;
+  }
+}

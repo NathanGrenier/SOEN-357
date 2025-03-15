@@ -6,7 +6,7 @@ export const Route = createFileRoute("/_app/about")({
 
 function About() {
   return (
-    <div className="max-w-4xl mx-auto my-28 px-6">
+    <div className="max-w-4xl mx-auto my-20 px-6">
       <section className="mb-12">
         <h1 className="text-3xl font-bold mb-6 pb-3 border-b-2 border-border">
           About This Research Project

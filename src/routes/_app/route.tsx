@@ -7,9 +7,9 @@ export const Route = createFileRoute("/_app")({
 
 function PathlessLayoutComponent() {
   return (
-    <>
+    <div className="flex flex-col">
       <Navbar />
       <Outlet />
-    </>
+    </div>
   );
 }
