@@ -36,6 +36,7 @@ import {
   Share2,
   LucideShoppingCart,
   Copy,
+  CheckCircleIcon,
 } from "lucide-react";
 import { Footwear, RetailerDetails } from "@/lib/types";
 import { toast } from "sonner";
@@ -239,7 +240,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
               <button
                 key={index}
                 onClick={() => setSelectedImage(image)}
-                className={`border rounded-lg overflow-hidden transition-all hover:border-muted-foreground ${
+                className={`hover:cursor-pointer border rounded-lg overflow-hidden transition-all hover:border-muted-foreground ${
                   selectedImage === image ? "border-muted-foreground" : ""
                 }`}
               >
@@ -341,6 +342,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                       variant="default"
                       onClick={handleBuyFromUs}
                       disabled={!selectedSize}
+                      className="hover:cursor-pointer"
                     >
                       Buy Now
                     </Button>
@@ -348,10 +350,12 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                       variant={isAddedToCart ? "secondary" : "default"}
                       onClick={handleAddToCart}
                       disabled={isAddedToCart || !selectedSize}
-                      className={`flex items-center gap-2 ${isAddedToCart ? "bg-green-500 text-white" : ""}`}
+                      className={`hover:cursor-pointer flex items-center gap-2 ${isAddedToCart ? "bg-green-500 text-white" : ""}`}
                     >
                       {isAddedToCart ? (
-                        <>✅ Added to Cart</>
+                        <>
+                          <CheckCircleIcon className="h-4 w-4" /> Added to Cart
+                        </>
                       ) : (
                         <>
                           <LucideShoppingCart className="h-4 w-4" /> Add to Cart
@@ -365,7 +369,11 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
           </CardContent>
           <CardFooter className="pt-4">
             <div className="flex gap-2">
-              <Button variant="outline" onClick={handleWishlist}>
+              <Button
+                variant="outline"
+                onClick={handleWishlist}
+                className="hover:cursor-pointer"
+              >
                 <Heart
                   className={`h-4 w-4 mr-2 ${
                     isWishlisted ? "fill-foreground" : ""
@@ -376,6 +384,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
               <Button
                 variant="outline"
                 onClick={() => setIsShareModalOpen(true)}
+                className="hover:cursor-pointer"
               >
                 <Share2 className="h-4 w-4 mr-2" /> Share
               </Button>
@@ -480,7 +489,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
             </div>
             <Select value={timeRange} onValueChange={setTimeRange}>
               <SelectTrigger
-                className="w-[160px] rounded-lg sm:ml-auto"
+                className="w-[160px] rounded-lg sm:ml-auto hover:cursor-pointer"
                 aria-label="Select a time range"
               >
                 <SelectValue placeholder="Select time range" />

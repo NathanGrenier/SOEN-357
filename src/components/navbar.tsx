@@ -176,6 +176,7 @@ export function Navbar() {
             ) : (
               <Button
                 variant="default"
+                className="hover:cursor-pointer"
                 onClick={() => {
                   void router.navigate({ to: "/login" });
                 }}
