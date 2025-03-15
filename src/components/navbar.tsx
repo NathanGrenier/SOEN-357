@@ -30,6 +30,7 @@ import { Separator } from "@/components/ui/separator";
 import FootwearIcon from "@/components/icons/FootwearIcon";
 
 import { useAuth } from "@/hooks/use-auth";
+import { User } from "@/lib/types";
 
 type NavLinkChild = {
   title: string;
@@ -88,8 +89,8 @@ export function Navbar() {
         { title: "Another Test", href: "/" },
       ],
     },
-    { title: "About", href: "/about", icon: <BookOpenText /> },
     { title: "Footwear", href: "/footwear", icon: <FootwearIcon /> },
+    { title: "About", href: "/about", icon: <BookOpenText /> },
   ];
 
   return (
@@ -100,7 +101,7 @@ export function Navbar() {
             <LogoWithTitle />
           </div>
           <NavigationMenu className="hidden lg:block">
-            <NavigationMenuList>
+            <NavigationMenuList className="gap-2">
               {navLinks.map((link) => (
                 <NavigationMenuItem
                   className={NAVIGATION_MENU_ITEM_VARIANTS.outline}
@@ -183,14 +184,7 @@ export function Navbar() {
               </Button>
             )}
             <ModeToggle />
-            {isAuthenticated && (
-              <Avatar>
-                <AvatarImage src={user?.avatarUrl} />
-                <AvatarFallback>
-                  {user?.name?.substring(0, 2) || "UN"}
-                </AvatarFallback>
-              </Avatar>
-            )}
+            {isAuthenticated && <UserAvatar user={user} />}
           </div>
           <MobileNavbar navLinks={navLinks} authContext={authContext} />
         </nav>
@@ -223,17 +217,10 @@ function MobileNavbar({
           </Button>
         </SheetTrigger>
         <ModeToggle />
-        {isAuthenticated && (
-          <Avatar>
-            <AvatarImage src={user?.avatarUrl} />
-            <AvatarFallback>
-              {user?.name?.substring(0, 2) || "UN"}
-            </AvatarFallback>
-          </Avatar>
-        )}
+        {isAuthenticated && <UserAvatar user={user} />}
       </div>
-      <SheetContent side="top" className="max-h-screen">
-        <SheetHeader>
+      <SheetContent side="top" className="max-h-screen ">
+        <SheetHeader className="dark:bg-muted/10">
           <SheetTitle>
             <LogoWithTitle />
           </SheetTitle>
@@ -309,7 +296,14 @@ function MobileNavbar({
           </Accordion>
           <div className="mt-4 px-2 space-y-3">
             {isAuthenticated ? (
-              <Button variant="destructive" className="w-full" onClick={logout}>
+              <Button
+                variant="destructive"
+                className="w-full"
+                onClick={() => {
+                  setIsOpen(false);
+                  logout();
+                }}
+              >
                 Sign out
               </Button>
             ) : (
@@ -328,5 +322,18 @@ function MobileNavbar({
         </div>
       </SheetContent>
     </Sheet>
+  );
+}
+
+function UserAvatar({ user }: { user: User | null }) {
+  if (!user) return;
+
+  return (
+    <Avatar>
+      <AvatarImage src={user?.avatarUrl} />
+      <AvatarFallback>
+        {user?.name?.substring(0, 2).toUpperCase() || "UN"}
+      </AvatarFallback>
+    </Avatar>
   );
 }

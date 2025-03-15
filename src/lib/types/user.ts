@@ -4,3 +4,8 @@ export interface User {
   email: string;
   avatarUrl?: string;
 }
+
+export interface AuthState {
+  isAuthenticated: boolean;
+  user: User | null;
+}
