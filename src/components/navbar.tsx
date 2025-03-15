@@ -20,7 +20,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link, useRouter, useLocation } from "@tanstack/react-router";
 import { MenuIcon, BookOpenText, SparkleIcon, HouseIcon } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -61,11 +61,14 @@ export function Navbar() {
   const authContext = useAuth();
   const { isAuthenticated, user, logout } = authContext;
   const router = useRouter();
+  const currentPath = useLocation({
+    select: (location) => location.pathname,
+  });
 
   const NAVIGATION_MENU_ITEM_VARIANTS = {
     default: "",
     outline:
-      "border rounded-md border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
+      "border rounded-md border-input shadow-xs hover:bg-accent hover:text-accent-foreground",
   };
 
   const navLinks: NavLink[] = [
@@ -77,21 +80,28 @@ export function Navbar() {
       children: [
         {
           title: "Test",
-          href: "/",
+          href: "/test",
           description: "Test description",
         },
         {
           title: "Icon Test",
-          href: "/",
+          href: "/test",
           description: "Testing the rendering of icons",
           icon: <SparkleIcon />,
         },
-        { title: "Another Test", href: "/" },
+        { title: "Another Test", href: "/test" },
       ],
     },
     { title: "Footwear", href: "/footwear", icon: <FootwearIcon /> },
     { title: "About", href: "/about", icon: <BookOpenText /> },
   ];
+
+  const isLinkActive = (href: string) => {
+    if (href === "/") {
+      return currentPath === "/";
+    }
+    return currentPath.startsWith(href);
+  };
 
   return (
     <section className="py-4 mb-4 flex items-center justify-center sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -102,70 +112,78 @@ export function Navbar() {
           </div>
           <NavigationMenu className="hidden lg:block">
             <NavigationMenuList className="gap-2">
-              {navLinks.map((link) => (
-                <NavigationMenuItem
-                  className={NAVIGATION_MENU_ITEM_VARIANTS.outline}
-                  key={link.href}
-                >
-                  {link.children ? (
-                    <>
-                      <NavigationMenuTrigger>
-                        <div className="flex items-center gap-2">
-                          {link.icon &&
-                            cloneElement(link.icon, {
-                              className: "h-5 w-5 text-muted-foreground",
+              {navLinks.map((link) => {
+                const active = isLinkActive(link.href);
+
+                return (
+                  <NavigationMenuItem
+                    className={`${NAVIGATION_MENU_ITEM_VARIANTS.outline} ${active ? "nav-item-active" : ""}`}
+                    key={link.href}
+                  >
+                    {link.children ? (
+                      <>
+                        <NavigationMenuTrigger>
+                          <div className={`flex items-center gap-2`}>
+                            {link.icon &&
+                              cloneElement(link.icon, {
+                                className: "h-5 w-5 text-muted-foreground",
+                              })}
+                            {link.title}
+                          </div>
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <div className="grid w-[600px] grid-cols-2 p-3">
+                            {link.children.map((child, index) => {
+                              const active = isLinkActive(child.href);
+
+                              return (
+                                <Link
+                                  to={child.href}
+                                  key={index}
+                                  className={`rounded-md p-3 transition-colors hover:bg-muted/70 ${active ? "nav-item-active" : ""}`}
+                                >
+                                  <div>
+                                    <div className="flex items-center gap-2">
+                                      {child.icon &&
+                                        cloneElement(child.icon, {
+                                          className:
+                                            "h-5 w-5 text-muted-foreground",
+                                        })}
+                                      <p className="mb-1 font-semibold">
+                                        {child.title}
+                                      </p>
+                                    </div>
+                                    {child.description && (
+                                      <p className="text-sm text-muted-foreground">
+                                        {child.description}
+                                      </p>
+                                    )}
+                                  </div>
+                                </Link>
+                              );
                             })}
-                          {link.title}
-                        </div>
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <div className="grid w-[600px] grid-cols-2 p-3">
-                          {link.children.map((child, index) => (
-                            <Link
-                              to={child.href}
-                              key={index}
-                              className="rounded-md p-3 transition-colors hover:bg-muted/70"
-                            >
-                              <div>
-                                <div className="flex items-center gap-2">
-                                  {child.icon &&
-                                    cloneElement(child.icon, {
-                                      className:
-                                        "h-5 w-5 text-muted-foreground",
-                                    })}
-                                  <p className="mb-1 font-semibold">
-                                    {child.title}
-                                  </p>
-                                </div>
-                                {child.description && (
-                                  <p className="text-sm text-muted-foreground">
-                                    {child.description}
-                                  </p>
-                                )}
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </NavigationMenuContent>
-                    </>
-                  ) : (
-                    <>
-                      <Link
-                        to={link.href}
-                        className={navigationMenuTriggerStyle()}
-                      >
-                        <div className="flex items-center gap-2">
-                          {link.icon &&
-                            cloneElement(link.icon, {
-                              className: "h-5 w-5 text-muted-foreground",
-                            })}
-                          {link.title}
-                        </div>
-                      </Link>
-                    </>
-                  )}
-                </NavigationMenuItem>
-              ))}
+                          </div>
+                        </NavigationMenuContent>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          to={link.href}
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          <div className="flex items-center gap-2">
+                            {link.icon &&
+                              cloneElement(link.icon, {
+                                className: "h-5 w-5 text-muted-foreground",
+                              })}
+                            {link.title}
+                          </div>
+                        </Link>
+                      </>
+                    )}
+                  </NavigationMenuItem>
+                );
+              })}
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
@@ -191,7 +209,11 @@ export function Navbar() {
             <ModeToggle />
             {isAuthenticated && <UserAvatar user={user} />}
           </div>
-          <MobileNavbar navLinks={navLinks} authContext={authContext} />
+          <MobileNavbar
+            navLinks={navLinks}
+            authContext={authContext}
+            isLinkActive={isLinkActive}
+          />
         </nav>
       </div>
     </section>
@@ -201,9 +223,11 @@ export function Navbar() {
 function MobileNavbar({
   navLinks,
   authContext,
+  isLinkActive,
 }: {
   navLinks: NavLink[];
   authContext: ReturnType<typeof useAuth>;
+  isLinkActive: (href: string) => boolean;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -234,19 +258,23 @@ function MobileNavbar({
           <div className="flex flex-col space-y-2 mb-2">
             {navLinks
               .filter((link) => !link.children)
-              .map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  onClick={handleLinkClick}
-                  className="flex items-center rounded-md py-3 px-3 font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-                >
-                  <div className="flex items-center gap-2">
-                    {link.icon}
-                    {link.title}
-                  </div>
-                </Link>
-              ))}
+              .map((link) => {
+                const active = isLinkActive(link.href);
+
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={handleLinkClick}
+                    className={`flex items-center rounded-md py-3 px-3 font-medium transition-colors hover:bg-accent hover:text-accent-foreground ${active ? "nav-item-active" : ""}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      {link.icon}
+                      {link.title}
+                    </div>
+                  </Link>
+                );
+              })}
           </div>
           <Separator className="" />
           <Accordion
@@ -273,27 +301,31 @@ function MobileNavbar({
                   </AccordionTrigger>
                   <AccordionContent className="px-1">
                     <div className="grid gap-2 md:grid-cols-2">
-                      {link.children.map((child, index) => (
-                        <Link
-                          to={child.href}
-                          key={index}
-                          onClick={handleLinkClick}
-                          className="flex flex-col rounded-md p-3 transition-colors hover:bg-accent hover:text-accent-foreground"
-                        >
-                          <div className="flex items-center gap-2">
-                            {child.icon &&
-                              cloneElement(child.icon, {
-                                className: "h-5 w-5 text-muted-foreground",
-                              })}
-                            <p className="font-medium">{child.title}</p>
-                          </div>
-                          {child.description && (
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {child.description}
-                            </p>
-                          )}
-                        </Link>
-                      ))}
+                      {link.children.map((child, index) => {
+                        const active = isLinkActive(child.href);
+
+                        return (
+                          <Link
+                            to={child.href}
+                            key={index}
+                            onClick={handleLinkClick}
+                            className={`flex flex-col rounded-md p-3 transition-colors hover:bg-accent hover:text-accent-foreground ${active ? "nav-item-active" : ""}`}
+                          >
+                            <div className="flex items-center gap-2">
+                              {child.icon &&
+                                cloneElement(child.icon, {
+                                  className: "h-5 w-5 text-muted-foreground",
+                                })}
+                              <p className="font-medium">{child.title}</p>
+                            </div>
+                            {child.description && (
+                              <p className="text-sm text-muted-foreground mt-1">
+                                {child.description}
+                              </p>
+                            )}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
