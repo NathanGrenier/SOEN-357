@@ -170,7 +170,11 @@ export function Navbar() {
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
             {isAuthenticated ? (
-              <Button variant="destructive" onClick={logout}>
+              <Button
+                variant="outline"
+                className="hover:cursor-pointer"
+                onClick={logout}
+              >
                 Sign out
               </Button>
             ) : (
@@ -298,8 +302,8 @@ function MobileNavbar({
           <div className="mt-4 px-2 space-y-3">
             {isAuthenticated ? (
               <Button
-                variant="destructive"
-                className="w-full"
+                variant="secondary"
+                className="w-full hover:cursor-pointer"
                 onClick={() => {
                   setIsOpen(false);
                   logout();
@@ -310,7 +314,7 @@ function MobileNavbar({
             ) : (
               <Button
                 variant="default"
-                className="w-full"
+                className="w-full hover:cursor-pointer"
                 onClick={() => {
                   setIsOpen(false);
                   void router.navigate({ to: "/login" });
