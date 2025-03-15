@@ -20,6 +20,8 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+        LOCAL_STORAGE_AUTH_KEY: ${{ secrets.LOCAL_STORAGE_AUTH_KEY }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
