@@ -2,7 +2,7 @@
 
 [![Github Pages Deployment](https://github.com/NathanGrenier/SOEN-357/actions/workflows/gh-pages.yaml/badge.svg?branch=main)](https://github.com/NathanGrenier/SOEN-357/actions/workflows/gh-pages.yaml)
 
-See the "About" page on the Github Pages Deployment for more details about this project.
+See the ["About" page](https://soen357.ngrenier.com/about) on the Github Pages Deployment for more details about this project.
 
 ## Team Members
 
