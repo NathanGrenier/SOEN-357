@@ -148,3 +148,9 @@ html body #root {
     @apply bg-accent text-accent-foreground ring-4 outline-1 ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50;
   }
 }
+
+/* Only apply height:100vh when NOT inside a flex container */
+:not(div[style*="display: flex"]):not(.flex):has(> .default-not-found-container)
+  > .default-not-found-container {
+  height: 100vh;
+}

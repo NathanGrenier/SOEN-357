@@ -1,25 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Home, AlertCircle } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 
 export function DefaultNotFoundRoute() {
-  const divRef = useRef<HTMLDivElement>(null);
-  const [parentHasFlex, setParentHasFlex] = useState(true);
-
-  useEffect(() => {
-    if (divRef.current && divRef.current.parentElement) {
-      const computedStyle = window.getComputedStyle(
-        divRef.current.parentElement
-      );
-      setParentHasFlex(computedStyle.display === "flex");
-    }
-  }, []);
-
   return (
     <div
-      className={`flex-grow flex items-center justify-center ${!parentHasFlex ? "h-screen" : ""}`}
-      ref={divRef}
+      className={`flex-grow flex items-center justify-center default-not-found-container`}
     >
       <div className="flex flex-col items-center justify-center gap-6 text-center max-w-md px-4">
         <div className="space-y-2">
