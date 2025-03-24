@@ -11,7 +11,7 @@ export const Route = createFileRoute("/(auth)/login")({
 
 export default function Login() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10 relative">
+    <div className="bg-muted relative flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
       <BackButtonTopLeft />
       <div className="w-full max-w-sm md:max-w-3xl">
         <LoginForm />
@@ -34,7 +34,7 @@ function BackButtonTopLeft() {
         <Button
           variant="ghost"
           size="lg"
-          className="gap-2 text-muted-foreground hover:text-foreground p-4 hover:cursor-pointer"
+          className="text-muted-foreground hover:text-foreground gap-2 p-4 hover:cursor-pointer"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Home

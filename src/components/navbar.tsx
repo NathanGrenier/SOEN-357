@@ -104,7 +104,7 @@ export function Navbar() {
   };
 
   return (
-    <section className="py-4 mb-4 px-4 flex items-center justify-center sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <section className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40 mb-4 flex items-center justify-center border-b px-4 py-4 backdrop-blur">
       <div className="container">
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -140,7 +140,7 @@ export function Navbar() {
                                 <Link
                                   to={child.href}
                                   key={index}
-                                  className={`rounded-md p-3 transition-colors hover:bg-muted/70 ${active ? "nav-item-active" : ""}`}
+                                  className={`hover:bg-muted/70 rounded-md p-3 transition-colors ${active ? "nav-item-active" : ""}`}
                                 >
                                   <div>
                                     <div className="flex items-center gap-2">
@@ -154,7 +154,7 @@ export function Navbar() {
                                       </p>
                                     </div>
                                     {child.description && (
-                                      <p className="text-sm text-muted-foreground">
+                                      <p className="text-muted-foreground text-sm">
                                         {child.description}
                                       </p>
                                     )}
@@ -239,7 +239,7 @@ function MobileNavbar({
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <div className="flex gap-4 justify-center lg:hidden items-center">
+      <div className="flex items-center justify-center gap-4 lg:hidden">
         <SheetTrigger asChild>
           <Button variant="outline" size="icon">
             <MenuIcon className="h-4 w-4" />
@@ -248,14 +248,14 @@ function MobileNavbar({
         <ModeToggle />
         {isAuthenticated && <UserAvatar user={user} />}
       </div>
-      <SheetContent side="top" className="max-h-screen ">
+      <SheetContent side="top" className="max-h-screen">
         <SheetHeader className="dark:bg-muted/10">
           <SheetTitle>
             <LogoWithTitle />
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col px-2 py-4">
-          <div className="flex flex-col space-y-2 mb-2">
+          <div className="mb-2 flex flex-col space-y-2">
             {navLinks
               .filter((link) => !link.children)
               .map((link) => {
@@ -266,7 +266,7 @@ function MobileNavbar({
                     key={link.href}
                     to={link.href}
                     onClick={handleLinkClick}
-                    className={`flex items-center rounded-md py-3 px-3 font-medium transition-colors hover:bg-accent hover:text-accent-foreground ${active ? "nav-item-active" : ""}`}
+                    className={`hover:bg-accent hover:text-accent-foreground flex items-center rounded-md px-3 py-3 font-medium transition-colors ${active ? "nav-item-active" : ""}`}
                   >
                     <div className="flex items-center gap-2">
                       {link.icon}
@@ -280,7 +280,7 @@ function MobileNavbar({
           <Accordion
             type="single"
             collapsible
-            className="mt-2 mb-2 px-3 w-full"
+            className="mt-2 mb-2 w-full px-3"
           >
             {navLinks
               .filter(
@@ -291,9 +291,9 @@ function MobileNavbar({
                 <AccordionItem
                   key={index}
                   value={link.title}
-                  className="border-b border-border"
+                  className="border-border border-b"
                 >
-                  <AccordionTrigger className="hover:no-underline py-4 font-medium text-base">
+                  <AccordionTrigger className="py-4 text-base font-medium hover:no-underline">
                     <div className="flex items-center gap-2">
                       {link.icon}
                       {link.title}
@@ -309,7 +309,7 @@ function MobileNavbar({
                             to={child.href}
                             key={index}
                             onClick={handleLinkClick}
-                            className={`flex flex-col rounded-md p-3 transition-colors hover:bg-accent hover:text-accent-foreground ${active ? "nav-item-active" : ""}`}
+                            className={`hover:bg-accent hover:text-accent-foreground flex flex-col rounded-md p-3 transition-colors ${active ? "nav-item-active" : ""}`}
                           >
                             <div className="flex items-center gap-2">
                               {child.icon &&
@@ -319,7 +319,7 @@ function MobileNavbar({
                               <p className="font-medium">{child.title}</p>
                             </div>
                             {child.description && (
-                              <p className="text-sm text-muted-foreground mt-1">
+                              <p className="text-muted-foreground mt-1 text-sm">
                                 {child.description}
                               </p>
                             )}
@@ -331,7 +331,7 @@ function MobileNavbar({
                 </AccordionItem>
               ))}
           </Accordion>
-          <div className="mt-4 px-2 space-y-3">
+          <div className="mt-4 space-y-3 px-2">
             {isAuthenticated ? (
               <Button
                 variant="destructive"

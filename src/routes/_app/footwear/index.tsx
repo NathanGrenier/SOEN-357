@@ -455,9 +455,9 @@ function RouteComponent() {
         categories={categories}
       />
 
-      <div className="flex flex-col space-y-6 mb-6">
+      <div className="mb-6 flex flex-col space-y-6">
         <Tabs defaultValue="grid" className="mb-6">
-          <div className="flex justify-between w-full">
+          <div className="flex w-full justify-between">
             <TabsList className="grid w-[200px] grid-cols-2">
               <TabsTrigger value="grid">Grid View</TabsTrigger>
               <TabsTrigger value="list">List View</TabsTrigger>
@@ -507,7 +507,7 @@ function RouteComponent() {
             renderPageNumbers={renderPageNumbers}
           />
 
-          <div className="text-center text-sm text-muted-foreground">
+          <div className="text-muted-foreground text-center text-sm">
             Showing {indexOfFirstItem + 1}-
             {Math.min(indexOfLastItem, totalItems)} of {totalItems} sneakers
           </div>
@@ -521,11 +521,11 @@ function RouteComponent() {
 // Page header with title and description
 const PageHeader = React.memo(function PageHeader() {
   return (
-    <div className="flex flex-col items-center mb-8">
-      <h1 className="text-3xl md:text-5xl font-bold mb-3 text-center">
+    <div className="mb-8 flex flex-col items-center">
+      <h1 className="mb-3 text-center text-3xl font-bold md:text-5xl">
         Sneaker Collection
       </h1>
-      <p className="text-muted-foreground text-center max-w-2xl">
+      <p className="text-muted-foreground max-w-2xl text-center">
         Browse our curated collection of premium footwear from top brands around
         the world.
       </p>
@@ -550,11 +550,11 @@ const SearchFilterSection = React.memo(function SearchFilterSection({
   categories,
 }: SearchFilterSectionProps) {
   return (
-    <div className="flex flex-col md:flex-row gap-4 mb-8 justify-center">
+    <div className="mb-8 flex flex-col justify-center gap-4 md:flex-row">
       <div className="relative h-10">
         <Search
           size="20"
-          className="absolute right-2 top-4.5 transform -translate-y-1/2 text-gray-500 z-10"
+          className="absolute top-4.5 right-2 z-10 -translate-y-1/2 transform text-gray-500"
         />
         <Input
           placeholder="Search by brand or model"
@@ -563,7 +563,7 @@ const SearchFilterSection = React.memo(function SearchFilterSection({
           className="w-full md:w-lg"
         />
       </div>
-      <div className="w-full md:w-[150px] cursor-pointer">
+      <div className="w-full cursor-pointer md:w-[150px]">
         <CategoriesComboBoxResponsive
           selectedCategory={filterCategory}
           setFilterCategory={handleCategoryChange}
@@ -577,7 +577,7 @@ const SearchFilterSection = React.memo(function SearchFilterSection({
 // Empty state component
 const EmptyState = React.memo(function EmptyState() {
   return (
-    <div className="text-center py-12 border rounded-lg bg-muted/20">
+    <div className="bg-muted/20 rounded-lg border py-12 text-center">
       <h2 className="text-2xl font-semibold">No sneakers found</h2>
       <p className="text-muted-foreground mt-2">
         Try different search terms or filters
@@ -595,7 +595,7 @@ const ProductGrid = React.memo(function ProductGrid({
   items,
 }: ProductViewProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {items.map((shoe, index) => (
         <ProductCard key={shoe.id || index} shoe={shoe} />
       ))}
@@ -615,12 +615,12 @@ const ProductCard = React.memo(function ProductCard({
     <HoverCard openDelay={200} closeDelay={100}>
       <HoverCardTrigger asChild>
         <Link to="/footwear/$id" params={{ id: String(shoe.id) }}>
-          <Card className="overflow-hidden h-full hover:shadow-md transition-shadow flex flex-col py-2">
-            <div className="aspect-square w-full relative bg-background">
+          <Card className="flex h-full flex-col overflow-hidden py-2 transition-shadow hover:shadow-md">
+            <div className="bg-background relative aspect-square w-full">
               <img
                 src={shoe.imageUrl}
                 alt={`${shoe.brand} ${shoe.model}`}
-                className="object-contain w-full h-full"
+                className="h-full w-full object-contain"
                 onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
               />
 
@@ -632,11 +632,11 @@ const ProductCard = React.memo(function ProductCard({
                 {shoe.stockStatus}
               </StockStatusBadge>
             </div>
-            <div className="p-4 flex-1 flex flex-col justify-between">
-              <div className="flex justify-between items-start">
-                <div className="flex-1 min-w-0 pr-2">
+            <div className="flex flex-1 flex-col justify-between p-4">
+              <div className="flex items-start justify-between">
+                <div className="min-w-0 flex-1 pr-2">
                   <div className="font-semibold">{shoe.brand}</div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-muted-foreground text-sm">
                     {shoe.model}
                   </div>
                 </div>
@@ -649,8 +649,8 @@ const ProductCard = React.memo(function ProductCard({
               </div>
 
               {/* Price and comfort rating */}
-              <div className="flex justify-between items-center mt-auto pt-2">
-                <div className="font-medium text-primary">
+              <div className="mt-auto flex items-center justify-between pt-2">
+                <div className="text-primary font-medium">
                   ${shoe.priceCAD} CAD
                 </div>
                 <div className="flex items-center gap-1">
@@ -675,25 +675,25 @@ const ProductHoverCardContent = React.memo(function ProductHoverCardContent({
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div className="flex flex-col justify-between">
-            <span className="font-medium text-muted-foreground">
+            <span className="text-muted-foreground font-medium">
               Release Year:
             </span>
             <p>{shoe.releaseYear}</p>
           </div>
           <div className="flex flex-col justify-between">
-            <span className="font-medium text-muted-foreground">Material:</span>
+            <span className="text-muted-foreground font-medium">Material:</span>
             <p className="truncate">{shoe.material}</p>
           </div>
           <div className="flex flex-col justify-between">
-            <span className="font-medium text-muted-foreground">
+            <span className="text-muted-foreground font-medium">
               Durability:
             </span>
-            <div className="flex items-center gap-1 mt-0.5">
+            <div className="mt-0.5 flex items-center gap-1">
               <StarRating rating={shoe.durabilityRatingOn5} />
             </div>
           </div>
           <div className="flex flex-col justify-between">
-            <span className="font-medium text-muted-foreground">
+            <span className="text-muted-foreground font-medium">
               Sustainability:
             </span>
             <p className="truncate">{shoe.sustainability}</p>
@@ -709,7 +709,7 @@ const ProductList = React.memo(function ProductList({
   items,
 }: ProductViewProps) {
   return (
-    <div className="space-y-4 flex flex-col w-full">
+    <div className="flex w-full flex-col space-y-4">
       {items.map((shoe, index) => (
         <ProductListItem key={shoe.id || index} shoe={shoe} />
       ))}
@@ -727,32 +727,32 @@ const ProductListItem = React.memo(function ProductListItem({
         <Link
           to="/footwear/$id"
           params={{ id: String(shoe.id) }}
-          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring rounded-lg block"
+          className="focus-visible:ring-ring block rounded-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         >
-          <Card className="overflow-hidden transition-all hover:shadow-lg px-6">
+          <Card className="overflow-hidden px-6 transition-all hover:shadow-lg">
             <div className="flex">
               {/* Left side - Image */}
-              <div className="w-32 h-24 relative flex-shrink-0">
+              <div className="relative h-24 w-32 flex-shrink-0">
                 <img
                   src={shoe.imageUrl}
                   alt={`${shoe.brand} ${shoe.model}`}
-                  className="object-cover w-full h-full"
+                  className="h-full w-full object-cover"
                   onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
                 />
               </div>
 
               {/* Right side - Content */}
-              <div className="p-3 flex-1 flex flex-col justify-between min-w-0">
+              <div className="flex min-w-0 flex-1 flex-col justify-between p-3">
                 {/* Top row - Brand/Model and Category */}
-                <div className="flex justify-between items-start mb-2">
-                  <div className="flex-1 min-w-0 pr-2">
+                <div className="mb-2 flex items-start justify-between">
+                  <div className="min-w-0 flex-1 pr-2">
                     <div className="flex items-center gap-2">
-                      <div className="font-semibold truncate">{shoe.brand}</div>
+                      <div className="truncate font-semibold">{shoe.brand}</div>
                       <StockStatusBadge status={shoe.stockStatus}>
                         {shoe.stockStatus}
                       </StockStatusBadge>
                     </div>
-                    <div className="text-sm text-muted-foreground truncate">
+                    <div className="text-muted-foreground truncate text-sm">
                       {shoe.model}
                     </div>
                   </div>
@@ -765,8 +765,8 @@ const ProductListItem = React.memo(function ProductListItem({
                 </div>
 
                 {/* Bottom row - Price and Comfort Rating */}
-                <div className="flex justify-between items-center">
-                  <div className="font-medium text-primary">
+                <div className="flex items-center justify-between">
+                  <div className="text-primary font-medium">
                     ${shoe.priceCAD} CAD
                   </div>
                   <div className="flex items-center gap-2 text-sm">
@@ -814,7 +814,7 @@ const FootwearPagination = React.memo(function FootwearPagination({
 
         {/* Mobile previous button */}
         {currentPage > 1 && (
-          <PaginationItem className="sm:hidden cursor-pointer">
+          <PaginationItem className="cursor-pointer sm:hidden">
             <PaginationLink onClick={() => handlePageChange(currentPage - 1)}>
               <ChevronLeft className="h-4 w-4" />
             </PaginationLink>
@@ -834,14 +834,14 @@ const FootwearPagination = React.memo(function FootwearPagination({
         </PaginationItem>
 
         {currentPage < totalPages && (
-          <PaginationItem className="hidden sm:inline-flex cursor-pointer">
+          <PaginationItem className="hidden cursor-pointer sm:inline-flex">
             <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
           </PaginationItem>
         )}
 
         {/* Mobile next button */}
         {currentPage < totalPages && (
-          <PaginationItem className="sm:hidden cursor-pointer">
+          <PaginationItem className="cursor-pointer sm:hidden">
             <PaginationLink onClick={() => handlePageChange(currentPage + 1)}>
               <ChevronRight className="h-4 w-4" />
             </PaginationLink>
@@ -985,7 +985,7 @@ function FilterSheet({
       </div>
 
       <SheetContent
-        className="overflow-y-auto w-full sm:max-w-md flex flex-col gap-6 p-6"
+        className="flex w-full flex-col gap-6 overflow-y-auto p-6 sm:max-w-md"
         onCloseAutoFocus={(event) => {
           event.preventDefault();
           triggerRef.current?.focus();
@@ -1024,7 +1024,7 @@ function FilterSheet({
           <div className="space-y-4">
             <div className="flex justify-between">
               <Label>Price Range (CAD)</Label>
-              <span className="text-sm text-muted-foreground">
+              <span className="text-muted-foreground text-sm">
                 ${priceRange[0]} - ${priceRange[1]}
               </span>
             </div>
@@ -1077,7 +1077,7 @@ function FilterSheet({
                   ` (${selectedStockStatus.length})`}
               </AccordionTrigger>
               <AccordionContent>
-                <div className="grid grid-cols-2 gap-2 max-h-36 overflow-y-auto pr-2 pt-2">
+                <div className="grid max-h-36 grid-cols-2 gap-2 overflow-y-auto pt-2 pr-2">
                   {allStockStatuses.map((status) => (
                     <div key={status} className="flex items-center space-x-2">
                       <Checkbox
@@ -1094,11 +1094,11 @@ function FilterSheet({
                       />
                       <Label
                         htmlFor={`status-${status}`}
-                        className="text-sm flex items-center"
+                        className="flex items-center text-sm"
                       >
                         <span
                           className={cn(
-                            "w-2 h-2 rounded-full mr-2",
+                            "mr-2 h-2 w-2 rounded-full",
                             stockStatusColors[status]?.split(" ")[0] || ""
                           )}
                         ></span>
@@ -1160,7 +1160,7 @@ function FilterAccordionItem<T extends string>({
       </AccordionTrigger>
       <AccordionContent>
         <div
-          className={`grid ${gridColumnsClass} gap-2 max-h-48 overflow-y-auto pr-2 pt-2`}
+          className={`grid ${gridColumnsClass} max-h-48 gap-2 overflow-y-auto pt-2 pr-2`}
         >
           {items.map((item) => (
             <div key={item} className="flex items-center space-x-2">
@@ -1252,7 +1252,7 @@ export function CategoriesComboBoxResponsive({
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerTitle className="self-center mt-2">
+        <DrawerTitle className="mt-2 self-center">
           Filter by Category
         </DrawerTitle>
         <div className="mt-4 border-t">
