@@ -126,15 +126,13 @@ export const stockStatusList = [
 export type StockStatus = (typeof stockStatusList)[number];
 
 export const stockStatusColors: Record<StockStatus, string> = {
-  "In Stock":
-    "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
-  "Out of Stock": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+  "In Stock": "bg-green-500 text-white dark:bg-green-700 dark:text-white",
+  "Out of Stock": "bg-red-500 text-white dark:bg-red-700 dark:text-white",
   "Limited Stock":
-    "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300",
-  "Pre-Order": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
-  Backordered:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
-  Discontinued: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+    "bg-amber-500 text-gray-900 dark:bg-amber-700 dark:text-gray-100",
+  "Pre-Order": "bg-blue-500 text-white dark:bg-blue-700 dark:text-white",
+  Backordered: "bg-orange-500 text-white dark:bg-orange-700 dark:text-white",
+  Discontinued: "bg-gray-500 text-white dark:bg-gray-700 dark:text-white",
 };
 
 export interface Footwear {
