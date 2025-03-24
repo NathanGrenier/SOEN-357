@@ -5,11 +5,11 @@ import { Home, AlertCircle } from "lucide-react";
 export function DefaultNotFoundRoute() {
   return (
     <div
-      className={`flex-grow flex items-center justify-center default-not-found-container`}
+      className={`default-not-found-container flex flex-grow items-center justify-center`}
     >
-      <div className="flex flex-col items-center justify-center gap-6 text-center max-w-md px-4">
+      <div className="flex max-w-md flex-col items-center justify-center gap-6 px-4 text-center">
         <div className="space-y-2">
-          <AlertCircle className="size-16 text-muted-foreground mx-auto mb-2 stroke-red-600" />
+          <AlertCircle className="text-muted-foreground mx-auto mb-2 size-16 stroke-red-600" />
           <h1 className="text-4xl font-bold tracking-tight">404</h1>
           <h2 className="text-2xl font-semibold">Page not found</h2>
         </div>
