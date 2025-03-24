@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import footwearData from "@/lib/assets/data/footwear.json";
 import {
   Card,
@@ -31,12 +31,12 @@ import {
   TrendingUp,
   TrendingDown,
   Minus,
-  Star as StarFull,
   Heart,
   Share2,
   LucideShoppingCart,
   Copy,
   CheckCircleIcon,
+  Home,
 } from "lucide-react";
 import { Footwear, RetailerDetails } from "@/lib/types";
 import { toast } from "sonner";
@@ -51,6 +51,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import FootwearIcon from "@/components/icons/FootwearIcon";
+import StarRating from "@/components/star-rating";
 
 export const Route = createFileRoute("/_app/footwear/$id")({
   component: RouteComponent,
@@ -58,25 +67,6 @@ export const Route = createFileRoute("/_app/footwear/$id")({
     return { id: params.id };
   },
 });
-
-// Helper function to display star ratings from 1 to 5
-function StarRating({ rating }: { rating: number }) {
-  const stars = Array.from({ length: 5 }, (_, i) => i < rating);
-  return (
-    <div className="flex items-center gap-0.5">
-      {stars.map((isFilled, idx) => (
-        <StarFull
-          key={idx}
-          className={
-            isFilled
-              ? "h-5 w-5 fill-primary text-primary"
-              : "h-5 w-5 fill-muted stroke-muted-foreground text-muted-foreground"
-          }
-        />
-      ))}
-    </div>
-  );
-}
 
 // Main route component
 export default function RouteComponent() {
@@ -220,7 +210,57 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
   const [selectedImage, setSelectedImage] = React.useState(mainImage);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-8">
+    <div className="max-w-6xl mx-auto p-6 space-y-8 flex flex-col">
+      <div className="container mx-auto mb-6 flex justify-center">
+        <Breadcrumb className="py-2">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <div className="flex items-center gap-1">
+                  <Home size="18" />
+                  <Link
+                    to="/"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Home
+                  </Link>
+                </div>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <div className="flex items-center gap-1">
+                  <FootwearIcon size="18" />
+                  <Link
+                    to="/footwear"
+                    search={{
+                      page: 1,
+                      query: "",
+                      category: "all",
+                    }}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Footwear
+                  </Link>
+                </div>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link
+                  to="/footwear/$id"
+                  params={{ id: String(footwear.id) }}
+                  className="font-medium text-primary hover:text-primary/80 transition-colors border-primary"
+                >
+                  {footwear.model}
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
       {/* Hero Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Footwear Image */}
