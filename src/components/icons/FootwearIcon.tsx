@@ -1,5 +1,5 @@
 interface FootwearIconProps {
-  size: number | string;
+  size?: number | string;
   width?: number | string;
   height?: number | string;
   color?: string;
