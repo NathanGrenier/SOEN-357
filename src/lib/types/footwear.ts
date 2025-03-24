@@ -1,57 +1,72 @@
 import { Retailers } from "./retailer";
 
-export type MarketTrend =
-  | "rise"
-  | "stable"
-  | "decline"
-  | "volatile"
-  | "emerging"
-  | "falling sharply";
+export const marketTrendList = [
+  "rise",
+  "stable",
+  "decline",
+  "volatile",
+  "emerging",
+  "falling sharply",
+] as const;
 
-export type SustainabilityRating =
-  | "Standard"
-  | "Sustainable Materials"
-  | "Eco-Friendly Production"
-  | "Recycled Materials"
-  | "Carbon Neutral"
-  | "Vegan";
+export type MarketTrend = (typeof marketTrendList)[number];
 
-export type FitType =
-  | "True to size"
-  | "Runs small"
-  | "Runs large"
-  | "Slim Fit"
-  | "Loose Fit"
-  | "Oversized";
+export const sustainabilityRatingList = [
+  "Standard",
+  "Sustainable Materials",
+  "Eco-Friendly Production",
+  "Recycled Materials",
+  "Carbon Neutral",
+  "Vegan",
+] as const;
 
-export type WidthType =
-  | "Extra Narrow (2A)"
-  | "Narrow (B)"
-  | "Standard (D)"
-  | "Wide (2E)"
-  | "Extra Wide (4E)"
-  | "Ultra Wide (6E)"
-  | "Super Wide (8E)";
+export type SustainabilityRating = (typeof sustainabilityRatingList)[number];
 
-export type Category =
-  | "Casual Wear"
-  | "Lifestyle"
-  | "Basketball"
-  | "Hiking"
-  | "Running"
-  | "Tennis"
-  | "Soccer"
-  | "Cross-Trainers"
-  | "Water Shoe"
-  | "Indoor Mat"
-  | "Slip-On"
-  | "Flats"
-  | "Heels"
-  | "Boots"
-  | "Workwear"
-  | "Trail Running"
-  | "Cycling"
-  | "Formal";
+export const fitTypeList = [
+  "True to size",
+  "Runs small",
+  "Runs large",
+  "Slim Fit",
+  "Loose Fit",
+  "Oversized",
+] as const;
+
+export type FitType = (typeof fitTypeList)[number];
+
+export const widthTypeList = [
+  "Extra Narrow (2A)",
+  "Narrow (B)",
+  "Standard (D)",
+  "Wide (2E)",
+  "Extra Wide (4E)",
+  "Ultra Wide (6E)",
+  "Super Wide (8E)",
+] as const;
+
+export type WidthType = (typeof widthTypeList)[number];
+
+export const categoryList = [
+  "Casual Wear",
+  "Lifestyle",
+  "Basketball",
+  "Hiking",
+  "Running",
+  "Tennis",
+  "Soccer",
+  "Cross-Trainers",
+  "Water Shoe",
+  "Indoor Mat",
+  "Slip-On",
+  "Flats",
+  "Heels",
+  "Boots",
+  "Workwear",
+  "Trail Running",
+  "Cycling",
+  "Formal",
+] as const;
+
+export type Category = (typeof categoryList)[number];
 
 export const categoryTypeColors: Record<Category, string> = {
   "Casual Wear":
@@ -81,28 +96,34 @@ export const categoryTypeColors: Record<Category, string> = {
   Formal: "bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-300",
 };
 
-export type Color =
-  | "Black"
-  | "White"
-  | "Red"
-  | "Blue"
-  | "Green"
-  | "Yellow"
-  | "Orange"
-  | "Purple"
-  | "Pink"
-  | "Brown"
-  | "Grey"
-  | "Beige"
-  | "Multi-Color";
+export const colorList = [
+  "Black",
+  "White",
+  "Red",
+  "Blue",
+  "Green",
+  "Yellow",
+  "Orange",
+  "Purple",
+  "Pink",
+  "Brown",
+  "Grey",
+  "Beige",
+  "Multi-Color",
+] as const;
 
-export type StockStatus =
-  | "In Stock"
-  | "Out of Stock"
-  | "Limited Stock"
-  | "Pre-Order"
-  | "Backordered"
-  | "Discontinued";
+export type Color = (typeof colorList)[number];
+
+export const stockStatusList = [
+  "In Stock",
+  "Out of Stock",
+  "Limited Stock",
+  "Pre-Order",
+  "Backordered",
+  "Discontinued",
+] as const;
+
+export type StockStatus = (typeof stockStatusList)[number];
 
 export const stockStatusColors: Record<StockStatus, string> = {
   "In Stock":

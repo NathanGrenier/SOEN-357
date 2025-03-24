@@ -234,11 +234,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                   <FootwearIcon size="18" />
                   <Link
                     to="/footwear"
-                    search={{
-                      page: 1,
-                      query: "",
-                      category: "all",
-                    }}
+                    search={{ page: 1 }}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Footwear
