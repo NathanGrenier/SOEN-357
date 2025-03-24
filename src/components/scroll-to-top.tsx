@@ -29,8 +29,8 @@ export default function ScrollToTopButton() {
     <button
       onClick={scrollToTop}
       className={`${
-        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
-      } fixed bottom-8 right-8 bg-primary text-primary-foreground p-2 rounded-xl shadow-md hover:bg-primary/90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 z-50 cursor-pointer`}
+        isVisible ? "opacity-100" : "pointer-events-none opacity-0"
+      } bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary fixed right-8 bottom-8 z-50 cursor-pointer rounded-xl p-2 shadow-md transition-all duration-300 focus:ring-2 focus:ring-offset-2 focus:outline-none`}
       aria-label="Scroll to top"
     >
       <ChevronUp className="h-6 w-6" />

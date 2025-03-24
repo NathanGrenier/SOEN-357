@@ -10,8 +10,8 @@ export default function StarRating({ rating }: { rating: number }) {
           key={idx}
           className={
             isFilled
-              ? "h-5 w-5 fill-primary text-primary"
-              : "h-5 w-5 fill-muted stroke-muted-foreground text-muted-foreground"
+              ? "fill-primary text-primary h-5 w-5"
+              : "fill-muted stroke-muted-foreground text-muted-foreground h-5 w-5"
           }
         />
       ))}
