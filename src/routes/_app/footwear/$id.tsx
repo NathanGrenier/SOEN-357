@@ -69,8 +69,8 @@ function StarRating({ rating }: { rating: number }) {
           key={idx}
           className={
             isFilled
-              ? "h-5 w-5 fill-primary text-primary"
-              : "h-5 w-5 fill-muted stroke-muted-foreground text-muted-foreground"
+              ? "fill-primary text-primary h-5 w-5"
+              : "fill-muted stroke-muted-foreground text-muted-foreground h-5 w-5"
           }
         />
       ))}
@@ -220,35 +220,35 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
   const [selectedImage, setSelectedImage] = React.useState(mainImage);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-8">
+    <div className="mx-auto max-w-6xl space-y-8 p-6">
       {/* Hero Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Footwear Image */}
         <div className="grid gap-6">
-          <div className="w-full max-w-md mx-auto overflow-hidden rounded-xl border border-muted-foreground">
+          <div className="border-muted-foreground mx-auto w-full max-w-md overflow-hidden rounded-xl border">
             <img
               src={selectedImage}
               alt={`${footwear.brand} ${footwear.model}`}
-              className="w-full h-auto object-contain"
+              className="h-auto w-full object-contain"
               onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
             />
           </div>
 
           {/* Desktop Thumbnails */}
-          <div className="hidden md:flex gap-3 justify-center">
+          <div className="hidden justify-center gap-3 md:flex">
             {imageGallery.map((image, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedImage(image)}
-                className={`hover:cursor-pointer border rounded-lg overflow-hidden transition-all hover:border-muted-foreground ${
+                className={`hover:border-muted-foreground overflow-hidden rounded-lg border transition-all hover:cursor-pointer ${
                   selectedImage === image ? "border-muted-foreground" : ""
                 }`}
               >
-                <div className="w-16 h-16 md:w-20 md:h-20">
+                <div className="h-16 w-16 md:h-20 md:w-20">
                   <img
                     src={image}
                     alt={`Thumbnail ${index + 1}`}
-                    className="w-full h-full object-contain"
+                    className="h-full w-full object-contain"
                     onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
                   />
                 </div>
@@ -257,21 +257,21 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
           </div>
 
           {/* Mobile Thumbnails */}
-          <div className="md:hidden overflow-x-auto flex gap-2 px-4 scrollbar-hide">
+          <div className="scrollbar-hide flex gap-2 overflow-x-auto px-4 md:hidden">
             <div className="flex gap-2">
               {imageGallery.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(image)}
-                  className={`border rounded-lg overflow-hidden transition-all hover:border-muted-foreground ${
+                  className={`hover:border-muted-foreground overflow-hidden rounded-lg border transition-all ${
                     selectedImage === image ? "border-muted-foreground" : ""
                   }`}
                 >
-                  <div className="w-16 h-16">
+                  <div className="h-16 w-16">
                     <img
                       src={image}
                       alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-contain"
+                      className="h-full w-full object-contain"
                       onError={(e) =>
                         (e.currentTarget.src = "/placeholder.svg")
                       }
@@ -284,29 +284,29 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
         </div>
 
         {/* Summary */}
-        <Card className="p-6 flex flex-col justify-between">
+        <Card className="flex flex-col justify-between p-6">
           <CardHeader className="p-0">
-            <CardTitle className="text-3xl font-bold leading-tight">
+            <CardTitle className="text-3xl leading-tight font-bold">
               {footwear.brand} {footwear.model}
             </CardTitle>
-            <CardDescription className="mt-2 text-muted-foreground">
+            <CardDescription className="text-muted-foreground mt-2">
               {footwear.category}
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex-1 flex flex-col justify-center gap-4 py-4">
+          <CardContent className="flex flex-1 flex-col justify-center gap-4 py-4">
             <div className="space-y-1">
               <p className="text-xl font-semibold">
                 Current Price: ${footwear.priceCAD}.99 CAD
               </p>
               <Badge
                 variant="secondary"
-                className="bg-green-100 text-green-800 font-medium"
+                className="bg-green-100 font-medium text-green-800"
               >
                 {footwear.stockStatus}
               </Badge>
             </div>
             {/* Trust signals / highlights */}
-            <ul className="text-sm text-muted-foreground space-y-1 list-inside list-disc">
+            <ul className="text-muted-foreground list-inside list-disc space-y-1 text-sm">
               <li>The price you see covers taxes, shipping, and handling!</li>
               <li>90-day returns with money-back guarantee</li>
               <li>Delivered with eco-friendly packaging ♻️</li>
@@ -316,11 +316,11 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
             </ul>
             {/* Buy Directly from Us */}
             {availableSizes.length > 0 && (
-              <div className="pt-4 space-y-2">
-                <p className="text-sm font-medium text-muted-foreground">
+              <div className="space-y-2 pt-4">
+                <p className="text-muted-foreground text-sm font-medium">
                   Available Sizes (US):
                 </p>
-                <div className="flex flex-col sm:flex-row items-center gap-4">
+                <div className="flex flex-col items-center gap-4 sm:flex-row">
                   <Select
                     disabled={isAddedToCart}
                     value={selectedSize}
@@ -350,7 +350,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                       variant={isAddedToCart ? "secondary" : "default"}
                       onClick={handleAddToCart}
                       disabled={isAddedToCart || !selectedSize}
-                      className={`hover:cursor-pointer flex items-center gap-2 ${isAddedToCart ? "bg-green-500 text-white" : ""}`}
+                      className={`flex items-center gap-2 hover:cursor-pointer ${isAddedToCart ? "bg-green-500 text-white" : ""}`}
                     >
                       {isAddedToCart ? (
                         <>
@@ -375,7 +375,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                 className="hover:cursor-pointer"
               >
                 <Heart
-                  className={`h-4 w-4 mr-2 ${
+                  className={`mr-2 h-4 w-4 ${
                     isWishlisted ? "fill-foreground" : ""
                   }`}
                 />{" "}
@@ -386,7 +386,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                 onClick={() => setIsShareModalOpen(true)}
                 className="hover:cursor-pointer"
               >
-                <Share2 className="h-4 w-4 mr-2" /> Share
+                <Share2 className="mr-2 h-4 w-4" /> Share
               </Button>
             </div>
           </CardFooter>
@@ -394,7 +394,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
       </div>
 
       {/* Details Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* Footwear Details */}
         <Card>
           <CardHeader>
@@ -404,53 +404,53 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+            <dl className="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
               <div>
                 <dt className="font-medium">Colorway</dt>
-                <dd className="text-sm text-muted-foreground">
+                <dd className="text-muted-foreground text-sm">
                   {footwear.colorway.join(", ")}
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">Release Year</dt>
-                <dd className="text-sm text-muted-foreground">
+                <dd className="text-muted-foreground text-sm">
                   {footwear.releaseYear}
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">Material</dt>
-                <dd className="text-sm text-muted-foreground">
+                <dd className="text-muted-foreground text-sm">
                   {footwear.material}
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">Resale Price</dt>
-                <dd className="text-sm text-muted-foreground">
+                <dd className="text-muted-foreground text-sm">
                   ${footwear.resalePriceCAD} CAD
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">Overall Market Trend</dt>
-                <dd className="text-sm text-muted-foreground capitalize">
+                <dd className="text-muted-foreground text-sm capitalize">
                   {footwear.marketTrend}
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">Fit</dt>
-                <dd className="text-sm text-muted-foreground">
+                <dd className="text-muted-foreground text-sm">
                   {footwear.fit}
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">Width</dt>
-                <dd className="text-sm text-muted-foreground">
+                <dd className="text-muted-foreground text-sm">
                   {footwear.width}
                 </dd>
               </div>
               {/* Comfort Rating */}
               <div>
                 <dt className="font-medium">Comfort</dt>
-                <dd className="flex items-center gap-2 text-sm text-muted-foreground">
+                <dd className="text-muted-foreground flex items-center gap-2 text-sm">
                   <StarRating rating={footwear.comfortRatingOn5} />
                   <span>({footwear.comfortRatingOn5}/5)</span>
                 </dd>
@@ -458,20 +458,20 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
               {/* Durability Rating */}
               <div>
                 <dt className="font-medium">Durability</dt>
-                <dd className="flex items-center gap-2 text-sm text-muted-foreground">
+                <dd className="text-muted-foreground flex items-center gap-2 text-sm">
                   <StarRating rating={footwear.durabilityRatingOn5} />
                   <span>({footwear.durabilityRatingOn5}/5)</span>
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">Sustainability</dt>
-                <dd className="text-sm text-muted-foreground">
+                <dd className="text-muted-foreground text-sm">
                   {footwear.sustainability}
                 </dd>
               </div>
               <div>
                 <dt className="font-medium">Best For</dt>
-                <dd className="text-sm text-muted-foreground">
+                <dd className="text-muted-foreground text-sm">
                   {footwear.bestFor.join(", ")}
                 </dd>
               </div>
@@ -489,7 +489,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
             </div>
             <Select value={timeRange} onValueChange={setTimeRange}>
               <SelectTrigger
-                className="w-[160px] rounded-lg sm:ml-auto hover:cursor-pointer"
+                className="w-[160px] rounded-lg hover:cursor-pointer sm:ml-auto"
                 aria-label="Select a time range"
               >
                 <SelectValue placeholder="Select time range" />
@@ -581,11 +581,11 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
           </CardContent>
           <CardFooter className="flex flex-col items-start gap-2 text-sm">
             {isTrendingFlat ? (
-              <div className="flex gap-2 font-medium leading-none">
+              <div className="flex gap-2 leading-none font-medium">
                 Trending flat (0.0%) this period <Minus className="h-4 w-4" />
               </div>
             ) : (
-              <div className="flex gap-2 font-medium leading-none">
+              <div className="flex gap-2 leading-none font-medium">
                 Trending {isTrendingUp ? "up" : "down"} by{" "}
                 {Math.abs(percentChange).toFixed(1)}% this period{" "}
                 {isTrendingUp ? (
@@ -595,7 +595,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                 )}
               </div>
             )}
-            <div className="leading-none text-muted-foreground">
+            <div className="text-muted-foreground leading-none">
               Showing price fluctuations for the last{" "}
               {timeRange === "90d"
                 ? "3 months"

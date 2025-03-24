@@ -145,7 +145,7 @@ html body #root {
 
 @layer components {
   .nav-item-active {
-    @apply bg-accent text-accent-foreground ring-4 outline-1 ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50;
+    @apply bg-accent text-accent-foreground ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50 ring-4 outline-1;
   }
 }
 

@@ -12,12 +12,12 @@ export const Route = createFileRoute("/_app/footwear/")({
 // still good knowledge if you ever do similar frontend work for a project.
 function RouteComponent() {
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4">Browse Available Footwear</h1>
+    <div className="mx-auto max-w-4xl p-6">
+      <h1 className="mb-4 text-3xl font-bold">Browse Available Footwear</h1>
       <ScrollArea className="h-96">
         <div className="space-y-2">
           {footwearData.map((shoe) => (
-            <Card key={shoe.id} className="py-2 px-4">
+            <Card key={shoe.id} className="px-4 py-2">
               <Link
                 //@ts-expect-error Type '`/footwear/${number}`' is not assignable to type '"/" | "/about" | "/footwear/$id" | "/footwear" | "." | ".."'
                 to={`/footwear/${shoe.id}`}

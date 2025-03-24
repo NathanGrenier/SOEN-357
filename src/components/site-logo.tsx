@@ -20,7 +20,7 @@ export function SiteLogo({ className, size = "md" }: SiteLogoProps = {}) {
       <img
         src={siteLogo}
         alt="Site Logo"
-        className="object-contain h-full w-full"
+        className="h-full w-full object-contain"
       />
     </div>
   );

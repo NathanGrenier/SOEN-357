@@ -12,9 +12,9 @@ function Index() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-5.6rem)]">
+    <div className="flex min-h-[calc(100vh-5.6rem)] items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-4">
-        <div className="flex gap-8 items-center mb-4">
+        <div className="mb-4 flex items-center gap-8">
           <img
             src={siteLogo}
             className="h-28 w-28"
