@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { AuthState } from "./types";
+import { AuthState, Footwear } from "./types";
 import { redirect } from "@tanstack/react-router";
 
 export function cn(...inputs: ClassValue[]) {
@@ -29,4 +29,20 @@ export function redirectIfNotAuthenticated() {
       replace: true,
     });
   }
+}
+
+export function duplicateFootwear(data: Footwear[], times: number) {
+  const result = [...data];
+
+  for (let i = 1; i < times; i++) {
+    data.forEach((shoe) => {
+      const newShoe = {
+        ...shoe,
+        id: shoe.id + data.length * i,
+      };
+      result.push(newShoe);
+    });
+  }
+
+  return result;
 }
