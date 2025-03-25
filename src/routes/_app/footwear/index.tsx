@@ -974,9 +974,6 @@ function FilterSheet({
   return (
     <Sheet>
       <div className="flex items-center justify-center gap-2">
-        <Button variant="outline" size="sm" onClick={resetFilters}>
-          Reset Filters
-        </Button>
         <SheetTrigger asChild>
           <Button
             variant="outline"
@@ -988,6 +985,9 @@ function FilterSheet({
             <span>Filters</span>
           </Button>
         </SheetTrigger>
+        <Button variant="destructive" size="sm" onClick={resetFilters}>
+          Reset Filters
+        </Button>
       </div>
 
       <SheetContent
@@ -1119,7 +1119,7 @@ function FilterSheet({
 
           {/* Filter Actions */}
           <div className="flex justify-between pt-2">
-            <Button variant="outline" onClick={resetFilters}>
+            <Button variant="destructive" onClick={resetFilters}>
               Reset Filters
             </Button>
             <Button onClick={applyFilters}>Apply Filters</Button>
@@ -1274,7 +1274,6 @@ export function CategoriesComboBoxResponsive({
   );
 }
 
-// Categories list component
 // Categories list component
 const CategoriesList = React.memo(function CategoriesList({
   selectedCategory,
