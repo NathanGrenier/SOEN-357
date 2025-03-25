@@ -106,6 +106,18 @@ export const Route = createFileRoute("/_app/footwear/")({
       category?: string;
     };
   },
+
+  loader: () => {
+    let footwearData = footwearDataJson as Footwear[];
+
+    // Duplicate data for development mode
+    if (process.env.NODE_ENV === "development") {
+      console.log("Development mode - duplicating footwear data");
+      footwearData = duplicateFootwear(footwearData, 20);
+    }
+
+    return footwearData;
+  },
   component: RouteComponent,
 });
 
@@ -310,14 +322,8 @@ function useFootwearFilters(initialData: Footwear[]) {
 }
 
 function RouteComponent() {
-  let footwearData = footwearDataJson as Footwear[];
+  const footwearData = Route.useLoaderData();
   const categories = [ALL_CATEGORIES, ...categoryList];
-
-  // Duplicate data for development mode
-  if (process.env.NODE_ENV === "development") {
-    console.log("Development mode - duplicating footwear data");
-    footwearData = duplicateFootwear(footwearData, 20);
-  }
 
   const {
     searchQuery,
