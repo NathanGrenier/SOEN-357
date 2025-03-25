@@ -1,4 +1,5 @@
 interface FootwearIconProps {
+  size?: number | string;
   width?: number | string;
   height?: number | string;
   color?: string;
@@ -7,12 +8,18 @@ interface FootwearIconProps {
 }
 
 export default function FootwearIcon({
+  size,
   width = 24,
   height = 24,
   color = "currentColor",
   strokeWidth = 2,
   className = "",
 }: FootwearIconProps) {
+  if (size) {
+    width = size;
+    height = size;
+  }
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

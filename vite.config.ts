@@ -45,5 +45,26 @@ export default defineConfig(({ mode }) => {
         envDefaults.LOCAL_STORAGE_AUTH_KEY
       ),
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (
+              id.includes("node_modules/react/") ||
+              id.includes("node_modules/react-dom/")
+            ) {
+              return "react-vendor";
+            }
+            if (id.includes("node_modules/@radix-ui/")) {
+              return "radix-ui";
+            }
+            if (id.includes("node_modules/recharts/")) {
+              return "recharts";
+            }
+            // Add more conditions for other large dependencies as needed
+          },
+        },
+      },
+    },
   };
 });

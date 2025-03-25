@@ -14,6 +14,8 @@ import { routeTree } from "./routeTree.gen";
 const router = createRouter({
   routeTree,
   defaultNotFoundComponent: DefaultNotFoundRoute,
+  scrollRestoration: true,
+  scrollRestorationBehavior: "auto",
 });
 
 declare module "@tanstack/react-router" {
