@@ -752,22 +752,33 @@ const ProductListItem = React.memo(function ProductListItem({
                 {/* Top row - Brand/Model and Category */}
                 <div className="mb-2 flex items-start justify-between">
                   <div className="min-w-0 flex-1 pr-2">
-                    <div className="flex items-center gap-2">
-                      <div className="truncate font-semibold">{shoe.brand}</div>
-                      <StockStatusBadge status={shoe.stockStatus}>
+                    <div className="flex items-center gap-2 font-semibold">
+                      {shoe.brand}
+                      <StockStatusBadge
+                        status={shoe.stockStatus}
+                        className="hidden flex-shrink-0 sm:inline-block"
+                      >
                         {shoe.stockStatus}
                       </StockStatusBadge>
                     </div>
-                    <div className="text-muted-foreground truncate text-sm">
+                    <div className="text-muted-foreground text-sm">
                       {shoe.model}
                     </div>
                   </div>
-                  <CategoryBadge
-                    category={shoe.category}
-                    className="flex-shrink-0"
-                  >
-                    {shoe.category}
-                  </CategoryBadge>
+                  <div className="flex flex-col items-center gap-2">
+                    <StockStatusBadge
+                      status={shoe.stockStatus}
+                      className="inline-block flex-shrink-0 sm:hidden"
+                    >
+                      {shoe.stockStatus}
+                    </StockStatusBadge>
+                    <CategoryBadge
+                      category={shoe.category}
+                      className="flex-shrink-0"
+                    >
+                      {shoe.category}
+                    </CategoryBadge>
+                  </div>
                 </div>
 
                 {/* Bottom row - Price and Comfort Rating */}
@@ -776,10 +787,13 @@ const ProductListItem = React.memo(function ProductListItem({
                     ${shoe.priceCAD} CAD
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <span className="text-muted-foreground font-medium">
+                    <span className="text-muted-foreground hidden font-medium sm:inline-block">
                       Comfort Rating:
                     </span>
-                    <StarRating rating={shoe.comfortRatingOn5} />
+                    <StarRating
+                      rating={shoe.comfortRatingOn5}
+                      iconSize={"h-3 w-3 sm:h-5 sm:w-5"}
+                    />
                   </div>
                 </div>
               </div>
