@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app/route'
 import { Route as AppIndexImport } from './routes/_app/index'
+import { Route as AppCheckoutImport } from './routes/_app/checkout'
+import { Route as AppCartImport } from './routes/_app/cart'
 import { Route as AppAboutImport } from './routes/_app/about'
 import { Route as authLoginImport } from './routes/(auth)/login'
 import { Route as AppFootwearIndexImport } from './routes/_app/footwear/index'
@@ -28,6 +30,18 @@ const AppRouteRoute = AppRouteImport.update({
 const AppIndexRoute = AppIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const AppCheckoutRoute = AppCheckoutImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const AppCartRoute = AppCartImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => AppRouteRoute,
 } as any)
 
@@ -80,6 +94,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAboutImport
       parentRoute: typeof AppRouteImport
     }
+    '/_app/cart': {
+      id: '/_app/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof AppCartImport
+      parentRoute: typeof AppRouteImport
+    }
+    '/_app/checkout': {
+      id: '/_app/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof AppCheckoutImport
+      parentRoute: typeof AppRouteImport
+    }
     '/_app/': {
       id: '/_app/'
       path: '/'
@@ -108,6 +136,8 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppAboutRoute: typeof AppAboutRoute
+  AppCartRoute: typeof AppCartRoute
+  AppCheckoutRoute: typeof AppCheckoutRoute
   AppIndexRoute: typeof AppIndexRoute
   AppFootwearIdRoute: typeof AppFootwearIdRoute
   AppFootwearIndexRoute: typeof AppFootwearIndexRoute
@@ -115,6 +145,8 @@ interface AppRouteRouteChildren {
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppAboutRoute: AppAboutRoute,
+  AppCartRoute: AppCartRoute,
+  AppCheckoutRoute: AppCheckoutRoute,
   AppIndexRoute: AppIndexRoute,
   AppFootwearIdRoute: AppFootwearIdRoute,
   AppFootwearIndexRoute: AppFootwearIndexRoute,
@@ -128,6 +160,8 @@ export interface FileRoutesByFullPath {
   '': typeof AppRouteRouteWithChildren
   '/login': typeof authLoginRoute
   '/about': typeof AppAboutRoute
+  '/cart': typeof AppCartRoute
+  '/checkout': typeof AppCheckoutRoute
   '/': typeof AppIndexRoute
   '/footwear/$id': typeof AppFootwearIdRoute
   '/footwear': typeof AppFootwearIndexRoute
@@ -136,6 +170,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/login': typeof authLoginRoute
   '/about': typeof AppAboutRoute
+  '/cart': typeof AppCartRoute
+  '/checkout': typeof AppCheckoutRoute
   '/': typeof AppIndexRoute
   '/footwear/$id': typeof AppFootwearIdRoute
   '/footwear': typeof AppFootwearIndexRoute
@@ -146,6 +182,8 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteRouteWithChildren
   '/(auth)/login': typeof authLoginRoute
   '/_app/about': typeof AppAboutRoute
+  '/_app/cart': typeof AppCartRoute
+  '/_app/checkout': typeof AppCheckoutRoute
   '/_app/': typeof AppIndexRoute
   '/_app/footwear/$id': typeof AppFootwearIdRoute
   '/_app/footwear/': typeof AppFootwearIndexRoute
@@ -153,14 +191,31 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/login' | '/about' | '/' | '/footwear/$id' | '/footwear'
+  fullPaths:
+    | ''
+    | '/login'
+    | '/about'
+    | '/cart'
+    | '/checkout'
+    | '/'
+    | '/footwear/$id'
+    | '/footwear'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/about' | '/' | '/footwear/$id' | '/footwear'
+  to:
+    | '/login'
+    | '/about'
+    | '/cart'
+    | '/checkout'
+    | '/'
+    | '/footwear/$id'
+    | '/footwear'
   id:
     | '__root__'
     | '/_app'
     | '/(auth)/login'
     | '/_app/about'
+    | '/_app/cart'
+    | '/_app/checkout'
     | '/_app/'
     | '/_app/footwear/$id'
     | '/_app/footwear/'
@@ -195,6 +250,8 @@ export const routeTree = rootRoute
       "filePath": "_app/route.tsx",
       "children": [
         "/_app/about",
+        "/_app/cart",
+        "/_app/checkout",
         "/_app/",
         "/_app/footwear/$id",
         "/_app/footwear/"
@@ -205,6 +262,14 @@ export const routeTree = rootRoute
     },
     "/_app/about": {
       "filePath": "_app/about.tsx",
+      "parent": "/_app"
+    },
+    "/_app/cart": {
+      "filePath": "_app/cart.tsx",
+      "parent": "/_app"
+    },
+    "/_app/checkout": {
+      "filePath": "_app/checkout.tsx",
       "parent": "/_app"
     },
     "/_app/": {
