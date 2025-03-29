@@ -10,9 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
-// import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-//import Image from "next/image";
 
 type FormData = {
   brand: string;
@@ -47,7 +45,6 @@ const CATEGORIES = ["Basketball", "Running", "Lifestyle", "Skateboarding", "Trai
 const FIT_OPTIONS = ["True to size", "Runs small", "Runs large"];
 const WIDTH_OPTIONS = ["Narrow (B)", "Standard (D)", "Wide (2E)", "Extra Wide (4E)", "Super Wide (8E)"];
 const MARKET_TRENDS = ["rise", "fall", "stable"];
-//const BEST_FOR_OPTIONS = ["Casual Wear", "Running", "Basketball", "Training", "Cross-Trainers"];
 const SUSTAINABILITY_OPTIONS = ["Standard", "Eco-Friendly Production", "Vegan", "Recycled Materials"];
 
 export function SellSneakers() {
@@ -66,7 +63,7 @@ export function SellSneakers() {
     toast.success("Sneaker listing submitted successfully!", {
       description: `Submitted at: ${currentTime}`,
     });
-    reset(); // Optional: clear the form after submission
+    reset();
   };
 
 
@@ -352,7 +349,7 @@ export function SellSneakers() {
               </div>
 
               <div className="space-y-2">
-                <Label>Best For*</Label>
+                <Label>Best Uses*</Label>
                 <div className="flex flex-wrap gap-3">
                   {/* Casual Wear */}
                   <button
