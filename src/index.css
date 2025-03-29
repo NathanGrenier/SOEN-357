@@ -154,3 +154,12 @@ html body #root {
   > .default-not-found-container {
   height: 100vh;
 }
+
+/* Add to your globals.css */
+button {
+  transition: all 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}

@@ -10,8 +10,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
+//import Image from "next/image";
 
 type FormData = {
   brand: string;
@@ -46,7 +47,7 @@ const CATEGORIES = ["Basketball", "Running", "Lifestyle", "Skateboarding", "Trai
 const FIT_OPTIONS = ["True to size", "Runs small", "Runs large"];
 const WIDTH_OPTIONS = ["Narrow (B)", "Standard (D)", "Wide (2E)", "Extra Wide (4E)", "Super Wide (8E)"];
 const MARKET_TRENDS = ["rise", "fall", "stable"];
-const BEST_FOR_OPTIONS = ["Casual Wear", "Running", "Basketball", "Training", "Cross-Trainers"];
+//const BEST_FOR_OPTIONS = ["Casual Wear", "Running", "Basketball", "Training", "Cross-Trainers"];
 const SUSTAINABILITY_OPTIONS = ["Standard", "Eco-Friendly Production", "Vegan", "Recycled Materials"];
 
 export function SellSneakers() {
@@ -351,27 +352,157 @@ export function SellSneakers() {
               </div>
 
               <div className="space-y-2">
-                <Label>Best Uses*</Label>
-                <div className="grid grid-cols-2 gap-2">
-                  {BEST_FOR_OPTIONS.map((option) => (
-                    <div key={option} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`bestFor-${option}`}
-                        checked={watch("bestFor")?.includes(option) || false}
-                        onCheckedChange={(checked) => {
-                          const current = watch("bestFor") || [];
-                          if (checked) {
-                            setValue("bestFor", [...current, option]);
-                          } else {
-                            setValue("bestFor", current.filter(item => item !== option));
-                          }
-                        }}
+                <Label>Best For*</Label>
+                <div className="flex flex-wrap gap-3">
+                  {/* Casual Wear */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const current = watch("bestFor") || [];
+                      const option = "Casual Wear";
+                      setValue("bestFor", 
+                        current.includes(option)
+                          ? current.filter(item => item !== option)
+                          : [...current, option]
+                      );
+                    }}
+                    className={`
+                      flex flex-col items-center justify-between
+                      w-24 h-24 p-2 rounded-lg border-2
+                      ${watch("bestFor")?.includes("Casual Wear") 
+                        ? "border-blue-500 bg-blue-50" 
+                        : "border-gray-200"}
+                    `}
+                  >
+                    <div className="w-16 h-16 flex items-center justify-center">
+                      <img 
+                        src="/uses-icons/casual.webp" 
+                        alt="Casual Wear" 
+                        className="max-w-full max-h-full object-contain"
                       />
-                      <Label htmlFor={`bestFor-${option}`} className="font-normal">
-                        {option}
-                      </Label>
                     </div>
-                  ))}
+                    <span className="text-xs text-center">Casual</span>
+                  </button>
+
+                  {/* Running */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const current = watch("bestFor") || [];
+                      const option = "Running";
+                      setValue("bestFor", 
+                        current.includes(option)
+                          ? current.filter(item => item !== option)
+                          : [...current, option]
+                      );
+                    }}
+                    className={`
+                      flex flex-col items-center justify-between
+                      w-24 h-24 p-2 rounded-lg border-2
+                      ${watch("bestFor")?.includes("Running") 
+                        ? "border-blue-500 bg-blue-50" 
+                        : "border-gray-200"}
+                    `}
+                  >
+                    <div className="w-16 h-16 flex items-center justify-center">
+                      <img 
+                        src="/uses-icons/running.webp" 
+                        alt="Running" 
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                    <span className="text-xs text-center">Running</span>
+                  </button>
+
+                  {/* Basketball */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const current = watch("bestFor") || [];
+                      const option = "Basketball";
+                      setValue("bestFor", 
+                        current.includes(option)
+                          ? current.filter(item => item !== option)
+                          : [...current, option]
+                      );
+                    }}
+                    className={`
+                      flex flex-col items-center justify-between
+                      w-24 h-24 p-2 rounded-lg border-2
+                      ${watch("bestFor")?.includes("Basketball") 
+                        ? "border-blue-500 bg-blue-50" 
+                        : "border-gray-200"}
+                    `}
+                  >
+                    <div className="w-16 h-16 flex items-center justify-center">
+                      <img 
+                        src="/uses-icons/basketball.webp" 
+                        alt="Basketball" 
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                    <span className="text-xs text-center">Basketball</span>
+                  </button>
+
+                  {/* Training */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const current = watch("bestFor") || [];
+                      const option = "Training";
+                      setValue("bestFor", 
+                        current.includes(option)
+                          ? current.filter(item => item !== option)
+                          : [...current, option]
+                      );
+                    }}
+                    className={`
+                      flex flex-col items-center justify-between
+                      w-24 h-24 p-2 rounded-lg border-2
+                      ${watch("bestFor")?.includes("Training") 
+                        ? "border-blue-500 bg-blue-50" 
+                        : "border-gray-200"}
+                    `}
+                  >
+                    <div className="w-16 h-16 flex items-center justify-center">
+                      <img 
+                        src="/uses-icons/training.webp" 
+                        alt="Training" 
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                    <span className="text-xs text-center">Training</span>
+                  </button>
+
+                  {/* Cross-Trainers */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const current = watch("bestFor") || [];
+                      const option = "Cross-Trainers";
+                      setValue("bestFor", 
+                        current.includes(option)
+                          ? current.filter(item => item !== option)
+                          : [...current, option]
+                      );
+                    }}
+                    className={`
+                      flex flex-col items-center justify-between
+                      w-24 h-24 p-2 rounded-lg border-2
+                      ${watch("bestFor")?.includes("Cross-Trainers") 
+                        ? "border-blue-500 bg-blue-50" 
+                        : "border-gray-200"}
+                    `}
+                  >
+                    <div className="w-16 h-16 flex items-center justify-center">
+                      <img 
+                        src="/uses-icons/elliptical.webp" 
+                        alt="Cross-Trainers" 
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                    <span className="text-xs text-center">Cross-Train</span>
+                  </button>
                 </div>
                 {errors.bestFor && <p className="text-sm text-red-500">{errors.bestFor.message}</p>}
               </div>
