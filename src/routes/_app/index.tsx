@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useLoaderData } from "@tanstack/react-router";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -6,14 +6,17 @@ import { Input } from "@/components/ui/input";
 import { ChevronRight } from "lucide-react";
 import { Footwear } from "@/lib/types/footwear";
 import { Card } from "@/components/ui/card";
-import { SiteLogo } from "@/components/site-logo";
 
 export const Route = createFileRoute("/_app/")({
   component: Index,
+  loader: () => {
+    const footwearData = footwearDataJson as Footwear[];
+    return footwearData;
+  },
 });
 
 function Index() {
-  const footwearData = footwearDataJson as Footwear[];
+  const footwearData = useLoaderData({ from: Route.id });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
