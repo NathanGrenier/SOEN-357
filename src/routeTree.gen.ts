@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AppRouteImport } from './routes/_app/route'
 import { Route as AppIndexImport } from './routes/_app/index'
+import { Route as AppSellImport } from './routes/_app/sell'
 import { Route as AppAboutImport } from './routes/_app/about'
 import { Route as authLoginImport } from './routes/(auth)/login'
 import { Route as AppFootwearIndexImport } from './routes/_app/footwear/index'
@@ -28,6 +29,12 @@ const AppRouteRoute = AppRouteImport.update({
 const AppIndexRoute = AppIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const AppSellRoute = AppSellImport.update({
+  id: '/sell',
+  path: '/sell',
   getParentRoute: () => AppRouteRoute,
 } as any)
 
@@ -80,6 +87,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAboutImport
       parentRoute: typeof AppRouteImport
     }
+    '/_app/sell': {
+      id: '/_app/sell'
+      path: '/sell'
+      fullPath: '/sell'
+      preLoaderRoute: typeof AppSellImport
+      parentRoute: typeof AppRouteImport
+    }
     '/_app/': {
       id: '/_app/'
       path: '/'
@@ -108,6 +122,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppAboutRoute: typeof AppAboutRoute
+  AppSellRoute: typeof AppSellRoute
   AppIndexRoute: typeof AppIndexRoute
   AppFootwearIdRoute: typeof AppFootwearIdRoute
   AppFootwearIndexRoute: typeof AppFootwearIndexRoute
@@ -115,6 +130,7 @@ interface AppRouteRouteChildren {
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppAboutRoute: AppAboutRoute,
+  AppSellRoute: AppSellRoute,
   AppIndexRoute: AppIndexRoute,
   AppFootwearIdRoute: AppFootwearIdRoute,
   AppFootwearIndexRoute: AppFootwearIndexRoute,
@@ -128,6 +144,7 @@ export interface FileRoutesByFullPath {
   '': typeof AppRouteRouteWithChildren
   '/login': typeof authLoginRoute
   '/about': typeof AppAboutRoute
+  '/sell': typeof AppSellRoute
   '/': typeof AppIndexRoute
   '/footwear/$id': typeof AppFootwearIdRoute
   '/footwear': typeof AppFootwearIndexRoute
@@ -136,6 +153,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/login': typeof authLoginRoute
   '/about': typeof AppAboutRoute
+  '/sell': typeof AppSellRoute
   '/': typeof AppIndexRoute
   '/footwear/$id': typeof AppFootwearIdRoute
   '/footwear': typeof AppFootwearIndexRoute
@@ -146,6 +164,7 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteRouteWithChildren
   '/(auth)/login': typeof authLoginRoute
   '/_app/about': typeof AppAboutRoute
+  '/_app/sell': typeof AppSellRoute
   '/_app/': typeof AppIndexRoute
   '/_app/footwear/$id': typeof AppFootwearIdRoute
   '/_app/footwear/': typeof AppFootwearIndexRoute
@@ -153,14 +172,22 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/login' | '/about' | '/' | '/footwear/$id' | '/footwear'
+  fullPaths:
+    | ''
+    | '/login'
+    | '/about'
+    | '/sell'
+    | '/'
+    | '/footwear/$id'
+    | '/footwear'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/about' | '/' | '/footwear/$id' | '/footwear'
+  to: '/login' | '/about' | '/sell' | '/' | '/footwear/$id' | '/footwear'
   id:
     | '__root__'
     | '/_app'
     | '/(auth)/login'
     | '/_app/about'
+    | '/_app/sell'
     | '/_app/'
     | '/_app/footwear/$id'
     | '/_app/footwear/'
@@ -195,6 +222,7 @@ export const routeTree = rootRoute
       "filePath": "_app/route.tsx",
       "children": [
         "/_app/about",
+        "/_app/sell",
         "/_app/",
         "/_app/footwear/$id",
         "/_app/footwear/"
@@ -205,6 +233,10 @@ export const routeTree = rootRoute
     },
     "/_app/about": {
       "filePath": "_app/about.tsx",
+      "parent": "/_app"
+    },
+    "/_app/sell": {
+      "filePath": "_app/sell.tsx",
       "parent": "/_app"
     },
     "/_app/": {
