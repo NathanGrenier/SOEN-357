@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
+import { Info, Plus, Star, DollarSign, Ruler } from "lucide-react";
 
 type FormData = {
   brand: string;
@@ -97,7 +98,10 @@ export function SellSneakers() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
             <h6 className="text-medium italic">*Required fields</h6>
+            <div className="flex items-center gap-2">
               <h3 className="text-lg font-semibold">Basic Information</h3>
+              <Info className="w-4 h-4 text-gray-500" />
+            </div>
               
               <div className="space-y-2">
                 <Label htmlFor="brand">Brand*</Label>
@@ -185,7 +189,10 @@ export function SellSneakers() {
             {/* Pricing Information */}
             <div className="space-y-4">
             <h6 className="text-medium italic h-[20px] invisible">*Required fields</h6>
+            <div className="flex items-center gap-2">
               <h3 className="text-lg font-semibold">Pricing Information</h3>
+              <DollarSign className="w-4 h-4 text-gray-500" />
+            </div>
               
               <div className="space-y-2">
                 <Label htmlFor="priceCAD">Retail Price (CAD)*</Label>
@@ -241,7 +248,10 @@ export function SellSneakers() {
           {/* Fit and Sizing */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
+            <div className="flex items-center gap-2">
               <h3 className="text-lg font-semibold">Fit & Sizing</h3>
+              <Ruler className="w-4 h-4 text-gray-500" />
+            </div>
               
               <div className="space-y-2">
                 <Label htmlFor="fit">Fit*</Label>
@@ -284,7 +294,10 @@ export function SellSneakers() {
 
             {/* Ratings */}
             <div className="space-y-4">
+            <div className="flex items-center gap-2">
               <h3 className="text-lg font-semibold">Ratings</h3>
+              <Star className="w-4 h-4 text-gray-500" />
+            </div>
               
               <div className="space-y-2">
                 <Label htmlFor="comfortRatingOn5">Comfort Rating (1-5)*</Label>
@@ -327,7 +340,10 @@ export function SellSneakers() {
           {/* Additional Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
+            <div className="flex items-center gap-2">
               <h3 className="text-lg font-semibold">Additional Information</h3>
+              <Plus className="w-4 h-4 text-gray-500" />
+            </div>
               
               <div className="space-y-2">
                 <Label htmlFor="sustainability">Sustainability</Label>
