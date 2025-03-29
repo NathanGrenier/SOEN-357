@@ -35,7 +35,6 @@ import {
   Search,
 } from "lucide-react";
 import StarRating from "@/components/star-rating";
-import ScrollToTopButton from "@/components/scroll-to-top";
 import {
   HoverCard,
   HoverCardContent,
@@ -519,7 +518,6 @@ function RouteComponent() {
           </div>
         </>
       )}
-      <ScrollToTopButton />
     </div>
   );
 }
