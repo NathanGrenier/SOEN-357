@@ -52,8 +52,8 @@ function Index() {
           <div className="container mx-auto max-w-6xl px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
               <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                <div className="space-y-2 md:mx-auto md:block">
+                  <h1 className="text-2xl font-bold tracking-tighter md:text-4xl">
                     Step Into Style at Sneaker Hub
                   </h1>
                   <p className="text-muted-foreground max-w-[600px] md:text-xl">
@@ -61,7 +61,7 @@ function Index() {
                     limited editions to timeless classics.
                   </p>
                 </div>
-                <div className="mx-auto flex space-x-4 min-[400px]:flex-row md:w-full">
+                <div className="mx-auto space-x-4 min-[400px]:flex-row lg:flex lg:w-full">
                   <Link
                     href="/footwear?page=1&query=&category=All Categories"
                     to={"/"}

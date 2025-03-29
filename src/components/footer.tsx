@@ -62,14 +62,14 @@ export function Footer({
 }: FooterProps) {
   return (
     <footer className="mx-auto w-full max-w-6xl py-12 md:py-24 lg:py-32">
-      <div className="container px-4 md:px-6">
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-          <div className="space-y-4">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="ml-4 grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div className="flex flex-col items-center justify-center space-y-4 md:mr-4 md:border-r md:pr-6">
             <Link className="flex items-center gap-2" to={"/"}>
               <SiteLogo size="sm" />
               <span className="text-xl font-bold">Sneaker Hub</span>
             </Link>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-center text-sm">
               Your destination for premium sneakers and streetwear.
             </p>
             <SocialLinks links={socialLinks} />
@@ -136,7 +136,7 @@ export type SocialLinksProps = {
 
 export function SocialLinks({
   links,
-  className = "flex gap-4",
+  className = "flex justify-center gap-4",
 }: SocialLinksProps) {
   return (
     <div className={className}>
