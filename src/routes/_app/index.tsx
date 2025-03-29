@@ -63,12 +63,12 @@ function Index() {
                 </div>
                 <div className="mx-auto space-x-4 min-[400px]:flex-row lg:flex lg:w-full">
                   <Link
-                    href="/footwear?page=1&query=&category=All Categories"
-                    to={"/"}
+                    to="/footwear"
+                    search={{ page: 1, query: "", category: "All Categories" }}
                   >
                     <Button size="lg">Shop Now</Button>
                   </Link>
-                  <Link href="/about" to={"/"}>
+                  <Link to={"/about"}>
                     <Button size="lg">About Us</Button>
                   </Link>
                 </div>
@@ -107,40 +107,44 @@ function Index() {
                   key={item.id}
                   className="group relative overflow-hidden rounded-lg border py-0"
                 >
-                  <div className="overflow-hidden rounded-lg bg-white p-2">
-                    <img
-                      src={item.imageUrl}
-                      width={350}
-                      height={350}
-                      alt={`Sneaker ${item.model}`}
-                      className="object-cover transition-transform group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="flex h-1/5 flex-col justify-between p-4 md:h-2/5">
-                    <div>
-                      <h3 className="font-semibold">
-                        {item.brand} {item.model}
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        {item.category} | Released in {item.releaseYear}
-                      </p>
+                  <Link
+                    to="/footwear/$id"
+                    params={{ id: String(item.id) }}
+                    className="flex h-full flex-col"
+                  >
+                    <div className="overflow-hidden rounded-lg bg-white p-2">
+                      <img
+                        src={item.imageUrl || "/placeholder.svg"}
+                        alt={`${item.brand} ${item.model}`}
+                        className="w-full object-cover p-4 transition-transform group-hover:scale-105"
+                      />
                     </div>
-                    <div className="mt-2 flex items-center justify-between pt-2">
-                      <span className="font-bold">
-                        ${item.priceCAD.toFixed(2)}
-                      </span>
-                      <Button size="sm" variant="outline">
-                        Add to Cart
-                      </Button>
+                    <div className="flex flex-1 flex-col p-4">
+                      <div className="flex-1">
+                        <h3 className="font-semibold">
+                          {item.brand} {item.model}
+                        </h3>
+                        <p className="text-muted-foreground text-sm">
+                          {item.category} | Released in {item.releaseYear}
+                        </p>
+                      </div>
+                      <div className="mt-auto flex items-center justify-between pt-4">
+                        <span className="font-bold">
+                          ${item.priceCAD.toFixed(2)}
+                        </span>
+                        <Button size="sm" variant="outline">
+                          View
+                        </Button>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </Card>
               ))}
             </div>
             <div className="mt-8 flex justify-center">
               <Link
-                href="/footwear?page=1&query=&category=All Categories"
-                to={"/"}
+                to="/footwear"
+                search={{ page: 1, query: "", category: "All Categories" }}
               >
                 <Button variant="default" className="gap-1">
                   View All Products
@@ -172,7 +176,6 @@ function Index() {
                 { name: "Basketball", image: "basketball" },
                 { name: "Lifestyle", image: "lifestyle" },
               ].map((category) => {
-                // Filter footwearData to find the first item matching the category name
                 const categoryItem = footwearData.find(
                   (item) =>
                     item.category.toLowerCase() === category.name.toLowerCase()
@@ -180,10 +183,10 @@ function Index() {
 
                 return (
                   <Link
-                    href={`/footwear?page=1&query=&category=${category.name}`}
                     key={category.name}
                     className="group relative overflow-hidden rounded-lg"
-                    to={"/"}
+                    to="/footwear"
+                    search={{ page: 1, query: "", category: category.name }}
                   >
                     <div className="aspect-[4/3] overflow-hidden">
                       <img

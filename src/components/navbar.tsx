@@ -207,6 +207,7 @@ export function Navbar() {
               </Button>
             )}
             <ModeToggle />
+
             {isAuthenticated && <UserAvatar user={user} />}
           </div>
           <MobileNavbar
