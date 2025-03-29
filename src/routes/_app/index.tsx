@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { ChevronRight } from "lucide-react";
 import { Footwear } from "@/lib/types/footwear";
 import { Card } from "@/components/ui/card";
+import { Category } from "@/lib/types";
 
 export const Route = createFileRoute("/_app/")({
   component: Index,
@@ -62,14 +63,13 @@ function Index() {
                   </p>
                 </div>
                 <div className="mx-auto space-x-4 min-[400px]:flex-row lg:flex lg:w-full">
-                  <Link
-                    to="/footwear"
-                    search={{ page: 1, query: "", category: "All Categories" }}
-                  >
+                  <Link to="/footwear">
                     <Button size="lg">Shop Now</Button>
                   </Link>
-                  <Link to={"/about"}>
-                    <Button size="lg">About Us</Button>
+                  <Link to="/about">
+                    <Button size="lg" variant="secondary">
+                      About Us
+                    </Button>
                   </Link>
                 </div>
               </div>
@@ -172,13 +172,12 @@ function Index() {
             </div>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                { name: "Running", image: "running" },
-                { name: "Basketball", image: "basketball" },
-                { name: "Lifestyle", image: "lifestyle" },
+                { name: "Running" as Category, image: "running" },
+                { name: "Basketball" as Category, image: "basketball" },
+                { name: "Lifestyle" as Category, image: "lifestyle" },
               ].map((category) => {
                 const categoryItem = footwearData.find(
-                  (item) =>
-                    item.category.toLowerCase() === category.name.toLowerCase()
+                  (item) => item.category === category.name
                 );
 
                 return (
@@ -186,23 +185,23 @@ function Index() {
                     key={category.name}
                     className="group relative overflow-hidden rounded-lg"
                     to="/footwear"
-                    search={{ page: 1, query: "", category: category.name }}
+                    search={{
+                      category: category.name,
+                    }}
                   >
-                    <div className="aspect-[4/3] overflow-hidden">
+                    <div className="aspect-[4/3] overflow-hidden dark:bg-white">
                       <img
                         src={
                           categoryItem
                             ? categoryItem.imageUrl
                             : `/placeholder.svg?height=400&width=500&text=${category.image}`
                         }
-                        width={500}
-                        height={400}
                         alt={category.name}
                         className="object-cover p-4 transition-transform group-hover:scale-105"
                       />
-                      <div className="bg-muted/80 group-hover:bg-muted/50 absolute inset-0 transition-colors" />
+                      <div className="bg-muted/60 group-hover:bg-muted/40 absolute inset-0 transition-colors dark:bg-white/30" />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <h3 className="text-primary text-4xl font-bold">
+                        <h3 className="text-primary text-4xl font-bold dark:text-black">
                           {category.name}
                         </h3>
                       </div>
