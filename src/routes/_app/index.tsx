@@ -68,8 +68,10 @@ function Index() {
                   >
                     <Button size="lg">Shop Now</Button>
                   </Link>
-                  <Link href="/about" to={"/"}>
-                    <Button size="lg">About Us</Button>
+                  <Link to="/about">
+                    <Button size="lg" variant="secondary">
+                      About Us
+                    </Button>
                   </Link>
                 </div>
               </div>
