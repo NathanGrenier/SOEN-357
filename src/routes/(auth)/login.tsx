@@ -17,7 +17,7 @@ export default function Login() {
         <LoginForm />
         <div className="mt-6 text-center">
           <Link to="/">
-            <Button variant="outline" className="w-full hover:cursor-pointer">
+            <Button variant="outline" className="w-full">
               Continue as Guest
             </Button>
           </Link>
@@ -34,7 +34,7 @@ function BackButtonTopLeft() {
         <Button
           variant="ghost"
           size="lg"
-          className="text-muted-foreground hover:text-foreground gap-2 p-4 hover:cursor-pointer"
+          className="text-muted-foreground hover:text-foreground gap-2 p-4"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Home
