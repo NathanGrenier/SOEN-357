@@ -142,10 +142,7 @@ function Index() {
               ))}
             </div>
             <div className="mt-8 flex justify-center">
-              <Link
-                to="/footwear"
-                search={{ page: 1, query: "", category: "All Categories" }}
-              >
+              <Link to="/footwear">
                 <Button variant="default" className="gap-1">
                   View All Products
                   <ChevronRight className="h-4 w-4" />
