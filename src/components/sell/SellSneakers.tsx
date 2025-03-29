@@ -186,7 +186,7 @@ export function SellSneakers() {
 
             {/* Pricing Information */}
             <div className="space-y-4">
-            <h6 className="text-medium italic"> </h6>
+            <h6 className="text-medium italic h-[20px] invisible">*Required fields</h6>
               <h3 className="text-lg font-semibold">Pricing Information</h3>
               
               <div className="space-y-2">
