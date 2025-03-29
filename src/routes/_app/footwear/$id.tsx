@@ -378,7 +378,6 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                       variant="default"
                       onClick={handleBuyFromUs}
                       disabled={!selectedSize}
-                      className="hover:cursor-pointer"
                     >
                       Buy Now
                     </Button>
@@ -386,7 +385,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                       variant={isAddedToCart ? "secondary" : "default"}
                       onClick={handleAddToCart}
                       disabled={isAddedToCart || !selectedSize}
-                      className={`flex items-center gap-2 hover:cursor-pointer ${isAddedToCart ? "bg-green-500 text-white" : ""}`}
+                      className={`flex items-center gap-2 ${isAddedToCart ? "bg-green-500 text-white" : ""}`}
                     >
                       {isAddedToCart ? (
                         <>
@@ -405,11 +404,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
           </CardContent>
           <CardFooter className="pt-4">
             <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={handleWishlist}
-                className="hover:cursor-pointer"
-              >
+              <Button variant="outline" onClick={handleWishlist}>
                 <Heart
                   className={`mr-2 h-4 w-4 ${
                     isWishlisted ? "fill-foreground" : ""
@@ -420,7 +415,6 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
               <Button
                 variant="outline"
                 onClick={() => setIsShareModalOpen(true)}
-                className="hover:cursor-pointer"
               >
                 <Share2 className="mr-2 h-4 w-4" /> Share
               </Button>
