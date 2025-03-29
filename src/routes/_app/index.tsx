@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { ChevronRight } from "lucide-react";
 import { Footwear } from "@/lib/types/footwear";
 import { Card } from "@/components/ui/card";
+import { Category } from "@/lib/types";
 
 export const Route = createFileRoute("/_app/")({
   component: Index,
@@ -62,10 +63,7 @@ function Index() {
                   </p>
                 </div>
                 <div className="mx-auto space-x-4 min-[400px]:flex-row lg:flex lg:w-full">
-                  <Link
-                    href="/footwear?page=1&query=&category=All Categories"
-                    to={"/"}
-                  >
+                  <Link to="/footwear">
                     <Button size="lg">Shop Now</Button>
                   </Link>
                   <Link to="/about">
@@ -140,10 +138,7 @@ function Index() {
               ))}
             </div>
             <div className="mt-8 flex justify-center">
-              <Link
-                href="/footwear?page=1&query=&category=All Categories"
-                to={"/"}
-              >
+              <Link to="/footwear">
                 <Button variant="default" className="gap-1">
                   View All Products
                   <ChevronRight className="h-4 w-4" />
@@ -170,22 +165,23 @@ function Index() {
             </div>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                { name: "Running", image: "running" },
-                { name: "Basketball", image: "basketball" },
-                { name: "Lifestyle", image: "lifestyle" },
+                { name: "Running" as Category, image: "running" },
+                { name: "Basketball" as Category, image: "basketball" },
+                { name: "Lifestyle" as Category, image: "lifestyle" },
               ].map((category) => {
                 // Filter footwearData to find the first item matching the category name
                 const categoryItem = footwearData.find(
-                  (item) =>
-                    item.category.toLowerCase() === category.name.toLowerCase()
+                  (item) => item.category === category.name
                 );
 
                 return (
                   <Link
-                    href={`/footwear?page=1&query=&category=${category.name}`}
                     key={category.name}
                     className="group relative overflow-hidden rounded-lg"
-                    to={"/"}
+                    to="/footwear"
+                    search={{
+                      category: category.name,
+                    }}
                   >
                     <div className="aspect-[4/3] overflow-hidden">
                       <img
