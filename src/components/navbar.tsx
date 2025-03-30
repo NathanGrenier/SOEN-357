@@ -21,7 +21,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Link, useRouter, useLocation } from "@tanstack/react-router";
-import { MenuIcon, BookOpenText, SparkleIcon, HouseIcon, PlusCircleIcon } from "lucide-react";
+import {
+  MenuIcon,
+  BookOpenText,
+  SparkleIcon,
+  HouseIcon,
+  PlusCircleIcon,
+} from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SiteLogo } from "@/components/site-logo";

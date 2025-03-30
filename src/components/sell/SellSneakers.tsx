@@ -42,14 +42,30 @@ type FormData = {
   tempQuantity: number;
 };
 
-const CATEGORIES = ["Basketball", "Running", "Lifestyle", "Skateboarding", "Training"];
+const CATEGORIES = [
+  "Basketball",
+  "Running",
+  "Lifestyle",
+  "Skateboarding",
+  "Training",
+];
 const FIT_OPTIONS = ["True to size", "Runs small", "Runs large"];
-const WIDTH_OPTIONS = ["Narrow (B)", "Standard (D)", "Wide (2E)", "Extra Wide (4E)", "Super Wide (8E)"];
+const WIDTH_OPTIONS = [
+  "Narrow (B)",
+  "Standard (D)",
+  "Wide (2E)",
+  "Extra Wide (4E)",
+  "Super Wide (8E)",
+];
 const MARKET_TRENDS = ["rise", "fall", "stable"];
-const SUSTAINABILITY_OPTIONS = ["Standard", "Eco-Friendly Production", "Vegan", "Recycled Materials"];
+const SUSTAINABILITY_OPTIONS = [
+  "Standard",
+  "Eco-Friendly Production",
+  "Vegan",
+  "Recycled Materials",
+];
 
 export function SellSneakers() {
-
   const {
     register,
     handleSubmit,
@@ -67,7 +83,6 @@ export function SellSneakers() {
     reset();
   };
 
-
   const handleAddRetailer = () => {
     const retailers = watch("retailers") || [];
     setValue("retailers", [...retailers, { name: "", price: 0, url: "" }]);
@@ -75,7 +90,10 @@ export function SellSneakers() {
 
   const handleRemoveRetailer = (index: number) => {
     const retailers = watch("retailers") || [];
-    setValue("retailers", retailers.filter((_, i) => i !== index));
+    setValue(
+      "retailers",
+      retailers.filter((_, i) => i !== index)
+    );
   };
 
   const handleAddImageUrl = () => {
@@ -85,31 +103,39 @@ export function SellSneakers() {
 
   const handleRemoveImageUrl = (index: number) => {
     const imageUrls = watch("imageUrls") || [];
-    setValue("imageUrls", imageUrls.filter((_, i) => i !== index));
+    setValue(
+      "imageUrls",
+      imageUrls.filter((_, i) => i !== index)
+    );
   };
 
   return (
-    <Card className="max-w-4xl mx-auto">
+    <Card className="mx-auto max-w-4xl">
       <CardContent>
-      <form 
-      onSubmit={(e) => {e.preventDefault();
-      handleSubmit(onSubmit)(e).catch(console.error);}}
-      className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(onSubmit)(e).catch(console.error);
+          }}
+          className="space-y-6"
+        >
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
-            <h6 className="text-medium italic">*Required fields</h6>
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold">Basic Information</h3>
-              <Info className="w-4 h-4 text-gray-500" />
-            </div>
-              
+              <h6 className="text-medium italic">*Required fields</h6>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold">Basic Information</h3>
+                <Info className="h-4 w-4 text-gray-500" />
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="brand">Brand*</Label>
                 <Input
                   id="brand"
                   {...register("brand", { required: "Brand is required" })}
                 />
-                {errors.brand && <p className="text-sm text-red-500">{errors.brand.message}</p>}
+                {errors.brand && (
+                  <p className="text-sm text-red-500">{errors.brand.message}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -118,7 +144,9 @@ export function SellSneakers() {
                   id="model"
                   {...register("model", { required: "Model is required" })}
                 />
-                {errors.model && <p className="text-sm text-red-500">{errors.model.message}</p>}
+                {errors.model && (
+                  <p className="text-sm text-red-500">{errors.model.message}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -148,16 +176,23 @@ export function SellSneakers() {
                   {...register("colorway", {
                     setValueAs: (value: string) => {
                       if (!value) return [];
-                      return value.split(",").map(c => c.trim()).filter(Boolean);
+                      return value
+                        .split(",")
+                        .map((c) => c.trim())
+                        .filter(Boolean);
                     },
                     validate: (value) => {
                       const colors = Array.isArray(value) ? value : [];
-                      return colors.length > 0 || "At least one color is required";
-                    }
+                      return (
+                        colors.length > 0 || "At least one color is required"
+                      );
+                    },
                   })}
                 />
                 {errors.colorway && (
-                  <p className="text-sm text-red-500">{errors.colorway.message}</p>
+                  <p className="text-sm text-red-500">
+                    {errors.colorway.message}
+                  </p>
                 )}
               </div>
 
@@ -170,30 +205,45 @@ export function SellSneakers() {
                     required: "Release year is required",
                     valueAsNumber: true,
                     min: { value: 1900, message: "Invalid year" },
-                    max: { value: new Date().getFullYear(), message: "Future year not allowed" }
+                    max: {
+                      value: new Date().getFullYear(),
+                      message: "Future year not allowed",
+                    },
                   })}
                 />
-                {errors.releaseYear && <p className="text-sm text-red-500">{errors.releaseYear.message}</p>}
+                {errors.releaseYear && (
+                  <p className="text-sm text-red-500">
+                    {errors.releaseYear.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="material">Material*</Label>
                 <Input
                   id="material"
-                  {...register("material", { required: "Material is required" })}
+                  {...register("material", {
+                    required: "Material is required",
+                  })}
                 />
-                {errors.material && <p className="text-sm text-red-500">{errors.material.message}</p>}
+                {errors.material && (
+                  <p className="text-sm text-red-500">
+                    {errors.material.message}
+                  </p>
+                )}
               </div>
             </div>
 
             {/* Pricing Information */}
             <div className="space-y-4">
-            <h6 className="text-medium italic h-[20px] invisible">*Required fields</h6>
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold">Pricing Information</h3>
-              <DollarSign className="w-4 h-4 text-gray-500" />
-            </div>
-              
+              <h6 className="text-medium invisible h-[20px] italic">
+                *Required fields
+              </h6>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold">Pricing Information</h3>
+                <DollarSign className="h-4 w-4 text-gray-500" />
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="priceCAD">Retail Price (CAD)*</Label>
                 <Input
@@ -203,10 +253,14 @@ export function SellSneakers() {
                   {...register("priceCAD", {
                     required: "Price is required",
                     valueAsNumber: true,
-                    min: { value: 0, message: "Price must be positive" }
+                    min: { value: 0, message: "Price must be positive" },
                   })}
                 />
-                {errors.priceCAD && <p className="text-sm text-red-500">{errors.priceCAD.message}</p>}
+                {errors.priceCAD && (
+                  <p className="text-sm text-red-500">
+                    {errors.priceCAD.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -218,16 +272,22 @@ export function SellSneakers() {
                   {...register("resalePriceCAD", {
                     required: "Resale price is required",
                     valueAsNumber: true,
-                    min: { value: 0, message: "Price must be positive" }
+                    min: { value: 0, message: "Price must be positive" },
                   })}
                 />
-                {errors.resalePriceCAD && <p className="text-sm text-red-500">{errors.resalePriceCAD.message}</p>}
+                {errors.resalePriceCAD && (
+                  <p className="text-sm text-red-500">
+                    {errors.resalePriceCAD.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="marketTrend">Market Trend*</Label>
                 <Select
-                  onValueChange={(value) => setValue("marketTrend", value as "rise" | "fall" | "stable")}
+                  onValueChange={(value) =>
+                    setValue("marketTrend", value as "rise" | "fall" | "stable")
+                  }
                   defaultValue={watch("marketTrend")}
                 >
                   <SelectTrigger>
@@ -246,13 +306,13 @@ export function SellSneakers() {
           </div>
 
           {/* Fit and Sizing */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold">Fit & Sizing</h3>
-              <Ruler className="w-4 h-4 text-gray-500" />
-            </div>
-              
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold">Fit & Sizing</h3>
+                <Ruler className="h-4 w-4 text-gray-500" />
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="fit">Fit*</Label>
                 <Select
@@ -294,11 +354,11 @@ export function SellSneakers() {
 
             {/* Ratings */}
             <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold">Ratings</h3>
-              <Star className="w-4 h-4 text-gray-500" />
-            </div>
-              
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold">Ratings</h3>
+                <Star className="h-4 w-4 text-gray-500" />
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="comfortRatingOn5">Comfort Rating (1-5)*</Label>
                 <Input
@@ -311,14 +371,20 @@ export function SellSneakers() {
                     required: "Comfort rating is required",
                     valueAsNumber: true,
                     min: { value: 1, message: "Minimum rating is 1" },
-                    max: { value: 5, message: "Maximum rating is 5" }
+                    max: { value: 5, message: "Maximum rating is 5" },
                   })}
                 />
-                {errors.comfortRatingOn5 && <p className="text-sm text-red-500">{errors.comfortRatingOn5.message}</p>}
+                {errors.comfortRatingOn5 && (
+                  <p className="text-sm text-red-500">
+                    {errors.comfortRatingOn5.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="durabilityRatingOn5">Durability Rating (1-5)*</Label>
+                <Label htmlFor="durabilityRatingOn5">
+                  Durability Rating (1-5)*
+                </Label>
                 <Input
                   id="durabilityRatingOn5"
                   type="number"
@@ -329,22 +395,28 @@ export function SellSneakers() {
                     required: "Durability rating is required",
                     valueAsNumber: true,
                     min: { value: 1, message: "Minimum rating is 1" },
-                    max: { value: 5, message: "Maximum rating is 5" }
+                    max: { value: 5, message: "Maximum rating is 5" },
                   })}
                 />
-                {errors.durabilityRatingOn5 && <p className="text-sm text-red-500">{errors.durabilityRatingOn5.message}</p>}
+                {errors.durabilityRatingOn5 && (
+                  <p className="text-sm text-red-500">
+                    {errors.durabilityRatingOn5.message}
+                  </p>
+                )}
               </div>
             </div>
           </div>
 
           {/* Additional Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold">Additional Information</h3>
-              <Plus className="w-4 h-4 text-gray-500" />
-            </div>
-              
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold">
+                  Additional Information
+                </h3>
+                <Plus className="h-4 w-4 text-gray-500" />
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="sustainability">Sustainability</Label>
                 <Select
@@ -373,28 +445,27 @@ export function SellSneakers() {
                     onClick={() => {
                       const current = watch("bestFor") || [];
                       const option = "Casual Wear";
-                      setValue("bestFor", 
+                      setValue(
+                        "bestFor",
                         current.includes(option)
-                          ? current.filter(item => item !== option)
+                          ? current.filter((item) => item !== option)
                           : [...current, option]
                       );
                     }}
-                    className={`
-                      flex flex-col items-center justify-between
-                      w-24 h-24 p-2 rounded-lg border-2
-                      ${watch("bestFor")?.includes("Casual Wear") 
-                        ? "border-blue-500 bg-blue-50" 
-                        : "border-gray-200"}
-                    `}
+                    className={`flex h-24 w-24 flex-col items-center justify-between rounded-lg border-2 p-2 ${
+                      watch("bestFor")?.includes("Casual Wear")
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200"
+                    } `}
                   >
-                    <div className="w-16 h-16 flex items-center justify-center">
-                      <img 
-                        src="/uses-icons/casual.webp" 
-                        alt="Casual Wear" 
-                        className="max-w-full max-h-full object-contain"
+                    <div className="flex h-16 w-16 items-center justify-center">
+                      <img
+                        src="/uses-icons/casual.webp"
+                        alt="Casual Wear"
+                        className="max-h-full max-w-full object-contain"
                       />
                     </div>
-                    <span className="text-xs text-center">Casual</span>
+                    <span className="text-center text-xs">Casual</span>
                   </button>
 
                   {/* Running */}
@@ -403,28 +474,27 @@ export function SellSneakers() {
                     onClick={() => {
                       const current = watch("bestFor") || [];
                       const option = "Running";
-                      setValue("bestFor", 
+                      setValue(
+                        "bestFor",
                         current.includes(option)
-                          ? current.filter(item => item !== option)
+                          ? current.filter((item) => item !== option)
                           : [...current, option]
                       );
                     }}
-                    className={`
-                      flex flex-col items-center justify-between
-                      w-24 h-24 p-2 rounded-lg border-2
-                      ${watch("bestFor")?.includes("Running") 
-                        ? "border-blue-500 bg-blue-50" 
-                        : "border-gray-200"}
-                    `}
+                    className={`flex h-24 w-24 flex-col items-center justify-between rounded-lg border-2 p-2 ${
+                      watch("bestFor")?.includes("Running")
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200"
+                    } `}
                   >
-                    <div className="w-16 h-16 flex items-center justify-center">
-                      <img 
-                        src="/uses-icons/running.webp" 
-                        alt="Running" 
-                        className="max-w-full max-h-full object-contain"
+                    <div className="flex h-16 w-16 items-center justify-center">
+                      <img
+                        src="/uses-icons/running.webp"
+                        alt="Running"
+                        className="max-h-full max-w-full object-contain"
                       />
                     </div>
-                    <span className="text-xs text-center">Running</span>
+                    <span className="text-center text-xs">Running</span>
                   </button>
 
                   {/* Basketball */}
@@ -433,28 +503,27 @@ export function SellSneakers() {
                     onClick={() => {
                       const current = watch("bestFor") || [];
                       const option = "Basketball";
-                      setValue("bestFor", 
+                      setValue(
+                        "bestFor",
                         current.includes(option)
-                          ? current.filter(item => item !== option)
+                          ? current.filter((item) => item !== option)
                           : [...current, option]
                       );
                     }}
-                    className={`
-                      flex flex-col items-center justify-between
-                      w-24 h-24 p-2 rounded-lg border-2
-                      ${watch("bestFor")?.includes("Basketball") 
-                        ? "border-blue-500 bg-blue-50" 
-                        : "border-gray-200"}
-                    `}
+                    className={`flex h-24 w-24 flex-col items-center justify-between rounded-lg border-2 p-2 ${
+                      watch("bestFor")?.includes("Basketball")
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200"
+                    } `}
                   >
-                    <div className="w-16 h-16 flex items-center justify-center">
-                      <img 
-                        src="/uses-icons/basketball.webp" 
-                        alt="Basketball" 
-                        className="max-w-full max-h-full object-contain"
+                    <div className="flex h-16 w-16 items-center justify-center">
+                      <img
+                        src="/uses-icons/basketball.webp"
+                        alt="Basketball"
+                        className="max-h-full max-w-full object-contain"
                       />
                     </div>
-                    <span className="text-xs text-center">Basketball</span>
+                    <span className="text-center text-xs">Basketball</span>
                   </button>
 
                   {/* Training */}
@@ -463,28 +532,27 @@ export function SellSneakers() {
                     onClick={() => {
                       const current = watch("bestFor") || [];
                       const option = "Training";
-                      setValue("bestFor", 
+                      setValue(
+                        "bestFor",
                         current.includes(option)
-                          ? current.filter(item => item !== option)
+                          ? current.filter((item) => item !== option)
                           : [...current, option]
                       );
                     }}
-                    className={`
-                      flex flex-col items-center justify-between
-                      w-24 h-24 p-2 rounded-lg border-2
-                      ${watch("bestFor")?.includes("Training") 
-                        ? "border-blue-500 bg-blue-50" 
-                        : "border-gray-200"}
-                    `}
+                    className={`flex h-24 w-24 flex-col items-center justify-between rounded-lg border-2 p-2 ${
+                      watch("bestFor")?.includes("Training")
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200"
+                    } `}
                   >
-                    <div className="w-16 h-16 flex items-center justify-center">
-                      <img 
-                        src="/uses-icons/training.webp" 
-                        alt="Training" 
-                        className="max-w-full max-h-full object-contain"
+                    <div className="flex h-16 w-16 items-center justify-center">
+                      <img
+                        src="/uses-icons/training.webp"
+                        alt="Training"
+                        className="max-h-full max-w-full object-contain"
                       />
                     </div>
-                    <span className="text-xs text-center">Training</span>
+                    <span className="text-center text-xs">Training</span>
                   </button>
 
                   {/* Cross-Trainers */}
@@ -493,39 +561,41 @@ export function SellSneakers() {
                     onClick={() => {
                       const current = watch("bestFor") || [];
                       const option = "Cross-Trainers";
-                      setValue("bestFor", 
+                      setValue(
+                        "bestFor",
                         current.includes(option)
-                          ? current.filter(item => item !== option)
+                          ? current.filter((item) => item !== option)
                           : [...current, option]
                       );
                     }}
-                    className={`
-                      flex flex-col items-center justify-between
-                      w-24 h-24 p-2 rounded-lg border-2
-                      ${watch("bestFor")?.includes("Cross-Trainers") 
-                        ? "border-blue-500 bg-blue-50" 
-                        : "border-gray-200"}
-                    `}
+                    className={`flex h-24 w-24 flex-col items-center justify-between rounded-lg border-2 p-2 ${
+                      watch("bestFor")?.includes("Cross-Trainers")
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200"
+                    } `}
                   >
-                    <div className="w-16 h-16 flex items-center justify-center">
-                      <img 
-                        src="/uses-icons/elliptical.webp" 
-                        alt="Cross-Trainers" 
-                        className="max-w-full max-h-full object-contain"
+                    <div className="flex h-16 w-16 items-center justify-center">
+                      <img
+                        src="/uses-icons/elliptical.webp"
+                        alt="Cross-Trainers"
+                        className="max-h-full max-w-full object-contain"
                       />
                     </div>
-                    <span className="text-xs text-center">Cross-Train</span>
+                    <span className="text-center text-xs">Cross-Train</span>
                   </button>
                 </div>
-                {errors.bestFor && <p className="text-sm text-red-500">{errors.bestFor.message}</p>}
+                {errors.bestFor && (
+                  <p className="text-sm text-red-500">
+                    {errors.bestFor.message}
+                  </p>
+                )}
               </div>
-
             </div>
 
             {/* Images */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Images</h3>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="imageUrl">Main Image URL*</Label>
                 <Input
@@ -535,11 +605,16 @@ export function SellSneakers() {
                     required: "Main image URL is required",
                     pattern: {
                       value: /^https?:\/\/.+/,
-                      message: "Must be a valid URL starting with http:// or https://"
-                    }
+                      message:
+                        "Must be a valid URL starting with http:// or https://",
+                    },
                   })}
                 />
-                {errors.imageUrl && <p className="text-sm text-red-500">{errors.imageUrl.message}</p>}
+                {errors.imageUrl && (
+                  <p className="text-sm text-red-500">
+                    {errors.imageUrl.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -581,11 +656,16 @@ export function SellSneakers() {
           {/* Retailers */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Retailers</h3>
-            
+
             {(watch("retailers") || []).map((retailer, index) => (
-              <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 border rounded-lg">
+              <div
+                key={index}
+                className="grid grid-cols-1 gap-4 rounded-lg border p-4 md:grid-cols-3"
+              >
                 <div className="space-y-2">
-                  <Label htmlFor={`retailers.${index}.name`}>Retailer Name*</Label>
+                  <Label htmlFor={`retailers.${index}.name`}>
+                    Retailer Name*
+                  </Label>
                   <Input
                     id={`retailers.${index}.name`}
                     value={retailer.name}
@@ -597,7 +677,9 @@ export function SellSneakers() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor={`retailers.${index}.price`}>Price (CAD)*</Label>
+                  <Label htmlFor={`retailers.${index}.price`}>
+                    Price (CAD)*
+                  </Label>
                   <Input
                     id={`retailers.${index}.price`}
                     type="number"
@@ -634,18 +716,14 @@ export function SellSneakers() {
                 </Button>
               </div>
             ))}
-            
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleAddRetailer}
-            >
+
+            <Button type="button" variant="outline" onClick={handleAddRetailer}>
               Add Retailer
             </Button>
           </div>
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Inventory</h3>
-            
+
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="tempSize">Size (US)*</Label>
@@ -657,10 +735,14 @@ export function SellSneakers() {
                   max="20"
                   {...register("tempSize", {
                     required: "Size is required",
-                    valueAsNumber: true
+                    valueAsNumber: true,
                   })}
                 />
-                {errors.tempSize && <p className="text-sm text-red-500">{errors.tempSize.message}</p>}
+                {errors.tempSize && (
+                  <p className="text-sm text-red-500">
+                    {errors.tempSize.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -671,19 +753,21 @@ export function SellSneakers() {
                   min="0"
                   {...register("tempQuantity", {
                     required: "Quantity is required",
-                    valueAsNumber: true
+                    valueAsNumber: true,
                   })}
                 />
-                {errors.tempQuantity && <p className="text-sm text-red-500">{errors.tempQuantity.message}</p>}
+                {errors.tempQuantity && (
+                  <p className="text-sm text-red-500">
+                    {errors.tempQuantity.message}
+                  </p>
+                )}
               </div>
             </div>
           </div>
           <div className="flex justify-end">
-          <Button 
-            type="submit" 
-            className="w-full md:w-auto">
-            Submit Sneaker Listing
-          </Button>
+            <Button type="submit" className="w-full md:w-auto">
+              Submit Sneaker Listing
+            </Button>
           </div>
         </form>
       </CardContent>
