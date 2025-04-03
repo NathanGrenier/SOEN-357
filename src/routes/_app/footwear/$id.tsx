@@ -33,9 +33,7 @@ import {
   Minus,
   Heart,
   Share2,
-  LucideShoppingCart,
   Copy,
-  CheckCircleIcon,
   Home,
 } from "lucide-react";
 import { Footwear, RetailerDetails } from "@/lib/types";
@@ -60,6 +58,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import FootwearIcon from "@/components/icons/FootwearIcon";
 import StarRating from "@/components/star-rating";
+import { CartConfirmationDialog } from "@/components/cart-confirmation-dialog";
 
 export const Route = createFileRoute("/_app/footwear/$id")({
   component: RouteComponent,
@@ -179,11 +178,9 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
   };
 
   // Add to cart state
-  const [isAddedToCart, setIsAddedToCart] = React.useState(false);
   const handleAddToCart = () => {
     if (!selectedSize) return;
     const size = Number(selectedSize);
-    setIsAddedToCart(true);
     toast.success(`Added to cart! You selected size ${size}.`);
   };
 
@@ -358,7 +355,6 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                 </p>
                 <div className="flex flex-col items-center gap-4 sm:flex-row">
                   <Select
-                    disabled={isAddedToCart}
                     value={selectedSize}
                     onValueChange={(val: string) => setSelectedSize(val)}
                   >
@@ -381,22 +377,12 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                     >
                       Buy Now
                     </Button>
-                    <Button
-                      variant={isAddedToCart ? "secondary" : "default"}
-                      onClick={handleAddToCart}
-                      disabled={isAddedToCart || !selectedSize}
-                      className={`flex items-center gap-2 ${isAddedToCart ? "bg-green-500 text-white" : ""}`}
-                    >
-                      {isAddedToCart ? (
-                        <>
-                          <CheckCircleIcon className="h-4 w-4" /> Added to Cart
-                        </>
-                      ) : (
-                        <>
-                          <LucideShoppingCart className="h-4 w-4" /> Add to Cart
-                        </>
-                      )}
-                    </Button>
+                    <CartConfirmationDialog
+                      footwear={footwear}
+                      selectedSize={selectedSize ? Number(selectedSize) : null}
+                      handleAddToCart={handleAddToCart}
+                      onClose={() => {}}
+                    />
                   </div>
                 </div>
               </div>
