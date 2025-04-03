@@ -462,7 +462,7 @@ export function SellSneakers() {
                       <img
                         src="/uses-icons/casual.webp"
                         alt="Casual Wear"
-                        className="max-h-full max-w-full object-contain"
+                        className="max-h-full max-w-full object-contain dark:invert"
                       />
                     </div>
                     <span className="text-center text-xs">Casual</span>
@@ -491,7 +491,7 @@ export function SellSneakers() {
                       <img
                         src="/uses-icons/running.webp"
                         alt="Running"
-                        className="max-h-full max-w-full object-contain"
+                        className="max-h-full max-w-full object-contain dark:invert"
                       />
                     </div>
                     <span className="text-center text-xs">Running</span>
@@ -520,7 +520,7 @@ export function SellSneakers() {
                       <img
                         src="/uses-icons/basketball.webp"
                         alt="Basketball"
-                        className="max-h-full max-w-full object-contain"
+                        className="max-h-full max-w-full object-contain dark:invert"
                       />
                     </div>
                     <span className="text-center text-xs">Basketball</span>
@@ -549,7 +549,7 @@ export function SellSneakers() {
                       <img
                         src="/uses-icons/training.webp"
                         alt="Training"
-                        className="max-h-full max-w-full object-contain"
+                        className="max-h-full max-w-full object-contain dark:invert"
                       />
                     </div>
                     <span className="text-center text-xs">Training</span>
@@ -578,7 +578,7 @@ export function SellSneakers() {
                       <img
                         src="/uses-icons/elliptical.webp"
                         alt="Cross-Trainers"
-                        className="max-h-full max-w-full object-contain"
+                        className="max-h-full max-w-full object-contain dark:invert"
                       />
                     </div>
                     <span className="text-center text-xs">Cross-Train</span>
