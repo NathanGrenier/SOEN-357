@@ -1,3 +1,4 @@
 # Ignore artifacts:
 **/routeTree.gen.ts
 .github/**
+src/components/ui/

@@ -146,7 +146,12 @@ export function SocialLinks({
           className="text-muted-foreground hover:text-foreground"
           to={link.to}
         >
-          <img height="32" width="32" src={link.icon} alt={link.name} />
+          <div
+            style={{ height: "32px", width: "32px" }}
+            className="rounded-full bg-white p-1"
+          >
+            <img src={link.icon} alt={link.name} />
+          </div>
           <span className="sr-only">{link.name}</span>
         </Link>
       ))}

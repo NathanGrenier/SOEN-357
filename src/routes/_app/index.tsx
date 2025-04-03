@@ -233,7 +233,7 @@ function Index() {
                     type="email"
                     name="email"
                     placeholder="Enter your email"
-                    className="max-w-lg flex-1 border-2 bg-white"
+                    className="max-w-lg flex-1 border-2 bg-white text-black dark:bg-white"
                   />
                   <Button type="submit">Subscribe</Button>
                 </form>
