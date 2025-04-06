@@ -1,6 +1,5 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import footwearData from "@/lib/assets/data/footwear.json";
 import {
   Card,
   CardContent,
@@ -59,20 +58,21 @@ import {
 import FootwearIcon from "@/components/icons/FootwearIcon";
 import StarRating from "@/components/star-rating";
 import { CartConfirmationDialog } from "@/components/cart-confirmation-dialog";
+import footwearDataJson from "@/lib/assets/data/footwear.json";
 
 export const Route = createFileRoute("/_app/footwear/$id")({
-  component: RouteComponent,
   loader: ({ params }) => {
-    return { id: params.id };
+    const footwearData = footwearDataJson as Footwear[];
+
+    return { id: params.id, footwearData };
   },
+  component: RouteComponent,
 });
 
 // Main route component
-export default function RouteComponent() {
-  const { id } = Route.useLoaderData();
-  const footwear = (footwearData as Footwear[]).find(
-    (shoe) => shoe.id === Number(id)
-  );
+function RouteComponent() {
+  const { id, footwearData } = Route.useLoaderData();
+  const footwear = footwearData.find((shoe) => shoe.id === Number(id));
   if (!footwear) {
     return <DefaultNotFoundRoute />;
   }
@@ -685,3 +685,4 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
     </div>
   );
 }
+export default RouteComponent;
