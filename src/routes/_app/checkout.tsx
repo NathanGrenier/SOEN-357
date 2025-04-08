@@ -23,7 +23,7 @@ import {
 import { calculateOrderSummary } from "@/lib/utils/cartUtils";
 import { TAX_RATE } from "@/lib/constants";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
-import { redirectIfNotAuthenticated } from "@/lib/utils/utils";
+import { redirectIfNotAuthenticated } from "@/lib/utils";
 
 export const Route = createFileRoute("/_app/checkout")({
   beforeLoad: () => redirectIfNotAuthenticated(),

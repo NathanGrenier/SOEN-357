@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { LoginForm } from "@/components/auth/login-form";
 import { Button } from "@/components/ui/button";
-import { redirectIfAuthenticated } from "@/lib/utils/utils";
+import { redirectIfAuthenticated } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/(auth)/login")({

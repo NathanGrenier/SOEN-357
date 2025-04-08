@@ -1,5 +1,5 @@
 import siteLogo from "/logo.png";
-import { cn } from "@/lib/utils/utils";
+import { cn } from "@/lib/utils";
 
 interface SiteLogoProps {
   className?: string;
