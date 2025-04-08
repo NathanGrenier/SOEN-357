@@ -60,6 +60,8 @@ import StarRating from "@/components/star-rating";
 import { CartConfirmationDialog } from "@/components/cart-confirmation-dialog";
 import { addToCart, clearCart } from "@/lib/utils/cartStorage";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
+import { calculateOrderSummary } from "@/lib/utils/cartUtils";
+import { TAX_RATE } from "@/lib/constants";
 
 export const Route = createFileRoute("/_app/footwear/$id")({
   loader: ({ params }) => {
@@ -215,6 +217,13 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
       : [mainImage];
   const [selectedImage, setSelectedImage] = React.useState(mainImage);
 
+  const cartLikeItem = {
+    ...footwear,
+    quantity: 1,
+  };
+
+  const { total } = calculateOrderSummary([cartLikeItem], TAX_RATE);
+
   return (
     <div className="mx-auto flex max-w-6xl flex-col space-y-8 p-6">
       <div className="container mx-auto mb-6 flex justify-center">
@@ -338,7 +347,7 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
           <CardContent className="flex flex-1 flex-col justify-center gap-4 py-4">
             <div className="space-y-1">
               <p className="text-xl font-semibold">
-                Current Price: ${footwear.priceCAD}.99 CAD
+                All-In Price: ${total.toFixed(2)} CAD
               </p>
               <Badge
                 variant="secondary"
