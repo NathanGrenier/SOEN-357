@@ -151,37 +151,37 @@ function RouteComponent() {
                       </p>
                       <div className="text-primary mt-2 flex items-center justify-between">
                         <span className="text-sm">Size: {item.fit} US</span>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 md:gap-2">
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-8 w-8"
+                            className="h-6 w-6 md:h-8 md:w-8"
                             onClick={() =>
                               handleQuantityChange(item.id, item.quantity - 1)
                             }
                           >
-                            <Minus className="h-3 w-3" />
+                            <Minus className="h-2.5 w-2.5 md:h-3 md:w-3" />
                           </Button>
-                          <span className="w-5 text-center">
+                          <span className="w-4 text-center md:w-5">
                             {item.quantity}
                           </span>
                           <Button
                             variant="outline"
                             size="icon"
-                            className="h-8 w-8"
+                            className="h-6 w-6 md:h-8 md:w-8"
                             onClick={() =>
                               handleQuantityChange(item.id, item.quantity + 1)
                             }
                           >
-                            <Plus className="h-3 w-3" />
+                            <Plus className="h-2.5 w-2.5 md:h-3 md:w-3" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="ml-2 h-8 w-8 text-red-500"
+                            className="ml-1 h-6 w-6 text-red-500 md:ml-2 md:h-8 md:w-8"
                             onClick={() => handleRemoveItem(item.id)}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
                           </Button>
                         </div>
                       </div>
