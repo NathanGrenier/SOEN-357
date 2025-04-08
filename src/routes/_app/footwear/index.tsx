@@ -78,6 +78,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "@/hooks/use-mediaquery";
+import { calculateOrderSummary } from "@/lib/utils/cartUtils";
+import { TAX_RATE } from "@/lib/constants";
 
 export const ALL_CATEGORIES = "All Categories";
 
@@ -126,11 +128,14 @@ function useFootwearFilters(initialData: Footwear[]) {
   const { page = 1, query = "", category = ALL_CATEGORIES } = Route.useSearch();
   const navigate = Route.useNavigate();
 
-  // Calculate min and max prices
+  // Calculate min and max prices based on total price
   const minMaxPrices = useMemo(() => {
-    const prices = initialData.map((shoe) => shoe.priceCAD);
-    const minPrice = Math.floor(Math.min(...prices) / 100) * 100;
-    const maxPrice = Math.ceil(Math.max(...prices) / 100) * 100;
+    const totals = initialData.map(
+      (shoe) =>
+        calculateOrderSummary([{ ...shoe, quantity: 1 }], TAX_RATE).total
+    );
+    const minPrice = Math.floor(Math.min(...totals) / 100) * 100;
+    const maxPrice = Math.ceil(Math.max(...totals) / 100) * 100;
     return [minPrice, maxPrice];
   }, [initialData]);
 
@@ -176,8 +181,12 @@ function useFootwearFilters(initialData: Footwear[]) {
         selectedStockStatus.length === 0 ||
         selectedStockStatus.includes(shoe.stockStatus);
 
+      const totalPrice = calculateOrderSummary(
+        [{ ...shoe, quantity: 1 }],
+        TAX_RATE
+      ).total;
       const matchesPrice =
-        shoe.priceCAD >= priceRange[0] && shoe.priceCAD <= priceRange[1];
+        totalPrice >= priceRange[0] && totalPrice <= priceRange[1];
 
       return (
         matchesSearch &&
@@ -615,6 +624,10 @@ interface ProductCardProps {
 const ProductCard = React.memo(function ProductCard({
   shoe,
 }: ProductCardProps) {
+  const total = calculateOrderSummary(
+    [{ ...shoe, quantity: 1 }],
+    TAX_RATE
+  ).total;
   return (
     <HoverCard openDelay={200} closeDelay={100}>
       <HoverCardTrigger asChild>
@@ -627,7 +640,6 @@ const ProductCard = React.memo(function ProductCard({
                 className="h-full w-full object-contain"
                 onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
               />
-
               {/* Stock status badge */}
               <StockStatusBadge
                 status={shoe.stockStatus}
@@ -651,11 +663,10 @@ const ProductCard = React.memo(function ProductCard({
                   {shoe.category}
                 </CategoryBadge>
               </div>
-
               {/* Price and comfort rating */}
               <div className="mt-auto flex items-center justify-between pt-2">
                 <div className="text-primary font-medium">
-                  ${shoe.priceCAD} CAD
+                  ${total.toFixed(2)} CAD
                 </div>
                 <div className="flex items-center gap-1">
                   <StarRating rating={shoe.comfortRatingOn5} />
@@ -725,6 +736,10 @@ const ProductList = React.memo(function ProductList({
 const ProductListItem = React.memo(function ProductListItem({
   shoe,
 }: ProductCardProps) {
+  const total = calculateOrderSummary(
+    [{ ...shoe, quantity: 1 }],
+    TAX_RATE
+  ).total;
   return (
     <HoverCard openDelay={200} closeDelay={100}>
       <HoverCardTrigger asChild>
@@ -744,7 +759,6 @@ const ProductListItem = React.memo(function ProductListItem({
                   onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
                 />
               </div>
-
               {/* Right side - Content */}
               <div className="flex min-w-0 flex-1 flex-col justify-between p-3">
                 {/* Top row - Brand/Model and Category */}
@@ -778,11 +792,10 @@ const ProductListItem = React.memo(function ProductListItem({
                     </CategoryBadge>
                   </div>
                 </div>
-
                 {/* Bottom row - Price and Comfort Rating */}
                 <div className="flex items-center justify-between">
                   <div className="text-primary font-medium">
-                    ${shoe.priceCAD} CAD
+                    ${total.toFixed(2)} CAD
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <span className="text-muted-foreground hidden font-medium sm:inline-block">
@@ -829,7 +842,6 @@ const FootwearPagination = React.memo(function FootwearPagination({
             />
           </PaginationItem>
         )}
-
         {/* Mobile previous button */}
         {currentPage > 1 && (
           <PaginationItem className="cursor-pointer sm:hidden">
@@ -838,25 +850,21 @@ const FootwearPagination = React.memo(function FootwearPagination({
             </PaginationLink>
           </PaginationItem>
         )}
-
         {/* Page Numbers - Hidden on small screens */}
         <div className="hidden sm:flex sm:flex-row sm:items-center sm:gap-1">
           {renderPageNumbers()}
         </div>
-
         {/* Mobile simplified pagination */}
         <PaginationItem className="sm:hidden">
           <PaginationLink isActive>
             {currentPage} / {totalPages}
           </PaginationLink>
         </PaginationItem>
-
         {currentPage < totalPages && (
           <PaginationItem className="hidden cursor-pointer sm:inline-flex">
             <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
           </PaginationItem>
         )}
-
         {/* Mobile next button */}
         {currentPage < totalPages && (
           <PaginationItem className="cursor-pointer sm:hidden">
@@ -962,11 +970,9 @@ function FilterSheet({
     () => Array.from(new Set(footwearData.map((shoe) => shoe.brand))),
     [footwearData]
   );
-
   const allStockStatuses = [...stockStatusList];
   const allFitTypes = [...fitTypeList];
   const allSustainability = [...sustainabilityRatingList];
-
   const triggerRef = React.useRef<HTMLButtonElement>(null);
 
   // Generic function to handle checkbox changes
@@ -1001,7 +1007,6 @@ function FilterSheet({
           Reset Filters
         </Button>
       </div>
-
       <SheetContent
         className="flex w-full flex-col gap-6 overflow-y-auto p-6 sm:max-w-md"
         onCloseAutoFocus={(event) => {
@@ -1015,7 +1020,6 @@ function FilterSheet({
             Refine your search with multiple filter options
           </SheetDescription>
         </SheetHeader>
-
         <div className="grid gap-6">
           {/* Model Search */}
           <div className="space-y-2">
@@ -1028,7 +1032,6 @@ function FilterSheet({
               className="w-full"
             />
           </div>
-
           {/* Category Combobox */}
           <div className="space-y-2">
             <CategoriesComboBoxResponsive
@@ -1037,7 +1040,6 @@ function FilterSheet({
               setFilterCategory={handleCategoryChange}
             />
           </div>
-
           {/* Price Range Slider */}
           <div className="space-y-4">
             <div className="flex justify-between">
@@ -1055,7 +1057,6 @@ function FilterSheet({
               className="py-4"
             />
           </div>
-
           <Accordion type="multiple" className="w-full">
             {/* Brand Filter */}
             <FilterAccordionItem
@@ -1066,7 +1067,6 @@ function FilterSheet({
               setSelectedItems={setSelectedBrands}
               gridColumns={2}
             />
-
             {/* Sustainability Rating */}
             <FilterAccordionItem
               title="Sustainability"
@@ -1076,7 +1076,6 @@ function FilterSheet({
               setSelectedItems={setSelectedSustainability}
               gridColumns={1}
             />
-
             {/* Fit Type Filter */}
             <FilterAccordionItem
               title="Fit Type"
@@ -1086,7 +1085,6 @@ function FilterSheet({
               setSelectedItems={setSelectedFitTypes}
               gridColumns={2}
             />
-
             {/* Stock Status Filter */}
             <AccordionItem value="stockStatus">
               <AccordionTrigger className="py-3">
@@ -1128,7 +1126,6 @@ function FilterSheet({
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-
           {/* Filter Actions */}
           <div className="flex justify-between pt-2">
             <Button variant="destructive" onClick={resetFilters}>
@@ -1160,7 +1157,6 @@ function FilterAccordionItem<T extends string>({
   setSelectedItems,
   gridColumns = 2,
 }: FilterAccordionItemProps<T>) {
-  // Create a grid columns class based on the prop
   const gridColumnsClass =
     gridColumns === 1
       ? "grid-cols-1"
@@ -1169,7 +1165,6 @@ function FilterAccordionItem<T extends string>({
         : gridColumns === 3
           ? "grid-cols-3"
           : "grid-cols-4";
-
   return (
     <AccordionItem value={title.toLowerCase()}>
       <AccordionTrigger className="py-3">
@@ -1220,9 +1215,7 @@ export function CategoriesComboBoxResponsive({
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const triggerRef = React.useRef<HTMLButtonElement>(null);
-
   const typedCategories = allCategories;
-
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
     if (!newOpen && triggerRef.current) {
@@ -1231,7 +1224,6 @@ export function CategoriesComboBoxResponsive({
       }, 0);
     }
   };
-
   if (isDesktop) {
     return (
       <Popover open={open} onOpenChange={handleOpenChange}>
@@ -1256,7 +1248,6 @@ export function CategoriesComboBoxResponsive({
       </Popover>
     );
   }
-
   return (
     <Drawer open={open} onOpenChange={handleOpenChange}>
       <DrawerTrigger asChild>
