@@ -2,7 +2,6 @@
 
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,8 +13,10 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { AuthRequiredButton } from "@/components/auth-required-button";
 
 import { categoryTypeColors, type Footwear } from "@/lib/types/footwear";
+import { useAuth } from "@/hooks/use-auth";
 
 interface CartConfirmationProps {
   footwear: Footwear;
@@ -31,6 +32,7 @@ export function CartConfirmationDialog({
   onClose,
 }: CartConfirmationProps) {
   const [open, setOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   // Function to handle adding to cart and opening dialog
   const handleAddAndShowDialog = () => {
@@ -48,16 +50,19 @@ export function CartConfirmationDialog({
 
   return (
     <>
-      <Button
-        variant="default"
-        onClick={handleAddAndShowDialog}
+      <AuthRequiredButton
+        isAuthenticated={isAuthenticated}
         disabled={!selectedSize}
-        className={`flex items-center gap-2`}
+        asChild
       >
-        <>
+        <Button
+          variant="default"
+          onClick={handleAddAndShowDialog}
+          className={`flex items-center gap-2`}
+        >
           <ShoppingCart className="h-4 w-4" /> Add to Cart
-        </>
-      </Button>
+        </Button>
+      </AuthRequiredButton>
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-[500px]">

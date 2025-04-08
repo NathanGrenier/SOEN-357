@@ -59,6 +59,8 @@ import FootwearIcon from "@/components/icons/FootwearIcon";
 import StarRating from "@/components/star-rating";
 import { CartConfirmationDialog } from "@/components/cart-confirmation-dialog";
 import { addToCart, clearCart } from "@/lib/utils/cartStorage";
+import { useAuth } from "@/hooks/use-auth";
+import { AuthRequiredButton } from "@/components/auth-required-button";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
 import { calculateOrderSummary } from "@/lib/utils/cartUtils";
 import { TAX_RATE } from "@/lib/constants";
@@ -74,16 +76,25 @@ export const Route = createFileRoute("/_app/footwear/$id")({
 
 // Main route component
 function RouteComponent() {
+  const { isAuthenticated } = useAuth();
   const { id, footwearData } = Route.useLoaderData();
   const footwear = footwearData.find((shoe) => shoe.id === Number(id));
   if (!footwear) {
     return <DefaultNotFoundRoute />;
   }
-  return <FootwearDetails footwear={footwear} />;
+  return (
+    <FootwearDetails footwear={footwear} isAuthenticated={isAuthenticated} />
+  );
 }
 
 // Child component containing all hooks and rendering logic
-function FootwearDetails({ footwear }: { footwear: Footwear }) {
+function FootwearDetails({
+  footwear,
+  isAuthenticated,
+}: {
+  footwear: Footwear;
+  isAuthenticated: boolean;
+}) {
   const navigate = useNavigate();
   // Valid retailer keys extracted from the footwear object
   const validRetailers = (
@@ -388,13 +399,14 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
                     </SelectContent>
                   </Select>
                   <div className="flex gap-2">
-                    <Button
-                      variant="default"
-                      onClick={handleBuyFromUs}
+                    <AuthRequiredButton
+                      isAuthenticated={isAuthenticated}
                       disabled={!selectedSize}
+                      onClick={handleBuyFromUs}
+                      variant="default"
                     >
                       Buy Now
-                    </Button>
+                    </AuthRequiredButton>
                     <CartConfirmationDialog
                       footwear={footwear}
                       selectedSize={selectedSize ? Number(selectedSize) : null}

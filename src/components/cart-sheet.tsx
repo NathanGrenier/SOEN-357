@@ -19,7 +19,7 @@ import {
   removeFromCart,
 } from "@/lib/utils/cartStorage";
 import { calculateOrderSummary } from "@/lib/utils/cartUtils";
-import { cn } from "@/lib/utils/utils";
+import { cn } from "@/lib/utils";
 import { Footwear, ExtendedCartItem } from "@/lib/types";
 import { TAX_RATE } from "@/lib/constants";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
