@@ -24,7 +24,6 @@ import { Link, useRouter, useLocation } from "@tanstack/react-router";
 import {
   MenuIcon,
   BookOpenText,
-  SparkleIcon,
   HouseIcon,
   PlusCircleIcon,
 } from "lucide-react";
@@ -79,25 +78,25 @@ export function Navbar() {
 
   const navLinks: NavLink[] = [
     { title: "Home", href: "/", icon: <HouseIcon /> },
-    {
-      title: "Features",
-      href: "/features",
-      icon: <SparkleIcon />,
-      children: [
-        {
-          title: "Test",
-          href: "/test",
-          description: "Test description",
-        },
-        {
-          title: "Icon Test",
-          href: "/test",
-          description: "Testing the rendering of icons",
-          icon: <SparkleIcon />,
-        },
-        { title: "Another Test", href: "/test" },
-      ],
-    },
+    // {
+    //   title: "Features",
+    //   href: "/features",
+    //   icon: <SparkleIcon />,
+    //   children: [
+    //     {
+    //       title: "Test",
+    //       href: "/test",
+    //       description: "Test description",
+    //     },
+    //     {
+    //       title: "Icon Test",
+    //       href: "/test",
+    //       description: "Testing the rendering of icons",
+    //       icon: <SparkleIcon />,
+    //     },
+    //     { title: "Another Test", href: "/test" },
+    //   ],
+    // },
     { title: "Footwear", href: "/footwear", icon: <FootwearIcon /> },
     { title: "Sell", href: "/sell", icon: <PlusCircleIcon /> },
     { title: "About", href: "/about", icon: <BookOpenText /> },
