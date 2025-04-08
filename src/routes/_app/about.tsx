@@ -12,16 +12,16 @@ function About() {
           About This Research Project
         </h1>
         <p className="text-foreground text-lg leading-relaxed">
-          If you're visiting this website from our survey, then your feedback is
-          really appreciated! Our designs have been implemented with a simulated
-          backend to allow end users to explore the full shopping experience,
-          which lets us conduct our study on cart abandonment behaviour in a
-          realistic setting. From your feedback, our goals are to determine
-          whether customers would follow through with their purchase decisions,
-          and to assess whether the product offerings / personal suggestions
-          aligned with their individual preferences. For instance, whether
-          someone with wide feet could find appropriately fitting shoes, or
-          whether an athlete could easily identify footwear suited to their
+          If you&apos;re visiting this website from our survey, then your
+          feedback is really appreciated! Our designs have been implemented with
+          a simulated backend to allow end users to explore the full shopping
+          experience, which lets us conduct our study on cart abandonment
+          behaviour in a realistic setting. From your feedback, our goals are to
+          determine whether customers would follow through with their purchase
+          decisions, and to assess whether the product offerings / personal
+          suggestions aligned with their individual preferences. For instance,
+          whether someone with wide feet could find appropriately fitting shoes,
+          or whether an athlete could easily identify footwear suited to their
           sport or performance needs.
         </p>
       </section>
