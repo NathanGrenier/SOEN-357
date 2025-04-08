@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "@tanstack/react-router";
-import { SocialLoginButtons } from "@/components/socail-login-button";
+import { SocialLoginButtons } from "@/components/social-login-button";
 
 import { useAuth } from "@/hooks/use-auth";
 import { FormEvent, useState } from "react";
