@@ -24,7 +24,7 @@ import { Footwear, ExtendedCartItem } from "@/lib/types";
 import { TAX_RATE } from "@/lib/constants";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
 
-export function CartSheet() {
+export function CartSheet({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useState<ExtendedCartItem[]>([]);
   const [isMobile, setIsMobile] = useState(false);
@@ -167,6 +167,10 @@ export function CartSheet() {
   );
 
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

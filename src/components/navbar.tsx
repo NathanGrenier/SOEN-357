@@ -194,7 +194,7 @@ export function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
-            <CartSheet />
+            <CartSheet isAuthenticated={isAuthenticated} />
             <ModeToggle />
             {isAuthenticated ? (
               <Button variant="destructive" onClick={logout}>
@@ -244,7 +244,7 @@ function MobileNavbar({
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex items-center justify-center gap-4 lg:hidden">
-        <CartSheet />
+        <CartSheet isAuthenticated={isAuthenticated} />
         <SheetTrigger asChild>
           <Button variant="outline" size="icon">
             <MenuIcon className="h-4 w-4" />
