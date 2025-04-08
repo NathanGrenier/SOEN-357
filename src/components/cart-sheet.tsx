@@ -86,15 +86,24 @@ export function CartSheet() {
     // Load on component mount
     loadCartItems();
 
-    // Set up storage event listener to detect cart changes from other components
+    // Handle both cross-tab updates and same-window updates
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "footwear-cart-items") {
         loadCartItems();
       }
     };
 
+    const handleCartUpdated = () => {
+      loadCartItems();
+    };
+
     window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    window.addEventListener("cart-updated", handleCartUpdated);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("cart-updated", handleCartUpdated);
+    };
   }, []);
 
   useEffect(() => {

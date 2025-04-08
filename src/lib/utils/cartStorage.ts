@@ -41,7 +41,7 @@ export function addToCart(
   }
 
   localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(currentCart));
-
+  notifyCartUpdated();
   return currentCart;
 }
 
@@ -53,7 +53,7 @@ export function removeFromCart(footwearId: number): CartItem[] {
   const updatedCart = currentCart.filter((item) => item.id !== footwearId);
 
   localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(updatedCart));
-
+  notifyCartUpdated();
   return updatedCart;
 }
 
@@ -79,6 +79,7 @@ export function updateCartItemQuantity(
     currentCart[existingItemIndex].quantity = quantity;
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(currentCart));
   }
+  notifyCartUpdated();
 
   return currentCart;
 }
@@ -88,6 +89,7 @@ export function updateCartItemQuantity(
  */
 export function clearCart(): void {
   localStorage.setItem(CART_STORAGE_KEY, JSON.stringify([]));
+  notifyCartUpdated();
 }
 
 /**
@@ -96,4 +98,8 @@ export function clearCart(): void {
 export function getCartItemCount(): number {
   const cart = getCartItems();
   return cart.reduce((total, item) => total + item.quantity, 0);
+}
+
+export function notifyCartUpdated(): void {
+  window.dispatchEvent(new Event("cart-updated"));
 }
