@@ -58,6 +58,7 @@ import {
 import FootwearIcon from "@/components/icons/FootwearIcon";
 import StarRating from "@/components/star-rating";
 import { CartConfirmationDialog } from "@/components/cart-confirmation-dialog";
+import { addToCart } from "@/lib/utils/cartStorage";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
 
 export const Route = createFileRoute("/_app/footwear/$id")({
@@ -181,7 +182,10 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
   const handleAddToCart = () => {
     if (!selectedSize) return;
     const size = Number(selectedSize);
-    toast.success(`Added to cart! You selected size ${size}.`);
+
+    addToCart(footwear.id);
+
+    toast.success(`Added ${footwear.model} in size ${size} to your cart!`);
   };
 
   // Wishlist state
