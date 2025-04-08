@@ -24,7 +24,6 @@ import { Link, useRouter, useLocation } from "@tanstack/react-router";
 import {
   MenuIcon,
   BookOpenText,
-  SparkleIcon,
   HouseIcon,
   PlusCircleIcon,
 } from "lucide-react";
@@ -34,6 +33,7 @@ import { SiteLogo } from "@/components/site-logo";
 import { cloneElement, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import FootwearIcon from "@/components/icons/FootwearIcon";
+import { CartSheet } from "@/components/cart-sheet";
 
 import { useAuth } from "@/hooks/use-auth";
 import { User } from "@/lib/types";
@@ -79,25 +79,25 @@ export function Navbar() {
 
   const navLinks: NavLink[] = [
     { title: "Home", href: "/", icon: <HouseIcon /> },
-    {
-      title: "Features",
-      href: "/features",
-      icon: <SparkleIcon />,
-      children: [
-        {
-          title: "Test",
-          href: "/test",
-          description: "Test description",
-        },
-        {
-          title: "Icon Test",
-          href: "/test",
-          description: "Testing the rendering of icons",
-          icon: <SparkleIcon />,
-        },
-        { title: "Another Test", href: "/test" },
-      ],
-    },
+    // {
+    //   title: "Features",
+    //   href: "/features",
+    //   icon: <SparkleIcon />,
+    //   children: [
+    //     {
+    //       title: "Test",
+    //       href: "/test",
+    //       description: "Test description",
+    //     },
+    //     {
+    //       title: "Icon Test",
+    //       href: "/test",
+    //       description: "Testing the rendering of icons",
+    //       icon: <SparkleIcon />,
+    //     },
+    //     { title: "Another Test", href: "/test" },
+    //   ],
+    // },
     { title: "Footwear", href: "/footwear", icon: <FootwearIcon /> },
     { title: "Sell", href: "/sell", icon: <PlusCircleIcon /> },
     { title: "About", href: "/about", icon: <BookOpenText /> },
@@ -194,6 +194,8 @@ export function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
+            <CartSheet isAuthenticated={isAuthenticated} />
+            <ModeToggle />
             {isAuthenticated ? (
               <Button variant="destructive" onClick={logout}>
                 Sign out
@@ -208,7 +210,6 @@ export function Navbar() {
                 Sign in
               </Button>
             )}
-            <ModeToggle />
 
             {isAuthenticated && <UserAvatar user={user} />}
           </div>
@@ -243,6 +244,7 @@ function MobileNavbar({
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex items-center justify-center gap-4 lg:hidden">
+        <CartSheet isAuthenticated={isAuthenticated} />
         <SheetTrigger asChild>
           <Button variant="outline" size="icon">
             <MenuIcon className="h-4 w-4" />

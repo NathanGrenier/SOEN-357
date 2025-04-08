@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   Card,
   CardContent,
@@ -58,6 +58,7 @@ import {
 import FootwearIcon from "@/components/icons/FootwearIcon";
 import StarRating from "@/components/star-rating";
 import { CartConfirmationDialog } from "@/components/cart-confirmation-dialog";
+import { addToCart, clearCart } from "@/lib/utils/cartStorage";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
 
 export const Route = createFileRoute("/_app/footwear/$id")({
@@ -81,6 +82,7 @@ function RouteComponent() {
 
 // Child component containing all hooks and rendering logic
 function FootwearDetails({ footwear }: { footwear: Footwear }) {
+  const navigate = useNavigate();
   // Valid retailer keys extracted from the footwear object
   const validRetailers = (
     Object.keys(footwear.retailers) as (keyof Footwear["retailers"])[]
@@ -171,17 +173,24 @@ function FootwearDetails({ footwear }: { footwear: Footwear }) {
   const [selectedSize, setSelectedSize] = React.useState<string>("");
   const handleBuyFromUs = () => {
     if (!selectedSize) return;
-    const size = Number(selectedSize);
-    alert(
-      `Cart/checkout handling will happen after this, passing details: Shoe ID ${footwear.id}, Size ${size}`
-    );
+
+    // Clear the cart first
+    clearCart();
+    // Add the footwear to the cart
+    addToCart(footwear.id);
+
+    // Redirect to checkout
+    void navigate({ to: "/checkout" });
   };
 
   // Add to cart state
   const handleAddToCart = () => {
     if (!selectedSize) return;
     const size = Number(selectedSize);
-    toast.success(`Added to cart! You selected size ${size}.`);
+
+    addToCart(footwear.id);
+
+    toast.success(`Added ${footwear.model} in size ${size} to your cart!`);
   };
 
   // Wishlist state

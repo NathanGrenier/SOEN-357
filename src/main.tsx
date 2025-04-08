@@ -35,7 +35,7 @@ if (!rootElement.innerHTML) {
           <RouterProvider router={router} />
         </ThemeProvider>
       </AuthProvider>
-      <Toaster richColors />
+      <Toaster richColors position="bottom-center" />
     </StrictMode>
   );
 }

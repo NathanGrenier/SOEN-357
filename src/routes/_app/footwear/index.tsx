@@ -16,7 +16,7 @@ import {
   categoryList,
   fitTypeList,
 } from "@/lib/types/footwear";
-import { cn, duplicateFootwear } from "@/lib/utils";
+import { cn, duplicateFootwear } from "@/lib/utils/utils";
 import {
   Pagination,
   PaginationContent,
