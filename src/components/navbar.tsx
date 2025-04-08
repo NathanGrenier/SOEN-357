@@ -33,6 +33,7 @@ import { SiteLogo } from "@/components/site-logo";
 import { cloneElement, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import FootwearIcon from "@/components/icons/FootwearIcon";
+import { CartSheet } from "@/components/cart-sheet";
 
 import { useAuth } from "@/hooks/use-auth";
 import { User } from "@/lib/types";
@@ -193,6 +194,8 @@ export function Navbar() {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="hidden items-center gap-4 lg:flex">
+            <CartSheet />
+            <ModeToggle />
             {isAuthenticated ? (
               <Button variant="destructive" onClick={logout}>
                 Sign out
@@ -207,7 +210,6 @@ export function Navbar() {
                 Sign in
               </Button>
             )}
-            <ModeToggle />
 
             {isAuthenticated && <UserAvatar user={user} />}
           </div>
@@ -242,6 +244,7 @@ function MobileNavbar({
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex items-center justify-center gap-4 lg:hidden">
+        <CartSheet />
         <SheetTrigger asChild>
           <Button variant="outline" size="icon">
             <MenuIcon className="h-4 w-4" />

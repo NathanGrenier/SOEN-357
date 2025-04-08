@@ -1,6 +1,5 @@
 "use client";
 
-import { Link } from "@tanstack/react-router";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
@@ -122,12 +121,16 @@ export function CartConfirmationDialog({
             >
               Continue Shopping
             </Button>
-            <Link to="/cart" className="sm:flex-1">
-              <Button onClick={handleClose} className="w-full">
-                <ShoppingBag className="mr-2 h-4 w-4" />
-                View Cart
-              </Button>
-            </Link>
+            <Button
+              onClick={() => {
+                handleClose();
+                window.dispatchEvent(new CustomEvent("open-cart-sheet"));
+              }}
+              className="w-full sm:flex-1"
+            >
+              <ShoppingBag className="mr-2 h-4 w-4" />
+              View Cart
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
