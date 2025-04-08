@@ -21,9 +21,8 @@ import {
   removeFromCart,
 } from "@/lib/utils/cartStorage";
 import { calculateOrderSummary } from "@/lib/utils/cartUtils";
+import { TAX_RATE } from "@/lib/constants";
 import footwearDataJson from "@/lib/assets/data/footwear.json";
-
-export const TAX_RATE = 0.13; // 13% tax rate
 
 export const Route = createFileRoute("/_app/checkout")({
   loader: () => {
