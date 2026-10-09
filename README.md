@@ -1,51 +1,45 @@
-# About
+# Sneaker Hub 👟
 
 [![Github Pages Deployment](https://github.com/NathanGrenier/SOEN-357/actions/workflows/gh-pages.yaml/badge.svg?branch=main)](https://github.com/NathanGrenier/SOEN-357/actions/workflows/gh-pages.yaml)
 
-See the ["About" page](https://soen357.ngrenier.com/about) on the Github Pages Deployment for more details about this project.
+## 📖 Executive Summary
 
-## Team Members
+**Sneaker Hub** is a high-fidelity, interactive e-commerce frontend application built as a research project for SOEN-357. 
 
-| Name             | Student ID | Email                      |
-| ---------------- | ---------- | -------------------------- |
-| Nathan Grenier   | 40250986   | nathangrenier01@gmail.com  |
-| Giuliano Verdone | 40252190   | giulianoverdone@gmail.com  |
-| Nirav Patel      | 40248940   | niravp0703@gmail.com       |
-| Nathanial Hwong  | 40243583   | nathanial.hwong8@gmail.com |
+The primary objective of this application was to simulate a complete online shopping experience to conduct a UX research study on **cart abandonment behavior**. By implementing a realistic shopping flow—complete with complex product filtering, dynamic price history charts, persistent cart states, and a multi-step checkout process—our team analyzed how UI/UX decisions, trust signals, and user friction impact purchasing decisions. 
 
-# Contributing
+The project operates entirely on the client side using a simulated backend (LocalStorage and JSON datasets), demonstrating advanced frontend state management, type-safe routing, and responsive component design.
 
-## Running Locally
+## 🚀 How to Access
 
-Please use `npm install --legacy-peer-deps` to [use recharts with React 19](https://ui.shadcn.com/docs/react-19#recharts).
+🌐 **Live Demo:** [https://soen357.ngrenier.com/](https://soen357.ngrenier.com/)
 
-## Environment Variables
+*(Note: Data is mocked and checkout does not process real transactions).*
 
-All environment variables go in the .env file. Vite will pickup on any variables prefixed with `VITE_`. You can also declare them manually in the `vite.config.ts` file (as well as default values).
+## 💻 Tech Stack Used
 
-| Variable               | Default          |
-| ---------------------- | ---------------- |
-| TANSTACK_DEVTOOLS      | false            |
-| LOCAL_STORAGE_AUTH_KEY | sneaker-hub-auth |
+* **Core Framework:** React 19, TypeScript, Vite
+* **Routing:** [@tanstack/react-router](https://tanstack.com/router/latest) (Type-safe, file-based routing)
+* **Styling & UI Components:** [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/), Radix UI Primitives, `next-themes` (Dark/Light mode)
+* **Data Visualization:** [Recharts](https://recharts.org/) (Used for dynamic price history area charts)
+* **State Management & Forms:** React Hooks, `react-hook-form`, LocalStorage API (Auth & Cart persistence)
+* **CI/CD & Deployment:** GitHub Actions, GitHub Pages
 
-## Enabling Pre-Commit Hooks
+## ✨ Key Features
 
-To enable the project's pre-commit hooks, run the following command: `git config core.hooksPath .githooks`
+* **Advanced Product Discovery:** Users can browse products using Grid or List views, with complex filtering algorithms based on brand, category, sustainability rating, fit, stock status, and price ranges.
+* **Interactive Data Visualization:** Individual product pages feature dynamic Recharts area charts displaying 7-day, 30-day, and 90-day price fluctuation trends across different simulated retailers.
+* **Persistent Shopping Cart & Checkout:** Cart items and mock user sessions are securely managed via LocalStorage. The checkout flow includes real-time subtotal, tax, and shipping calculations.
+* **Accessible & Responsive UX:** Fully responsive design supporting mobile and desktop, utilizing accessible Radix UI primitives for dialogs, drawers, popovers, and accordions.
 
-> If the script isn't executable, make it so on your respective operating system. Example: `chmod +x .githooks/pre-commit`
+---
 
-## Routing
+## 🛠️ Running Locally
 
-This project uses [TanStack Router](https://tanstack.com/router/latest) for file based routing.
+To run this project locally, clone the repository and install the dependencies. 
 
-You can use both flat and directory routes in the same project. More info [here](https://tanstack.com/router/latest/docs/framework/react/routing/file-based-routing#mixed-flat-and-directory-routes).
+> **Important:** Please use `--legacy-peer-deps` to [use recharts with React 19](https://ui.shadcn.com/docs/react-19#recharts).
 
-> The full routing docs can be found here: https://tanstack.com/router/latest/docs/framework/react/routing/routing-concepts
-
-## Icon Library
-
-Shadcn recommend using [Lucide Icons](https://lucide.dev/icons/). The package is already installed, just import the icon you want to use.
-
-## Importing Shadcn Components
-
-Make sure to use `npx shadcn@canary add {component}` to import the component you want.
+```bash
+npm install --legacy-peer-deps
+npm run dev
